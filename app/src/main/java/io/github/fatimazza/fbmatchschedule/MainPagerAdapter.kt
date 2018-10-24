@@ -6,12 +6,25 @@ import android.support.v4.app.FragmentPagerAdapter
 
 class MainPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
+    private val NUMBER_OF_TAB: Int = 2
+
     override fun getItem(position: Int): Fragment {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return when(position) {
+            0 -> LastMatchFragment()
+            else -> {
+                return NextMatchFragment()
+            }
+        }
     }
 
-    override fun getCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getCount(): Int { return NUMBER_OF_TAB }
 
+    override fun getPageTitle(position: Int): CharSequence? {
+        return when(position) {
+            0 -> R.string.tab_last_match.toString()
+            else -> {
+                R.string.tab_next_match.toString()
+            }
+        }
+    }
 }
