@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.github.fatimazza.fbmatchschedule.model.Event
 import org.jetbrains.anko.frameLayout
 import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.recyclerview.v7.recyclerView
@@ -14,6 +15,10 @@ import org.jetbrains.anko.support.v4.UI
 import org.jetbrains.anko.wrapContent
 
 class LastMatchFragment: Fragment() {
+
+    private var events: MutableList<Event> = mutableListOf()
+
+    private lateinit var adapter: MainMatchAdapter
 
     private lateinit var listEvent: RecyclerView
 
@@ -27,5 +32,15 @@ class LastMatchFragment: Fragment() {
                 }
             }
         }.view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initAdapter()
+    }
+
+    private fun initAdapter() {
+        adapter = MainMatchAdapter(events)
+        listEvent.adapter = adapter
     }
 }
