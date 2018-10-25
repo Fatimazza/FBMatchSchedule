@@ -39,6 +39,7 @@ class EventUI(): AnkoComponent<ViewGroup> {
                 padding = dip(16)
                 orientation = LinearLayout.VERTICAL
                 gravity = CENTER
+                backgroundDrawable = ctx.resources.getDrawable(R.drawable.recycler_view_selector)
 
                 textView {
                     id = R.id.match_date
