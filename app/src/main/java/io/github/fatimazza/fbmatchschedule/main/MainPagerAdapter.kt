@@ -4,8 +4,8 @@ import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import io.github.fatimazza.fbmatchschedule.LastMatchFragment
-import io.github.fatimazza.fbmatchschedule.NextMatchFragment
+import io.github.fatimazza.fbmatchschedule.lastmatch.LastMatchFragment
+import io.github.fatimazza.fbmatchschedule.nextmatch.NextMatchFragment
 import io.github.fatimazza.fbmatchschedule.R
 
 class MainPagerAdapter(fm: FragmentManager, context: Context)

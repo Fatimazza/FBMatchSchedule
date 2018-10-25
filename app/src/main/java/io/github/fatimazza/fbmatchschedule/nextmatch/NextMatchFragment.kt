@@ -1,4 +1,4 @@
-package io.github.fatimazza.fbmatchschedule
+package io.github.fatimazza.fbmatchschedule.nextmatch
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
+import io.github.fatimazza.fbmatchschedule.MatchView
 import io.github.fatimazza.fbmatchschedule.main.MainMatchAdapter
 import io.github.fatimazza.fbmatchschedule.model.Event
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository

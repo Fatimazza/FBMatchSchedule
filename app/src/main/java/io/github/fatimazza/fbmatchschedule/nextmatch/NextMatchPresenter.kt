@@ -1,4 +1,4 @@
-package io.github.fatimazza.fbmatchschedule
+package io.github.fatimazza.fbmatchschedule.nextmatch
 
 import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.model.EventResponse
