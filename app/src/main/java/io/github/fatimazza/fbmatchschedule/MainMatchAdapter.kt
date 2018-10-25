@@ -11,6 +11,7 @@ import android.widget.TextView
 import io.github.fatimazza.fbmatchschedule.R.id.*
 import io.github.fatimazza.fbmatchschedule.model.Event
 import org.jetbrains.anko.*
+import java.text.SimpleDateFormat
 
 class MainMatchAdapter(private val events: List<Event>,
                        private val listener: (Event) -> Unit)
@@ -101,7 +102,7 @@ class EventViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val awayTeam: TextView = view.find(away_team_name)
 
     fun bindItem(events: Event, listener: (Event) -> Unit) {
-        matchDate.text = events.dateEvent.toString()
+        matchDate.text = SimpleDateFormat("EEE, dd MMM yyyy").format(events.dateEvent)
         homeTeam.text = events.homeTeam
         matchScore.text = "${events.homeScore?: ""} vs ${events.awayScore?: ""}"
         awayTeam.text = events.awayTeam
