@@ -22,7 +22,7 @@ class LastMatchFragment: Fragment() {
 
     private lateinit var adapter: MainMatchAdapter
 
-    private lateinit var listEvent: RecyclerView
+    private lateinit var listLastEvent: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
@@ -33,7 +33,7 @@ class LastMatchFragment: Fragment() {
     class LastMatchFragmentUI: AnkoComponent<LastMatchFragment> {
         override fun createView(ui: AnkoContext<LastMatchFragment>): View = with(ui) {
             frameLayout {
-                owner.listEvent = recyclerView {
+                owner.listLastEvent = recyclerView {
                     lparams(width = matchParent, height = wrapContent)
                     layoutManager = LinearLayoutManager(ctx)
                 }
@@ -49,7 +49,7 @@ class LastMatchFragment: Fragment() {
 
     private fun initAdapter() {
         adapter = MainMatchAdapter(events)
-        listEvent.adapter = adapter
+        listLastEvent.adapter = adapter
     }
 
     private fun requestData() {
