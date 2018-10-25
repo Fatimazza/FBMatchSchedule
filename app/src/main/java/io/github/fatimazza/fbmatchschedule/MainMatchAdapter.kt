@@ -12,7 +12,8 @@ import io.github.fatimazza.fbmatchschedule.R.id.*
 import io.github.fatimazza.fbmatchschedule.model.Event
 import org.jetbrains.anko.*
 
-class MainMatchAdapter(private val events: List<Event>)
+class MainMatchAdapter(private val events: List<Event>,
+                       private val listener: (Event) -> Unit)
     : RecyclerView.Adapter<EventViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
@@ -24,7 +25,7 @@ class MainMatchAdapter(private val events: List<Event>)
     override fun getItemCount(): Int = events.size
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-        holder.bindItem(events[position])
+        holder.bindItem(events[position], listener)
     }
 
 }
@@ -99,11 +100,12 @@ class EventViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val matchScore: TextView = view.find(match_score)
     private val awayTeam: TextView = view.find(away_team_name)
 
-    fun bindItem(events: Event) {
+    fun bindItem(events: Event, listener: (Event) -> Unit) {
         matchDate.text = events.dateEvent.toString()
         homeTeam.text = events.homeTeam
         matchScore.text = "${events.homeScore?: ""} vs ${events.awayScore?: ""}"
         awayTeam.text = events.awayTeam
+        itemView.setOnClickListener { listener(events) }
     }
 
 }

@@ -48,7 +48,7 @@ class NextMatchFragment: Fragment() {
     }
 
     private fun initAdapter() {
-        adapter = MainMatchAdapter(events)
+        adapter = MainMatchAdapter(events) {}
         listNextEvent.adapter = adapter
     }
 

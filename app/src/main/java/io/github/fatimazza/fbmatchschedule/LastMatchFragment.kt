@@ -48,7 +48,7 @@ class LastMatchFragment: Fragment() {
     }
 
     private fun initAdapter() {
-        adapter = MainMatchAdapter(events)
+        adapter = MainMatchAdapter(events) {}
         listLastEvent.adapter = adapter
     }
 
