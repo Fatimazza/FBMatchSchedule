@@ -14,7 +14,7 @@ import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
-import org.jetbrains.anko.support.v4.UI
+import org.jetbrains.anko.support.v4.ctx
 
 class LastMatchFragment: Fragment() {
 
@@ -26,14 +26,19 @@ class LastMatchFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
-        return UI {
+        return LastMatchFragmentUI()
+                .createView(AnkoContext.create(ctx, this, false))
+    }
+
+    class LastMatchFragmentUI: AnkoComponent<LastMatchFragment> {
+        override fun createView(ui: AnkoContext<LastMatchFragment>): View = with(ui) {
             frameLayout {
-                listEvent = recyclerView {
+                owner.listEvent = recyclerView {
                     lparams(width = matchParent, height = wrapContent)
                     layoutManager = LinearLayoutManager(ctx)
                 }
             }
-        }.view
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
