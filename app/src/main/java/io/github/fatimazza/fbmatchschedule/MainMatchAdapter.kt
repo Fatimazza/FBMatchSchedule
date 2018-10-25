@@ -102,7 +102,7 @@ class EventViewHolder(view: View): RecyclerView.ViewHolder(view) {
     fun bindItem(events: Event) {
         matchDate.text = events.dateEvent.toString()
         homeTeam.text = events.homeTeam
-        matchScore.text = "${events.homeScore} vs ${events.awayScore}"
+        matchScore.text = "${events.homeScore?: ""} vs ${events.awayScore?: ""}"
         awayTeam.text = events.awayTeam
     }
 
