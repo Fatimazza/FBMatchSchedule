@@ -10,9 +10,7 @@ import android.view.ViewGroup
 import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.main.MainMatchAdapter
 import io.github.fatimazza.fbmatchschedule.model.Event
-import io.github.fatimazza.fbmatchschedule.model.EventResponse
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
-import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.ctx
@@ -22,6 +20,8 @@ class NextMatchFragment: Fragment(), MatchView {
     private var events: MutableList<Event> = mutableListOf()
 
     private lateinit var adapter: MainMatchAdapter
+
+    private lateinit var presenter: NextMatchPresenter
 
     private lateinit var listNextEvent: RecyclerView
 
@@ -45,7 +45,7 @@ class NextMatchFragment: Fragment(), MatchView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
-        requestData()
+        initPresenter()
     }
 
     private fun initAdapter() {
@@ -53,18 +53,10 @@ class NextMatchFragment: Fragment(), MatchView {
         listNextEvent.adapter = adapter
     }
 
-    private fun requestData() {
+    private fun initPresenter() {
         val request = ApiRepository()
         val gson = Gson()
-        //doInPresenter
-        doAsync {
-            val data = gson.fromJson(request.doRequest(
-                    TheSportDBApi.getNextMatch()),
-                    EventResponse::class.java)
-            uiThread {
-                showEventList(data.events)
-            }
-        }
+        presenter = NextMatchPresenter(this, request, gson)
     }
 
     override fun showEventList(data: List<Event>) {
