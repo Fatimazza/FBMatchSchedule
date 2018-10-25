@@ -20,12 +20,10 @@ class MainMatchAdapter(private val events: List<Event>)
         ))
     }
 
-    override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getItemCount(): Int = events.size
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        holder.bindItem(events[position])
     }
 
 }
