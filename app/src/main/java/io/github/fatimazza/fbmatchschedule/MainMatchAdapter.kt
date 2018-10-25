@@ -1,5 +1,6 @@
 package io.github.fatimazza.fbmatchschedule
 
+import android.graphics.Typeface.BOLD
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity.*
 import android.view.View
@@ -53,7 +54,7 @@ class EventUI(): AnkoComponent<ViewGroup> {
                         id = R.id.home_team_name
                         text = "Team A"
                         textSize = 16f
-                        gravity = RIGHT
+                        gravity = END
                     }.lparams{
                         weight = 1f
                     }
@@ -61,6 +62,7 @@ class EventUI(): AnkoComponent<ViewGroup> {
                     textView {
                         id = R.id.match_score
                         text = "1 vs 1"
+                        setTypeface(typeface, BOLD)
                         textSize = 16f
                         gravity = CENTER
                     }.lparams{
@@ -71,7 +73,7 @@ class EventUI(): AnkoComponent<ViewGroup> {
                         id = R.id.away_team_name
                         text = "Team B"
                         textSize = 16f
-                        gravity = LEFT
+                        gravity = START
                     }.lparams{
                         weight = 1f
                     }
