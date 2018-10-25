@@ -46,6 +46,7 @@ class LastMatchFragment: Fragment(), MatchView {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         initPresenter()
+        requestEventData()
     }
 
     private fun initAdapter() {
@@ -57,6 +58,10 @@ class LastMatchFragment: Fragment(), MatchView {
         val request = ApiRepository()
         val gson = Gson()
         presenter = LastMatchPresenter(this, request, gson)
+    }
+
+    private fun requestEventData() {
+        presenter.getEventList()
     }
 
     override fun showEventList(data: List<Event>) {
