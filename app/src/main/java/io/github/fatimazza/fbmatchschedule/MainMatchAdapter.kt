@@ -6,6 +6,8 @@ import android.view.Gravity.*
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
+import io.github.fatimazza.fbmatchschedule.R.id.*
 import io.github.fatimazza.fbmatchschedule.model.Event
 import org.jetbrains.anko.*
 
@@ -85,8 +87,16 @@ class EventUI(): AnkoComponent<ViewGroup> {
 
 class EventViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
-    fun bindItem(events: Event) {
+    private val matchDate: TextView = view.find(match_date)
+    private val homeTeam: TextView = view.find(home_team_name)
+    private val matchScore: TextView = view.find(match_score)
+    private val awayTeam: TextView = view.find(away_team_name)
 
+    fun bindItem(events: Event) {
+        matchDate.text = events.dateEvent.toString()
+        homeTeam.text = events.homeTeam
+        matchScore.text = "${events.homeScore} vs ${events.awayScore}"
+        awayTeam.text = events.awayTeam
     }
 
 }
