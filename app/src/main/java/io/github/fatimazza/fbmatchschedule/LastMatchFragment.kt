@@ -17,7 +17,7 @@ import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.ctx
 
-class LastMatchFragment: Fragment() {
+class LastMatchFragment: Fragment(), MatchView {
 
     private var events: MutableList<Event> = mutableListOf()
 
@@ -67,9 +67,10 @@ class LastMatchFragment: Fragment() {
         }
     }
 
-    private fun showEventList(data: List<Event>) {
+    override fun showEventList(data: List<Event>) {
         events.clear()
         events.addAll(data)
         adapter.notifyDataSetChanged()
     }
+
 }
