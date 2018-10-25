@@ -1,4 +1,4 @@
-package io.github.fatimazza.fbmatchschedule
+package io.github.fatimazza.fbmatchschedule.main
 
 import android.graphics.Typeface.BOLD
 import android.support.v7.widget.RecyclerView
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.R.id.*
 import io.github.fatimazza.fbmatchschedule.model.Event
 import org.jetbrains.anko.*

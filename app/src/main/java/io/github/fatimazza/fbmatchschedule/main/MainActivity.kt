@@ -1,7 +1,8 @@
-package io.github.fatimazza.fbmatchschedule
+package io.github.fatimazza.fbmatchschedule.main
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import io.github.fatimazza.fbmatchschedule.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
