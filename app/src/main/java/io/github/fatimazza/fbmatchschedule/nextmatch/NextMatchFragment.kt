@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.MatchView
 import io.github.fatimazza.fbmatchschedule.main.MainMatchAdapter
@@ -53,7 +54,7 @@ class NextMatchFragment: Fragment(), MatchView {
     }
 
     private fun initAdapter() {
-        adapter = MainMatchAdapter(events) { startActivity<MatchDetailActivity>() }
+        adapter = MainMatchAdapter(events, { eventItem: Event -> listEventItemClicked(eventItem) })
         listNextEvent.adapter = adapter
     }
 
@@ -71,6 +72,10 @@ class NextMatchFragment: Fragment(), MatchView {
         events.clear()
         events.addAll(data)
         adapter.notifyDataSetChanged()
+    }
+
+    private fun listEventItemClicked(eventItem: Event) {
+        Toast.makeText(ctx, "Clicked ${eventItem.homeTeam}", Toast.LENGTH_SHORT).show()
     }
 
 }
