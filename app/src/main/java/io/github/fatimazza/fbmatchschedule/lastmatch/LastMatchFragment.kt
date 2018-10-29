@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.MatchView
 import io.github.fatimazza.fbmatchschedule.main.MainMatchAdapter
@@ -17,6 +16,7 @@ import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.ctx
+import org.jetbrains.anko.support.v4.startActivity
 
 class LastMatchFragment: Fragment(), MatchView {
 
@@ -74,7 +74,10 @@ class LastMatchFragment: Fragment(), MatchView {
     }
 
     private fun listEventItemClicked(eventItem: Event) {
-       Toast.makeText(ctx, "Clicked ${eventItem.homeTeam}", Toast.LENGTH_SHORT).show()
+       startActivity<MatchDetailActivity>(
+               "homeTeam" to "${eventItem.homeTeam}",
+               "awayTeam" to "${eventItem.awayTeam}"
+       )
     }
 
 }
