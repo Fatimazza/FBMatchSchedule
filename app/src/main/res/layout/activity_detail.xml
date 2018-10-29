@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,7 +13,7 @@
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
         android:textSize="15sp"
-        tools:text ="22 September 2018" />
+        android:text="22 September 2018" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,7 +40,7 @@
                 android:id="@+id/tv_home_team"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Image Team A"
+                android:text="Image Team A"
                 android:layout_marginTop="4dp"/>
 
         </LinearLayout>
@@ -53,7 +52,7 @@
             android:gravity="center_vertical"
             android:textAlignment="center"
             android:textSize="32sp"
-            tools:text="3 vs 0"/>
+            android:text="3 vs 0"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -73,7 +72,7 @@
                 android:id="@+id/tv_away_team"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Image Team B"
+                android:text="Image Team B"
                 android:layout_marginTop="4dp"/>
 
         </LinearLayout>
@@ -99,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:gravity="start"
-            tools:text="Team A" />
+            android:text="Team A" />
 
         <TextView
             android:layout_width="0dp"
@@ -107,7 +106,7 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
-            tools:text="Goals"/>
+            android:text="Goals"/>
 
         <TextView
             android:id="@+id/tv_goal_away"
@@ -115,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:gravity="end"
-            tools:text="Team B"/>
+            android:text="Team B"/>
 
     </LinearLayout>
 
@@ -131,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:gravity="start"
-            tools:text="Team A" />
+            android:text="Team A" />
 
         <TextView
             android:layout_width="0dp"
@@ -139,7 +138,7 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
-            tools:text="Shots"/>
+            android:text="Shots"/>
 
         <TextView
             android:id="@+id/tv_shot_away"
@@ -147,7 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:gravity="end"
-            tools:text="Team B"/>
+            android:text="Team B"/>
 
     </LinearLayout>
 
@@ -163,7 +162,7 @@
         android:textAlignment="center"
         android:layout_marginTop="4dp"
         android:textSize="15sp"
-        tools:text ="Lineups" />
+        android:text="Lineups" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -177,7 +176,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:gravity="start"
-            tools:text="Team A" />
+            android:text="Team A" />
 
         <TextView
             android:layout_width="0dp"
@@ -185,7 +184,7 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
-            tools:text="Goal Keeper"/>
+            android:text="Goal Keeper"/>
 
         <TextView
             android:id="@+id/tv_goalkeeper_away"
@@ -193,7 +192,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:gravity="end"
-            tools:text="Team B"/>
+            android:text="Team B"/>
 
     </LinearLayout>
 
@@ -209,7 +208,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:gravity="start"
-            tools:text="Team A" />
+            android:text="Team A" />
 
         <TextView
             android:layout_width="0dp"
@@ -217,7 +216,7 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
-            tools:text="Defense"/>
+            android:text="Defense"/>
 
         <TextView
             android:id="@+id/tv_defense_away"
@@ -225,7 +224,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:gravity="end"
-            tools:text="Team B"/>
+            android:text="Team B"/>
 
     </LinearLayout>
 
@@ -241,7 +240,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:gravity="start"
-            tools:text="Team A" />
+            android:text="Team A" />
 
         <TextView
             android:layout_width="0dp"
@@ -249,7 +248,7 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
-            tools:text="Midfield"/>
+            android:text="Midfield"/>
 
         <TextView
             android:id="@+id/tv_midfield_away"
@@ -257,7 +256,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:gravity="end"
-            tools:text="Team B"/>
+            android:text="Team B"/>
 
     </LinearLayout>
 
@@ -273,7 +272,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:gravity="start"
-            tools:text="Team A" />
+            android:text="Team A" />
 
         <TextView
             android:layout_width="0dp"
@@ -281,7 +280,7 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
-            tools:text="Forward"/>
+            android:text="Forward"/>
 
         <TextView
             android:id="@+id/tv_forward_away"
@@ -289,7 +288,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:gravity="end"
-            tools:text="Team B"/>
+            android:text="Team B"/>
 
     </LinearLayout>
 
@@ -305,7 +304,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:gravity="start"
-            tools:text="Team A" />
+            android:text="Team A" />
 
         <TextView
             android:layout_width="0dp"
@@ -313,7 +312,7 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
-            tools:text="Subtitues"/>
+            android:text="Subtitues"/>
 
         <TextView
             android:id="@+id/tv_subtitues_away"
@@ -321,7 +320,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
             android:gravity="end"
-            tools:text="Team B"/>
+            android:text="Team B"/>
 
     </LinearLayout>
 
