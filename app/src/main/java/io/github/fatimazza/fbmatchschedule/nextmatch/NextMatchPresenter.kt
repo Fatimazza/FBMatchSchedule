@@ -14,7 +14,7 @@ class NextMatchPresenter(private val view: NextMatchFragment,
     fun getEventList() {
         doAsync {
             val data = gson.fromJson(
-                    apiRepository.doRequest(TheSportDBApi.getLastMatch()),
+                    apiRepository.doRequest(TheSportDBApi.getNextMatch()),
                     EventResponse::class.java
             )
             uiThread {
