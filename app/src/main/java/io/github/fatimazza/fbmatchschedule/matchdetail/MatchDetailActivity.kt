@@ -2,6 +2,8 @@ package io.github.fatimazza.fbmatchschedule.matchdetail
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.NavUtils
+import android.view.MenuItem
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import io.github.fatimazza.fbmatchschedule.R
@@ -22,6 +24,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
         getIntentExtras()
         setContentView(R.layout.activity_detail)
+        actionBar?.setDisplayHomeAsUpEnabled(true)
         loadIntentExtras()
 
         initPresenter()
@@ -80,4 +83,13 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         Picasso.get().load(team.teamBadge).into(iv_away_team)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            android.R.id.home -> {
+                NavUtils.navigateUpFromSameTask(this)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }
