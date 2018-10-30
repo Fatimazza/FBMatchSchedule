@@ -1,8 +1,11 @@
 package io.github.fatimazza.fbmatchschedule.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
+@Parcelize
 data class Event(
 
         @SerializedName("dateEvent")
@@ -66,4 +69,4 @@ data class Event(
         @SerializedName("strAwayLineupSubstitutes")
         var awaySubtitues: String? = null
 
-)
+) : Parcelable

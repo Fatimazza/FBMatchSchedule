@@ -75,8 +75,7 @@ class LastMatchFragment: Fragment(), MatchView {
 
     private fun listEventItemClicked(eventItem: Event) {
        startActivity<MatchDetailActivity>(
-               "homeTeam" to "${eventItem.homeTeam}",
-               "awayTeam" to "${eventItem.awayTeam}"
+               "event" to eventItem
        )
     }
 
