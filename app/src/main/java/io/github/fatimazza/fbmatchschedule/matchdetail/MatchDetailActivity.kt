@@ -7,13 +7,8 @@ import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Event
 import io.github.fatimazza.fbmatchschedule.model.Team
-import io.github.fatimazza.fbmatchschedule.model.TeamResponse
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
-import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import kotlinx.android.synthetic.main.activity_detail.*
-import org.jetbrains.anko.ctx
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import java.text.SimpleDateFormat
 
 class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
