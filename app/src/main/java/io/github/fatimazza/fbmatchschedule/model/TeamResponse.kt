@@ -2,6 +2,6 @@ package io.github.fatimazza.fbmatchschedule.model
 
 data class TeamResponse (
 
-        val team: List<Team>
+        val teams: List<Team>
 
 )
