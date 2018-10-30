@@ -40,7 +40,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:scaleType="fitXY"
-                    android:background="@color/colorAccent"/>
+                    android:background="@android:color/transparent"/>
 
                 <TextView
                     android:id="@+id/tv_home_team"
@@ -73,7 +73,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:scaleType="fitXY"
-                    android:background="@color/colorAccent"/>
+                    android:background="@android:color/transparent"/>
 
                 <TextView
                     android:id="@+id/tv_away_team"

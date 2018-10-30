@@ -2,8 +2,8 @@ package io.github.fatimazza.fbmatchschedule.matchdetail
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.google.gson.Gson
+import com.squareup.picasso.Picasso
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Event
 import io.github.fatimazza.fbmatchschedule.model.Team
@@ -25,6 +25,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         loadIntentExtras()
 
         initPresenter()
+        requestDataTeamDetail()
     }
 
     private fun getIntentExtras() {
@@ -67,12 +68,16 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         presenter = MatchDetailPresenter(this, request, gson)
     }
 
+    private fun requestDataTeamDetail() {
+        presenter.getTeamDetail(events.idHomeTeam.toString(), events.idAwayTeam.toString())
+    }
+
     override fun showHomeTeamDetail(team: Team) {
-        Toast.makeText(this, team.teamBadge, Toast.LENGTH_SHORT).show()
+        Picasso.get().load(team.teamBadge).into(iv_home_team)
     }
 
     override fun showAwayTeamDetail(team: Team) {
-        Toast.makeText(this, team.teamBadge, Toast.LENGTH_SHORT).show()
+        Picasso.get().load(team.teamBadge).into(iv_away_team)
     }
 
 }
