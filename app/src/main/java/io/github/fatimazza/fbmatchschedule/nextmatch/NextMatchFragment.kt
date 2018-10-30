@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
-import io.github.fatimazza.fbmatchschedule.MatchView
+import io.github.fatimazza.fbmatchschedule.main.MatchView
 import io.github.fatimazza.fbmatchschedule.main.MainMatchAdapter
 import io.github.fatimazza.fbmatchschedule.matchdetail.MatchDetailActivity
 import io.github.fatimazza.fbmatchschedule.model.Event
