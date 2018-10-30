@@ -2,12 +2,14 @@ package io.github.fatimazza.fbmatchschedule.matchdetail
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Event
+import io.github.fatimazza.fbmatchschedule.model.Team
 import kotlinx.android.synthetic.main.activity_detail.*
 import java.text.SimpleDateFormat
 
-class MatchDetailActivity : AppCompatActivity() {
+class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
     var events: Event = Event()
 
@@ -52,6 +54,16 @@ class MatchDetailActivity : AppCompatActivity() {
         tv_subtitues_home.text = events.homeSubtitues
         tv_subtitues_away.text = events.awaySubtitues
 
+        Toast.makeText(this, "id ${events.idHomeTeam} AND ${events.idAwayTeam}", Toast.LENGTH_SHORT).show()
+
+    }
+
+    override fun showHomeTeamDetail(team: Team) {
+        Toast.makeText(this, team.teamBadge, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showAwayTeamDetail(team: Team) {
+        Toast.makeText(this, team.teamBadge, Toast.LENGTH_SHORT).show()
     }
 
 }
