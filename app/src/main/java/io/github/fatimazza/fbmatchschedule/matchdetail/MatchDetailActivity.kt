@@ -5,6 +5,7 @@ import android.os.Bundle
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Event
 import kotlinx.android.synthetic.main.activity_detail.*
+import java.text.SimpleDateFormat
 
 class MatchDetailActivity : AppCompatActivity() {
 
@@ -23,17 +24,18 @@ class MatchDetailActivity : AppCompatActivity() {
     }
 
     private fun loadIntentExtras() {
-        tv_date.text = events.dateEvent.toString()
+
+        tv_date.text = SimpleDateFormat("EEE, dd MMM yyyy").format(events.dateEvent)
         tv_home_team.text = events.homeTeam
         tv_away_team.text = events.awayTeam
 
-        tv_score.text = "${events.homeScore} vs ${events.awayScore}"
+        tv_score.text = "${events.homeScore?: ""} vs ${events.awayScore?: ""}"
 
         tv_goal_home.text = events.homeGoals
         tv_goal_away.text = events.awayGoals
 
-        tv_shot_home.text = events.homeShots.toString()
-        tv_shot_away.text = events.awayShots.toString()
+        tv_shot_home.text = "${events.homeShots?: ""}"
+        tv_shot_away.text = "${events.awayShots?: ""}"
 
         tv_goalkeeper_home.text = events.homeGoalkeeper
         tv_goalkeeper_away.text = events.awayGoalkeeper
