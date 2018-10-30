@@ -18,7 +18,9 @@ import java.text.SimpleDateFormat
 
 class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
-    var events: Event = Event()
+    private var events: Event = Event()
+
+    private lateinit var presenter: MatchDetailPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,22 +69,15 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
     private fun initPresenter() {
         val request = ApiRepository()
         val gson = Gson()
-
-        doAsync {
-            val data = gson.fromJson(
-                    request.doRequest(TheSportDBApi.getTeamDetail("133604")),
-                    TeamResponse::class.java
-            )
-            uiThread {
-                Toast.makeText(ctx, data.toString(), Toast.LENGTH_SHORT).show()
-            }
-        }
+        presenter = MatchDetailPresenter(this, request, gson)
     }
 
     override fun showHomeTeamDetail(team: Team) {
+        Toast.makeText(this, team.teamBadge, Toast.LENGTH_SHORT).show()
     }
 
     override fun showAwayTeamDetail(team: Team) {
+        Toast.makeText(this, team.teamBadge, Toast.LENGTH_SHORT).show()
     }
 
 }

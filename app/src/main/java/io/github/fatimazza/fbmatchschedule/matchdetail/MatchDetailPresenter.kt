@@ -19,6 +19,7 @@ class MatchDetailPresenter(private val view: MatchDetailView,
                     TeamResponse::class.java
             )
             uiThread {
+                view.showHomeTeamDetail(data.teams[0])
             }
         }
 
@@ -28,6 +29,7 @@ class MatchDetailPresenter(private val view: MatchDetailView,
                     TeamResponse::class.java
             )
             uiThread {
+                view.showAwayTeamDetail(data.teams[0])
             }
         }
     }
