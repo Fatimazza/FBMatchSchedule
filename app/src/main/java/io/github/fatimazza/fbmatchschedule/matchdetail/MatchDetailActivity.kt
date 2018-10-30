@@ -3,10 +3,17 @@ package io.github.fatimazza.fbmatchschedule.matchdetail
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Event
 import io.github.fatimazza.fbmatchschedule.model.Team
+import io.github.fatimazza.fbmatchschedule.model.TeamResponse
+import io.github.fatimazza.fbmatchschedule.network.ApiRepository
+import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import kotlinx.android.synthetic.main.activity_detail.*
+import org.jetbrains.anko.ctx
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.text.SimpleDateFormat
 
 class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
@@ -19,6 +26,8 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         getIntentExtras()
         setContentView(R.layout.activity_detail)
         loadIntentExtras()
+
+        initPresenter()
     }
 
     private fun getIntentExtras() {
@@ -53,17 +62,27 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
         tv_subtitues_home.text = events.homeSubtitues
         tv_subtitues_away.text = events.awaySubtitues
+    }
 
-        Toast.makeText(this, "id ${events.idHomeTeam} AND ${events.idAwayTeam}", Toast.LENGTH_SHORT).show()
+    private fun initPresenter() {
+        val request = ApiRepository()
+        val gson = Gson()
 
+        doAsync {
+            val data = gson.fromJson(
+                    request.doRequest(TheSportDBApi.getTeamDetail("133604")),
+                    TeamResponse::class.java
+            )
+            uiThread {
+                Toast.makeText(ctx, data.toString(), Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun showHomeTeamDetail(team: Team) {
-        Toast.makeText(this, team.teamBadge, Toast.LENGTH_SHORT).show()
     }
 
     override fun showAwayTeamDetail(team: Team) {
-        Toast.makeText(this, team.teamBadge, Toast.LENGTH_SHORT).show()
     }
 
 }
