@@ -32,7 +32,7 @@ class MainMatchAdapter(private val events: List<Event>,
 
 }
 
-class EventUI(): AnkoComponent<ViewGroup> {
+class EventUI: AnkoComponent<ViewGroup> {
     override fun createView(ui: AnkoContext<ViewGroup>): View {
         return with(ui) {
             linearLayout {
