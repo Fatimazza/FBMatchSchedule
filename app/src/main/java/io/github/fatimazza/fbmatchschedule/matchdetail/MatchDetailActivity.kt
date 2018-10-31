@@ -32,7 +32,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
     }
 
     private fun getIntentExtras() {
-        events = intent.getParcelableExtra<Event>("event")
+        events = intent.getParcelableExtra("event")
     }
 
     private fun loadIntentExtras() {

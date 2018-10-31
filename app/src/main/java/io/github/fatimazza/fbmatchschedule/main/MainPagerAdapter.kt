@@ -11,7 +11,7 @@ import io.github.fatimazza.fbmatchschedule.R
 class MainPagerAdapter(fm: FragmentManager, context: Context)
     : FragmentPagerAdapter(fm) {
 
-    private val NUMBER_OF_TAB: Int = 2
+    private val numberOfTab: Int = 2
     private var ctx: Context = context
 
     override fun getItem(position: Int): Fragment {
@@ -23,7 +23,7 @@ class MainPagerAdapter(fm: FragmentManager, context: Context)
         }
     }
 
-    override fun getCount(): Int { return NUMBER_OF_TAB }
+    override fun getCount(): Int { return numberOfTab }
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when(position) {
