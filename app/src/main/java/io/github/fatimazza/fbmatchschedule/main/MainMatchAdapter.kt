@@ -1,5 +1,7 @@
 package io.github.fatimazza.fbmatchschedule.main
 
+import android.content.Context
+import android.content.res.Resources
 import android.graphics.Typeface.BOLD
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -45,7 +47,7 @@ class EventUI: AnkoComponent<ViewGroup> {
                 textView {
                     id = R.id.match_date
                     textSize = 14f
-                    text = "Sat, 22 Sep 2008"
+                    text = context.getString(R.string.dummy_date)
                 }.lparams{
                     margin = dip(12)
                 }
@@ -57,7 +59,7 @@ class EventUI: AnkoComponent<ViewGroup> {
 
                     textView {
                         id = R.id.home_team_name
-                        text = "Team A"
+                        text = context.getString(R.string.dummy_home_team)
                         textSize = 16f
                         maxLines = 1
                         maxWidth = 5
@@ -69,7 +71,7 @@ class EventUI: AnkoComponent<ViewGroup> {
 
                     textView {
                         id = R.id.match_score
-                        text = "1 vs 1"
+                        text = context.getString(R.string.dummy_score)
                         setTypeface(typeface, BOLD)
                         textSize = 16f
                         maxLines = 1
@@ -81,7 +83,7 @@ class EventUI: AnkoComponent<ViewGroup> {
 
                     textView {
                         id = R.id.away_team_name
-                        text = "Team B"
+                        text = context.getString(R.string.dummy_away_team)
                         textSize = 16f
                         maxLines = 1
                         maxWidth = 5
