@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
+import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.main.MatchView
 import io.github.fatimazza.fbmatchschedule.main.MainMatchAdapter
 import io.github.fatimazza.fbmatchschedule.matchdetail.MatchDetailActivity
@@ -75,7 +76,7 @@ class LastMatchFragment: Fragment(), MatchView {
 
     private fun listEventItemClicked(eventItem: Event) {
        startActivity<MatchDetailActivity>(
-               "event" to eventItem
+               getString(R.string.intent_event) to eventItem
        )
     }
 

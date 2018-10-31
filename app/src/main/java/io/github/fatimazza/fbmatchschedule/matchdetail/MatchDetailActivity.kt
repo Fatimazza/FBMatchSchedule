@@ -32,12 +32,12 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
     }
 
     private fun getIntentExtras() {
-        events = intent.getParcelableExtra("event")
+        events = intent.getParcelableExtra(getString(R.string.intent_event))
     }
 
     private fun loadIntentExtras() {
 
-        tv_date.text = SimpleDateFormat("EEE, dd MMM yyyy").format(events.dateEvent)
+        tv_date.text = SimpleDateFormat(getString(R.string.date_format)).format(events.dateEvent)
         tv_home_team.text = events.homeTeam
         tv_away_team.text = events.awayTeam
 

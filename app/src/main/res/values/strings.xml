@@ -3,4 +3,7 @@
 
     <string name="tab_last_match">Last Match</string>
     <string name="tab_next_match">Next Match</string>
+    <string name="intent_event">event</string>
+    <string name="date_format">EEE, dd MMM yyyy</string>
+    <string name="date">EEE, dd MMM yyyy</string>
 </resources>
