@@ -53,7 +53,7 @@ class NextMatchFragment: Fragment(), MatchView {
     }
 
     private fun initAdapter() {
-        adapter = MainMatchAdapter(events, { eventItem: Event -> listEventItemClicked(eventItem) })
+        adapter = MainMatchAdapter(events) { eventItem: Event -> listEventItemClicked(eventItem) }
         listNextEvent.adapter = adapter
     }
 
