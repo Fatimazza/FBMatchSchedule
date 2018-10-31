@@ -1,7 +1,5 @@
 package io.github.fatimazza.fbmatchschedule.main
 
-import android.content.Context
-import android.content.res.Resources
 import android.graphics.Typeface.BOLD
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
