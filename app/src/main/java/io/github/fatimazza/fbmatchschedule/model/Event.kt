@@ -8,6 +8,9 @@ import java.util.*
 @Parcelize
 data class Event(
 
+        @SerializedName("idEvent")
+        var idEvent: Long? = null,
+
         @SerializedName("dateEvent")
         var dateEvent: Date? = null,
 
