@@ -1,6 +1,6 @@
 package io.github.fatimazza.fbmatchschedule.database
 
-import java.util.*
+import java.sql.Date
 
 data class FavoriteMatch(val id: Long?,
                          val eventId: Long?,

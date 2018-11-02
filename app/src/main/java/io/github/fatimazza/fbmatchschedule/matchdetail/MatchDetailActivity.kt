@@ -10,10 +10,15 @@ import com.squareup.picasso.Picasso
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.R.id.add_to_favorite
 import io.github.fatimazza.fbmatchschedule.R.menu.detail_menu
+import io.github.fatimazza.fbmatchschedule.database.FavoriteMatch
+import io.github.fatimazza.fbmatchschedule.database.database
 import io.github.fatimazza.fbmatchschedule.model.Event
 import io.github.fatimazza.fbmatchschedule.model.Team
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import kotlinx.android.synthetic.main.activity_detail.*
+import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.design.snackbar
+import java.sql.SQLClientInfoException
 import java.text.SimpleDateFormat
 
 class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
@@ -86,6 +91,23 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         Picasso.get().load(team.teamBadge).into(iv_away_team)
     }
 
+    private fun addToFavorites() {
+        try {
+            database.use {
+                insert(FavoriteMatch.TABLE_FAVORITE,
+                        FavoriteMatch.EVENT_ID to events.idEvent,
+                        FavoriteMatch.EVENT_DATE to events.dateEvent,
+                        FavoriteMatch.HOME_SCORE to events.homeScore,
+                        FavoriteMatch.AWAY_SCORE to events.awayScore,
+                        FavoriteMatch.HOME_TEAM to events.homeTeam,
+                        FavoriteMatch.AWAY_TEAM to events.awayTeam)
+            }
+            snackbar(ll_team_detail, getString(R.string.favorite_added)).show()
+        } catch (e: SQLClientInfoException) {
+            snackbar(ll_team_detail, e.localizedMessage).show()
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(detail_menu, menu)
         return super.onCreateOptionsMenu(menu)
@@ -98,6 +120,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
                 true
             }
             add_to_favorite -> {
+                addToFavorites()
                 true
             }
             else -> super.onOptionsItemSelected(item)
