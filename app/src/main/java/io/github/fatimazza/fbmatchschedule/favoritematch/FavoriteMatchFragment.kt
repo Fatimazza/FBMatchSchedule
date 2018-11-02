@@ -8,10 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.github.fatimazza.fbmatchschedule.R
+import io.github.fatimazza.fbmatchschedule.database.FavoriteMatch
+import io.github.fatimazza.fbmatchschedule.database.database
 import io.github.fatimazza.fbmatchschedule.main.MainMatchAdapter
 import io.github.fatimazza.fbmatchschedule.matchdetail.MatchDetailActivity
 import io.github.fatimazza.fbmatchschedule.model.Event
 import org.jetbrains.anko.*
+import org.jetbrains.anko.db.classParser
+import org.jetbrains.anko.db.select
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.startActivity
@@ -53,6 +57,13 @@ class FavoriteMatchFragment: Fragment() {
     private fun initAdapter() {
         adapter = MainMatchAdapter(events) { eventItem: Event -> listEventItemClicked(eventItem) }
         listFavEvent.adapter = adapter
+
+        showFavorite()
+//        swipeRefresh.onRefresh {
+//            events.clear()
+//            showFavorite()
+//        }
+
     }
 
     private fun listEventItemClicked(eventItem: Event) {
@@ -60,5 +71,18 @@ class FavoriteMatchFragment: Fragment() {
                 getString(R.string.intent_event) to eventItem
         )
     }
+
+    private fun showFavorite() {
+        context?.database?.use {
+//            swipeRefresh.isRefreshing = false
+
+            val result = select(FavoriteMatch.TABLE_FAVORITE)
+            val favorite = result.parseList(classParser<Event>())
+            events.addAll(favorite)
+
+            adapter.notifyDataSetChanged()
+        }
+    }
+
 
 }
