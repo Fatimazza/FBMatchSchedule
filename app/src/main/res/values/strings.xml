@@ -28,4 +28,6 @@
     <string name="uri_path_lookup_team">lookupteam.php</string>
     <string name="uri_query_id">id</string>
     <string name="uri_path_dummy_id">4328</string>
+
+    <string name="favorites">Favorites</string>
 </resources>
