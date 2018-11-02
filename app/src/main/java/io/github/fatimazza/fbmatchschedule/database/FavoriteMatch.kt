@@ -3,12 +3,12 @@ package io.github.fatimazza.fbmatchschedule.database
 import java.sql.Date
 
 data class FavoriteMatch(val id: Long?,
-                         val eventId: Long?,
+                         val eventId: String?,
 //                         val eventDate: Date?,
                          val homeTeam: String?,
                          val awayTeam: String?,
-                         val homeScore: Int?,
-                         val awayScore: Int?){
+                         val homeScore: String?,
+                         val awayScore: String?){
 
     companion object {
         const val TABLE_FAVORITE: String = "TABLE_FAVORITE"
