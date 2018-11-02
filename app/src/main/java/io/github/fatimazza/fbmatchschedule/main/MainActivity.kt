@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.R.id.*
+import io.github.fatimazza.fbmatchschedule.favoritematch.FavoriteMatchFragment
 import io.github.fatimazza.fbmatchschedule.lastmatch.LastMatchFragment
 import io.github.fatimazza.fbmatchschedule.nextmatch.NextMatchFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
             item -> when(item.itemId) {
                 last_match -> { loadFragment(savedInstanceState, LastMatchFragment()) }
                 next_match -> { loadFragment(savedInstanceState, NextMatchFragment()) }
-                favorite_match -> { loadFragment(savedInstanceState, LastMatchFragment()) }
+                favorite_match -> { loadFragment(savedInstanceState, FavoriteMatchFragment()) }
             }
             true
         }
