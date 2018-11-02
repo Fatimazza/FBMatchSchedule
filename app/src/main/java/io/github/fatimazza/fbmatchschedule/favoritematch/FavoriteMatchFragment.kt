@@ -7,11 +7,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.main.MainMatchAdapter
+import io.github.fatimazza.fbmatchschedule.matchdetail.MatchDetailActivity
 import io.github.fatimazza.fbmatchschedule.model.Event
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.ctx
+import org.jetbrains.anko.support.v4.startActivity
 
 class FavoriteMatchFragment: Fragment() {
 
@@ -48,7 +51,14 @@ class FavoriteMatchFragment: Fragment() {
     }
 
     private fun initAdapter() {
-        adapter = MainMatchAdapter(events) {  }
+        adapter = MainMatchAdapter(events) { eventItem: Event -> listEventItemClicked(eventItem) }
         listFavEvent.adapter = adapter
     }
+
+    private fun listEventItemClicked(eventItem: Event) {
+        startActivity<MatchDetailActivity>(
+                getString(R.string.intent_event) to eventItem
+        )
+    }
+
 }
