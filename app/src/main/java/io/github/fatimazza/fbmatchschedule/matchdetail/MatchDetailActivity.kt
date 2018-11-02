@@ -3,10 +3,13 @@ package io.github.fatimazza.fbmatchschedule.matchdetail
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.NavUtils
+import android.view.Menu
 import android.view.MenuItem
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import io.github.fatimazza.fbmatchschedule.R
+import io.github.fatimazza.fbmatchschedule.R.id.add_to_favorite
+import io.github.fatimazza.fbmatchschedule.R.menu.detail_menu
 import io.github.fatimazza.fbmatchschedule.model.Event
 import io.github.fatimazza.fbmatchschedule.model.Team
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
@@ -83,13 +86,21 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         Picasso.get().load(team.teamBadge).into(iv_away_team)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(detail_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
+        return when (item.itemId){
             android.R.id.home -> {
                 NavUtils.navigateUpFromSameTask(this)
-                return true
+                true
             }
+            add_to_favorite -> {
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 }
