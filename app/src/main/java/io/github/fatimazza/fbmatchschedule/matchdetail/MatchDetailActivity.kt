@@ -38,9 +38,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         setContentView(R.layout.activity_detail)
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        if (isFavorite)
-            loadIntentFavoriteExtras()
-        else loadIntentEventExtras()
+        if (isFavorite) loadIntentFavoriteExtras() else loadIntentEventExtras()
 
         initPresenter()
 //        requestDataTeamDetail()
@@ -87,10 +85,33 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
     private fun loadIntentFavoriteExtras() {
 
+//        tv_date.text = SimpleDateFormat(getString(R.string.date_format)).format(favorites.eventDate)
+
         tv_home_team.text = favorites.homeTeam
         tv_away_team.text = favorites.awayTeam
 
         tv_score.text = "${favorites.homeScore?: ""} vs ${favorites.awayScore?: ""}"
+
+        tv_goal_home.text = favorites.homeGoals
+        tv_goal_away.text = favorites.awayGoals
+
+        tv_shot_home.text = "${favorites.homeShots?: ""}"
+        tv_shot_away.text = "${favorites.awayShots?: ""}"
+
+        tv_goalkeeper_home.text = favorites.homeKeeper
+        tv_goalkeeper_away.text = favorites.homeKeeper
+
+        tv_defense_home.text = favorites.homeDefense
+        tv_defense_away.text = favorites.awayDefense
+
+        tv_midfield_home.text = favorites.homeMidfield
+        tv_midfield_away.text = favorites.awayMidfield
+
+        tv_forward_home.text = favorites.homeForward
+        tv_forward_away.text = favorites.awayForward
+
+        tv_subtitues_home.text = favorites.homeSubtitues
+        tv_subtitues_away.text = favorites.awaySubtitues
 
     }
 
@@ -118,10 +139,31 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
                 insert(FavoriteMatch.TABLE_FAVORITE,
                         FavoriteMatch.EVENT_ID to events.idEvent,
                         FavoriteMatch.EVENT_DATE to events.dateEvent.toString(),
-                        FavoriteMatch.HOME_SCORE to events.homeScore,
-                        FavoriteMatch.AWAY_SCORE to events.awayScore,
+
+                        FavoriteMatch.HOME_TEAM_ID to events.idHomeTeam,
+                        FavoriteMatch.AWAY_TEAM_ID to events.idAwayTeam,
+
                         FavoriteMatch.HOME_TEAM to events.homeTeam,
-                        FavoriteMatch.AWAY_TEAM to events.awayTeam)
+                        FavoriteMatch.HOME_SCORE to events.homeScore,
+                        FavoriteMatch.HOME_GOALS to events.homeGoals,
+                        FavoriteMatch.HOME_SHOTS to events.homeShots,
+
+                        FavoriteMatch.HOME_KEEPER to events.homeGoalkeeper,
+                        FavoriteMatch.HOME_DEFENSE to events.homeDefense,
+                        FavoriteMatch.HOME_MIDFIELD to events.homeMidfield,
+                        FavoriteMatch.HOME_FORWARD to events.homeForward,
+                        FavoriteMatch.HOME_SUBTITUES to events.homeSubtitues,
+
+                        FavoriteMatch.AWAY_TEAM to events.awayTeam,
+                        FavoriteMatch.AWAY_SCORE to events.awayScore,
+                        FavoriteMatch.AWAY_GOALS to events.awayGoals,
+                        FavoriteMatch.AWAY_SHOTS to events.awayShots,
+
+                        FavoriteMatch.AWAY_KEEPER to events.awayGoalkeeper,
+                        FavoriteMatch.AWAY_DEFENSE to events.awayDefense,
+                        FavoriteMatch.AWAY_MIDFIELD to events.awayMidfield,
+                        FavoriteMatch.AWAY_FORWARD to events.awayForward,
+                        FavoriteMatch.AWAY_SUBTITUES to events.awaySubtitues)
             }
             snackbar(ll_team_detail, getString(R.string.favorite_added)).show()
         } catch (e: SQLClientInfoException) {

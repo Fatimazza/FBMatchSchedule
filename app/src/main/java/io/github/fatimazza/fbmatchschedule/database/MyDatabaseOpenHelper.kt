@@ -27,10 +27,31 @@ class MyDatabaseOpenHelper(ctx: Context)
                 FavoriteMatch.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
                 FavoriteMatch.EVENT_ID to TEXT + UNIQUE,
                 FavoriteMatch.EVENT_DATE to TEXT,
+
+                FavoriteMatch.HOME_TEAM_ID to TEXT,
+                FavoriteMatch.AWAY_TEAM_ID to TEXT,
+
                 FavoriteMatch.HOME_TEAM to TEXT,
-                FavoriteMatch.AWAY_TEAM to TEXT,
                 FavoriteMatch.HOME_SCORE to TEXT,
-                FavoriteMatch.AWAY_SCORE to TEXT)
+                FavoriteMatch.HOME_GOALS to TEXT,
+                FavoriteMatch.HOME_SHOTS to TEXT,
+
+                FavoriteMatch.HOME_KEEPER to TEXT,
+                FavoriteMatch.HOME_DEFENSE to TEXT,
+                FavoriteMatch.HOME_MIDFIELD to TEXT,
+                FavoriteMatch.HOME_FORWARD to TEXT,
+                FavoriteMatch.HOME_SUBTITUES to TEXT,
+
+                FavoriteMatch.AWAY_TEAM to TEXT,
+                FavoriteMatch.AWAY_SCORE to TEXT,
+                FavoriteMatch.AWAY_GOALS to TEXT,
+                FavoriteMatch.AWAY_SHOTS to TEXT,
+
+                FavoriteMatch.AWAY_KEEPER to TEXT,
+                FavoriteMatch.AWAY_DEFENSE to TEXT,
+                FavoriteMatch.AWAY_MIDFIELD to TEXT,
+                FavoriteMatch.AWAY_FORWARD to TEXT,
+                FavoriteMatch.AWAY_SUBTITUES to TEXT)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
