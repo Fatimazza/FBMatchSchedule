@@ -20,6 +20,7 @@ import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.design.snackbar
 import java.sql.SQLClientInfoException
 import java.text.SimpleDateFormat
+import java.util.*
 
 class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
@@ -85,7 +86,8 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
     private fun loadIntentFavoriteExtras() {
 
-//        tv_date.text = SimpleDateFormat(getString(R.string.date_format)).format(favorites.eventDate)
+        tv_date.text = SimpleDateFormat(getString(R.string.date_format))
+                .format(Date(favorites.eventDate))
 
         tv_home_team.text = favorites.homeTeam
         tv_away_team.text = favorites.awayTeam
