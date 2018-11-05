@@ -137,6 +137,12 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
     }
 
     private fun addToFavorites() {
+        if (isFavorite)
+            addFavoriteToFavorites()
+        else addEventToFavorites()
+    }
+
+    private fun addEventToFavorites() {
         try {
             database.use {
                 insert(FavoriteMatch.TABLE_FAVORITE,
@@ -167,6 +173,44 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
                         FavoriteMatch.AWAY_MIDFIELD to events.awayMidfield,
                         FavoriteMatch.AWAY_FORWARD to events.awayForward,
                         FavoriteMatch.AWAY_SUBTITUES to events.awaySubtitues)
+            }
+            snackbar(ll_team_detail, getString(R.string.favorite_added)).show()
+        } catch (e: SQLClientInfoException) {
+            snackbar(ll_team_detail, e.localizedMessage).show()
+        }
+    }
+
+    private fun addFavoriteToFavorites() {
+        try {
+            database.use {
+                insert(FavoriteMatch.TABLE_FAVORITE,
+                        FavoriteMatch.EVENT_ID to favorites.eventId,
+                        FavoriteMatch.EVENT_DATE to favorites.eventDate,
+
+                        FavoriteMatch.HOME_TEAM_ID to favorites.homeTeamId,
+                        FavoriteMatch.AWAY_TEAM_ID to favorites.awayTeamId,
+
+                        FavoriteMatch.HOME_TEAM to favorites.homeTeam,
+                        FavoriteMatch.HOME_SCORE to favorites.homeScore,
+                        FavoriteMatch.HOME_GOALS to favorites.homeGoals,
+                        FavoriteMatch.HOME_SHOTS to favorites.homeShots,
+
+                        FavoriteMatch.HOME_KEEPER to favorites.homeKeeper,
+                        FavoriteMatch.HOME_DEFENSE to favorites.homeDefense,
+                        FavoriteMatch.HOME_MIDFIELD to favorites.homeMidfield,
+                        FavoriteMatch.HOME_FORWARD to favorites.homeForward,
+                        FavoriteMatch.HOME_SUBTITUES to favorites.homeSubtitues,
+
+                        FavoriteMatch.AWAY_TEAM to favorites.awayTeam,
+                        FavoriteMatch.AWAY_SCORE to favorites.awayScore,
+                        FavoriteMatch.AWAY_GOALS to favorites.awayGoals,
+                        FavoriteMatch.AWAY_SHOTS to favorites.awayShots,
+
+                        FavoriteMatch.AWAY_KEEPER to favorites.awayKeeper,
+                        FavoriteMatch.AWAY_DEFENSE to favorites.awayDefense,
+                        FavoriteMatch.AWAY_MIDFIELD to favorites.awayMidfield,
+                        FavoriteMatch.AWAY_FORWARD to favorites.awayForward,
+                        FavoriteMatch.AWAY_SUBTITUES to favorites.awaySubtitues)
             }
             snackbar(ll_team_detail, getString(R.string.favorite_added)).show()
         } catch (e: SQLClientInfoException) {
