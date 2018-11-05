@@ -41,7 +41,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         if (isFavorite) loadIntentFavoriteExtras() else loadIntentEventExtras()
 
         initPresenter()
-//        requestDataTeamDetail()
+        requestDataTeamDetail()
     }
 
     private fun getIntentExtras() {
@@ -122,7 +122,10 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
     }
 
     private fun requestDataTeamDetail() {
-        presenter.getTeamDetail(events.idHomeTeam.toString(), events.idAwayTeam.toString())
+        if (isFavorite)
+            presenter.getTeamDetail(favorites.homeTeamId.toString(), favorites.awayTeamId.toString())
+        else
+            presenter.getTeamDetail(events.idHomeTeam.toString(), events.idAwayTeam.toString())
     }
 
     override fun showHomeTeamDetail(team: Team) {
