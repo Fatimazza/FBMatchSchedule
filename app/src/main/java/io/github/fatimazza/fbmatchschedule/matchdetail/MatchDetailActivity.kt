@@ -23,9 +23,13 @@ import java.text.SimpleDateFormat
 
 class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
-    private var events: Event = Event()
+    private lateinit var events: Event
+
+    private lateinit var favorites: FavoriteMatch
 
     private lateinit var presenter: MatchDetailPresenter
+
+    private var isFavorite: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,17 +37,25 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         getIntentExtras()
         setContentView(R.layout.activity_detail)
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        loadIntentExtras()
+
+        if (isFavorite)
+            loadIntentFavoriteExtras()
+        else loadIntentEventExtras()
 
         initPresenter()
-        requestDataTeamDetail()
+//        requestDataTeamDetail()
     }
 
     private fun getIntentExtras() {
-        events = intent.getParcelableExtra(getString(R.string.intent_event))
+        if (intent.hasExtra(getString(R.string.intent_event))) {
+            events = intent.getParcelableExtra(getString(R.string.intent_event))
+        } else {
+            favorites = intent.getParcelableExtra(getString(R.string.intent_favorite))
+            isFavorite = true
+        }
     }
 
-    private fun loadIntentExtras() {
+    private fun loadIntentEventExtras() {
 
         tv_date.text = SimpleDateFormat(getString(R.string.date_format)).format(events.dateEvent)
         tv_home_team.text = events.homeTeam
@@ -71,6 +83,15 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
         tv_subtitues_home.text = events.homeSubtitues
         tv_subtitues_away.text = events.awaySubtitues
+    }
+
+    private fun loadIntentFavoriteExtras() {
+
+        tv_home_team.text = favorites.homeTeam
+        tv_away_team.text = favorites.awayTeam
+
+        tv_score.text = "${favorites.homeScore?: ""} vs ${favorites.awayScore?: ""}"
+
     }
 
     private fun initPresenter() {
