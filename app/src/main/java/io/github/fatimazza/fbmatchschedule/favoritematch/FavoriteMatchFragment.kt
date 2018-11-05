@@ -64,18 +64,19 @@ class FavoriteMatchFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
+
+        swipeRefresh.isRefreshing = true
+        showFavorite()
+
+        swipeRefresh.onRefresh {
+            favorites.clear()
+            showFavorite()
+        }
     }
 
     private fun initAdapter() {
         adapter = FavoriteMatchAdapter(favorites) { favItem: FavoriteMatch -> listFavItemClicked(favItem) }
         listFavEvent.adapter = adapter
-
-        showFavorite()
-        swipeRefresh.onRefresh {
-            favorites.clear()
-            showFavorite()
-        }
-
     }
 
     private fun listFavItemClicked(favItem: FavoriteMatch) {
