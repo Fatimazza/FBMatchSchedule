@@ -35,7 +35,7 @@ class FavoriteMatchFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
         return FavoriteMatchUI().createView(
-                AnkoContext.Companion.create(ctx, this, false))
+                AnkoContext.create(ctx, this, false))
     }
 
     class FavoriteMatchUI: AnkoComponent<FavoriteMatchFragment> {
