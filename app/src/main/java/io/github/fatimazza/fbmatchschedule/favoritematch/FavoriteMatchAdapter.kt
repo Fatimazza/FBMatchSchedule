@@ -12,7 +12,6 @@ import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.R.id.*
 import io.github.fatimazza.fbmatchschedule.database.FavoriteMatch
 import org.jetbrains.anko.*
-import java.text.SimpleDateFormat
 
 class FavoriteMatchAdapter(private val favorites: List<FavoriteMatch>,
                            private val listener: (FavoriteMatch) -> Unit)

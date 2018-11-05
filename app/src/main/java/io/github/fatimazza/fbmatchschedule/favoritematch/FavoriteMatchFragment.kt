@@ -11,7 +11,6 @@ import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.database.FavoriteMatch
 import io.github.fatimazza.fbmatchschedule.database.database
 import io.github.fatimazza.fbmatchschedule.matchdetail.MatchDetailActivity
-import io.github.fatimazza.fbmatchschedule.model.Event
 import org.jetbrains.anko.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select
@@ -54,7 +53,7 @@ class FavoriteMatchFragment: Fragment() {
     }
 
     private fun initAdapter() {
-        adapter = FavoriteMatchAdapter(favorites) { eventItem: FavoriteMatch -> listEventItemClicked(eventItem) }
+        adapter = FavoriteMatchAdapter(favorites) { favItem: FavoriteMatch -> listFavItemClicked(favItem) }
         listFavEvent.adapter = adapter
 
         showFavorite()
@@ -65,9 +64,9 @@ class FavoriteMatchFragment: Fragment() {
 
     }
 
-    private fun listEventItemClicked(eventItem: FavoriteMatch) {
+    private fun listFavItemClicked(favItem: FavoriteMatch) {
         startActivity<MatchDetailActivity>(
-                getString(R.string.intent_event) to eventItem
+                getString(R.string.intent_favorite) to favItem
         )
     }
 
