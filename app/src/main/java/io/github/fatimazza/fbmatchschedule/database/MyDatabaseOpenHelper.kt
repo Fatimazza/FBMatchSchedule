@@ -26,7 +26,7 @@ class MyDatabaseOpenHelper(ctx: Context)
         db.createTable(FavoriteMatch.TABLE_FAVORITE, true,
                 FavoriteMatch.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
                 FavoriteMatch.EVENT_ID to TEXT + UNIQUE,
-//                FavoriteMatch.EVENT_DATE to TEXT,
+                FavoriteMatch.EVENT_DATE to TEXT,
                 FavoriteMatch.HOME_TEAM to TEXT,
                 FavoriteMatch.AWAY_TEAM to TEXT,
                 FavoriteMatch.HOME_SCORE to TEXT,

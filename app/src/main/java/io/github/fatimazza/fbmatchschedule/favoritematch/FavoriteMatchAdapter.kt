@@ -12,6 +12,8 @@ import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.R.id.*
 import io.github.fatimazza.fbmatchschedule.database.FavoriteMatch
 import org.jetbrains.anko.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class FavoriteMatchAdapter(private val favorites: List<FavoriteMatch>,
                            private val listener: (FavoriteMatch) -> Unit)
@@ -103,7 +105,7 @@ class FavoriteViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val awayTeam: TextView = view.find(away_team_name)
 
     fun bindItem(favorites: FavoriteMatch, listener: (FavoriteMatch) -> Unit) {
-//        matchDate.text = SimpleDateFormat("EEE, dd MMM yyyy").format(favorites.)
+        matchDate.text = SimpleDateFormat("EEE, dd MMM yyyy").format(Date(favorites.eventDate))
         homeTeam.text = favorites.homeTeam
         matchScore.text = "${favorites.homeScore?: ""} vs ${favorites.awayScore?: ""}"
         awayTeam.text = favorites.awayTeam
