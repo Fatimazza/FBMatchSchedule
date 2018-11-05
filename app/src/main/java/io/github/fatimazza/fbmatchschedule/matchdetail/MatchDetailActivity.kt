@@ -16,6 +16,7 @@ import io.github.fatimazza.fbmatchschedule.model.Event
 import io.github.fatimazza.fbmatchschedule.model.Team
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import kotlinx.android.synthetic.main.activity_detail.*
+import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.design.snackbar
 import java.sql.SQLClientInfoException
@@ -30,7 +31,10 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
     private lateinit var presenter: MatchDetailPresenter
 
+
     private var isFavorite: Boolean = false
+
+    private lateinit var id:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +59,8 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
     }
 
     private fun loadIntentEventExtras() {
+
+        id = events.idEvent.toString()
 
         tv_date.text = SimpleDateFormat(getString(R.string.date_format)).format(events.dateEvent)
         tv_home_team.text = events.homeTeam
@@ -85,6 +91,8 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
     }
 
     private fun loadIntentFavoriteExtras() {
+
+        id = favorites.eventId.toString()
 
         tv_date.text = SimpleDateFormat(getString(R.string.date_format))
                 .format(Date(favorites.eventDate))
@@ -215,6 +223,19 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
                         FavoriteMatch.AWAY_SUBTITUES to favorites.awaySubtitues)
             }
             snackbar(ll_team_detail, getString(R.string.favorite_added)).show()
+        } catch (e: SQLClientInfoException) {
+            snackbar(ll_team_detail, e.localizedMessage).show()
+        }
+    }
+
+    private fun removeFromFavorites() {
+        try {
+            database.use {
+                delete(FavoriteMatch.TABLE_FAVORITE,
+                        "(EVENT_ID = {id})",
+                        "id" to id)
+            }
+            snackbar(ll_team_detail, getString(R.string.favorite_removed)).show()
         } catch (e: SQLClientInfoException) {
             snackbar(ll_team_detail, e.localizedMessage).show()
         }

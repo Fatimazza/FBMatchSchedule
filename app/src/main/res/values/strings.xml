@@ -30,6 +30,7 @@
     <string name="uri_path_dummy_id">4328</string>
 
     <string name="favorites">Favorites</string>
-    <string name="favorite_added">Favorite added</string>
+    <string name="favorite_added">Added to favorite</string>
+    <string name="favorite_removed">Removed from favorite</string>
     <string name="intent_favorite">favorite</string>
 </resources>
