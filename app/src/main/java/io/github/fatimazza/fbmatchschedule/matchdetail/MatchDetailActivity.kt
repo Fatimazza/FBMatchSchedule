@@ -19,8 +19,10 @@ import io.github.fatimazza.fbmatchschedule.model.Event
 import io.github.fatimazza.fbmatchschedule.model.Team
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import kotlinx.android.synthetic.main.activity_detail.*
+import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.db.select
 import org.jetbrains.anko.design.snackbar
 import java.sql.SQLClientInfoException
 import java.text.SimpleDateFormat
@@ -53,6 +55,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (isFavorite) loadIntentFavoriteExtras() else loadIntentEventExtras()
+        favoriteState()
 
         initPresenter()
         requestDataTeamDetail()
@@ -259,6 +262,17 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
                     ContextCompat.getDrawable(this, ic_add_to_favorite)
     }
 
+    private fun favoriteState() {
+        database.use {
+            val result = select(FavoriteMatch.TABLE_FAVORITE)
+                    .whereArgs("(EVENT_ID = {id})", "id" to id)
+            val favorite = result.parseList(classParser<FavoriteMatch>())
+
+            if (!favorite.isEmpty())
+                isFavoriteMatch = true
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(detail_menu, menu)
         menuItem = menu
@@ -273,7 +287,8 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
                 true
             }
             add_to_favorite -> {
-                addToFavorites()
+                if (isFavoriteMatch) removeFromFavorites() else addToFavorites()
+                isFavoriteMatch = !isFavoriteMatch
                 setFavoriteIcon()
                 true
             }
