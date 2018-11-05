@@ -283,7 +283,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId){
             android.R.id.home -> {
-                NavUtils.navigateUpFromSameTask(this)
+                onBackPressed()
                 true
             }
             add_to_favorite -> {
