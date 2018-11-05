@@ -3,11 +3,14 @@ package io.github.fatimazza.fbmatchschedule.matchdetail
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.NavUtils
+import android.support.v4.content.ContextCompat
 import android.view.Menu
 import android.view.MenuItem
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import io.github.fatimazza.fbmatchschedule.R
+import io.github.fatimazza.fbmatchschedule.R.drawable.ic_add_to_favorite
+import io.github.fatimazza.fbmatchschedule.R.drawable.ic_added_to_favorite
 import io.github.fatimazza.fbmatchschedule.R.id.add_to_favorite
 import io.github.fatimazza.fbmatchschedule.R.menu.detail_menu
 import io.github.fatimazza.fbmatchschedule.database.FavoriteMatch
@@ -35,6 +38,12 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
     private var isFavorite: Boolean = false
 
     private lateinit var id:String
+
+
+    private var menuItem: Menu? = null
+
+    private var isFavoriteMatch: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -241,9 +250,20 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         }
     }
 
+    private fun setFavoriteIcon() {
+        if (isFavoriteMatch)
+            menuItem?.getItem(0)?.icon =
+                    ContextCompat.getDrawable(this, ic_added_to_favorite)
+        else
+            menuItem?.getItem(0)?.icon =
+                    ContextCompat.getDrawable(this, ic_add_to_favorite)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(detail_menu, menu)
-        return super.onCreateOptionsMenu(menu)
+        menuItem = menu
+        setFavoriteIcon()
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -254,6 +274,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
             }
             add_to_favorite -> {
                 addToFavorites()
+                setFavoriteIcon()
                 true
             }
             else -> super.onOptionsItemSelected(item)
