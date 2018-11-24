@@ -20,15 +20,6 @@
     <string name="dummy_away_team">Team B</string>
     <string name="dummy_score">1 vs 1</string>
 
-    <string name="uri_path_api">api</string>
-    <string name="uri_path_v1">v1</string>
-    <string name="uri_path_json">json</string>
-    <string name="uri_path_next_event">eventsnextleague.php</string>
-    <string name="uri_path_last_event">eventspastleague.php</string>
-    <string name="uri_path_lookup_team">lookupteam.php</string>
-    <string name="uri_query_id">id</string>
-    <string name="uri_path_dummy_id">4328</string>
-
     <string name="favorites">Favorites</string>
     <string name="favorite_added">Added to favorite</string>
     <string name="favorite_removed">Removed from favorite</string>

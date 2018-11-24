@@ -1,47 +1,19 @@
 package io.github.fatimazza.fbmatchschedule.network
 
-import android.net.Uri
 import io.github.fatimazza.fbmatchschedule.BuildConfig
 
 object TheSportDBApi {
 
     fun getNextMatch(): String {
-        return Uri.parse(BuildConfig.BASE_URL)
-                .buildUpon()
-                .appendPath("api")
-                .appendPath("v1")
-                .appendPath("json")
-                .appendPath(BuildConfig.TSDB_API_KEY)
-                .appendPath("eventsnextleague.php")
-                .appendQueryParameter("id", "4328")
-                .build()
-                .toString()
+        return BuildConfig.BASE_URL + "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/eventsnextleague.php?id=" + "4328"
     }
 
     fun getLastMatch(): String {
-        return Uri.parse(BuildConfig.BASE_URL)
-                .buildUpon()
-                .appendPath("api")
-                .appendPath("v1")
-                .appendPath("json")
-                .appendPath(BuildConfig.TSDB_API_KEY)
-                .appendPath("eventspastleague.php")
-                .appendQueryParameter("id", "4328")
-                .build()
-                .toString()
+        return BuildConfig.BASE_URL + "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/eventspastleague.php?id=" + "4328"
     }
 
-    fun getTeamDetail(idTeam: String?): String {
-        return Uri.parse(BuildConfig.BASE_URL)
-                .buildUpon()
-                .appendPath("api")
-                .appendPath("v1")
-                .appendPath("json")
-                .appendPath(BuildConfig.TSDB_API_KEY)
-                .appendPath("lookupteam.php")
-                .appendQueryParameter("id", idTeam)
-                .build()
-                .toString()
+    fun getTeamDetail(teamId: String?): String {
+        return BuildConfig.BASE_URL + "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/lookupteam.php?id=" + teamId
     }
 
 }
