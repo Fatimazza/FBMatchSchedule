@@ -8,4 +8,5 @@
     <item name="next_match_list" type="id" />
     <item name="favorite_list" type="id" />
     <item name="favorite_item" type="id" />
+    <item name="swipe_refresh_favorite" type="id" />
 </resources>

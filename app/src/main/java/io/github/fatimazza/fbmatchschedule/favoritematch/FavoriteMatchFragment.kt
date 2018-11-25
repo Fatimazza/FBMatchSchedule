@@ -45,6 +45,7 @@ class FavoriteMatchFragment: Fragment() {
                 frameLayout {
 
                     owner.swipeRefresh = swipeRefreshLayout {
+                        id = R.id.swipe_refresh_favorite
                         setColorSchemeResources(colorAccent,
                                 android.R.color.holo_green_light,
                                 android.R.color.holo_orange_light,
