@@ -51,6 +51,7 @@ class FavoriteMatchFragment: Fragment() {
                                 android.R.color.holo_red_light)
 
                         owner.listFavEvent = recyclerView {
+                            id = R.id.favorite_list
                             lparams(width = matchParent, height = wrapContent)
                             layoutManager = LinearLayoutManager(ctx)
                         }
