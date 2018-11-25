@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.action.ViewActions.swipeDown
+import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.contrib.RecyclerViewActions
 import android.support.test.espresso.matcher.ViewMatchers
@@ -26,7 +27,7 @@ class RemoveFromFavoriteTest {
     @JvmField var activityRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun testAddMatchesToFavorite() {
+    fun testRemoveMatchToFavorite() {
 
         Espresso.onView(withId(bottom_navigation))
                 .check(matches(isDisplayed()))
@@ -68,5 +69,31 @@ class RemoveFromFavoriteTest {
 
         Espresso.onView(withId(favorite_item))
                 .check(matches(isDisplayed()))
+
+        Espresso.onView(withId(favorite_list))
+                .perform(RecyclerViewActions
+                        .actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+
+        Thread.sleep(2000)
+
+        Espresso.onView(withId(ll_team_detail))
+                .check(matches((isDisplayed())))
+
+        Espresso.onView(withId(add_to_favorite))
+                .check(matches(isDisplayed()))
+        Espresso.onView(withId(add_to_favorite))
+                .perform(click())
+
+        Espresso.onView(ViewMatchers.withText(R.string.favorite_removed))
+                .check(matches(isDisplayed()))
+
+        Espresso.pressBack()
+
+        Espresso.onView(withId(swipe_refresh_favorite)).perform(swipeDown())
+
+        Thread.sleep(1000)
+
+        Espresso.onView(withId(favorite_item))
+                .check(ViewAssertions.doesNotExist())
     }
 }
