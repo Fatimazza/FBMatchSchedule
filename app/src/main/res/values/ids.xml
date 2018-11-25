@@ -4,4 +4,7 @@
     <item name="home_team_name" type="id" />
     <item name="match_score" type="id" />
     <item name="away_team_name" type="id" />
+    <item name="last_match_list" type="id" />
+    <item name="next_match_list" type="id" />
+    <item name="favorite_list" type="id" />
 </resources>

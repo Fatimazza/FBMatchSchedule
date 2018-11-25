@@ -51,6 +51,7 @@ class LastMatchFragment: Fragment(), MatchView {
                             android.R.color.holo_red_light)
 
                     owner.listLastEvent = recyclerView {
+                        id = R.id.last_match_list
                         lparams(width = matchParent, height = wrapContent)
                         layoutManager = LinearLayoutManager(ctx)
                     }
