@@ -2,6 +2,7 @@ package io.github.fatimazza.fbmatchschedule.main
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.StrictMode
 import android.support.v4.app.Fragment
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.R.id.*
@@ -16,6 +17,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setupStrictMode()
+
         bottom_navigation.setOnNavigationItemSelectedListener {
             item -> when(item.itemId) {
                 last_match -> { loadFragment(savedInstanceState, LastMatchFragment()) }
@@ -25,6 +28,14 @@ class MainActivity : AppCompatActivity() {
             true
         }
         bottom_navigation.selectedItemId = last_match
+    }
+
+    private fun setupStrictMode() {
+        val SDK_INT: Int = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8) {
+            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+            StrictMode.setThreadPolicy(policy)
+        }
     }
 
     private fun loadFragment(savedInstanceState: Bundle?, fragment: Fragment) {
