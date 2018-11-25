@@ -7,4 +7,5 @@
     <item name="last_match_list" type="id" />
     <item name="next_match_list" type="id" />
     <item name="favorite_list" type="id" />
+    <item name="favorite_item" type="id" />
 </resources>
