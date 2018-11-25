@@ -63,7 +63,7 @@ class UnfavoriteNextMatchTest {
 
         Thread.sleep(2000)
 
-        Espresso.onView(withId(R.id.favorite_list))
+        Espresso.onView(withId(R.id.favorite_item))
                 .check(doesNotExist())
     }
 }

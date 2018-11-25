@@ -63,7 +63,7 @@ class FavoriteNextMatchTest {
 
         Thread.sleep(2000)
 
-        Espresso.onView(withId(favorite_list))
+        Espresso.onView(withId(favorite_item))
                 .check(matches(isDisplayed()))
     }
 }
