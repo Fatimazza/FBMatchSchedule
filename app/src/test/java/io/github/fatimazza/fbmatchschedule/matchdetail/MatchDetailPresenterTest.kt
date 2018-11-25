@@ -47,20 +47,22 @@ class MatchDetailPresenterTest {
         val teamAwayId = "133616"
 
         GlobalScope.launch {
-
             `when`(gson.fromJson(
                     apiRepository.doRequest(
                             TheSportDBApi.getTeamDetail(teamHomeId)), TeamResponse::class.java))
                     .thenReturn(homeTeamResponse)
 
+            presenter.getTeamDetail(teamHomeId, teamAwayId)
+
+            Mockito.verify(view).showHomeTeamDetail(homeTeamResponse.teams[0])
+        }
+
+        GlobalScope.launch {
             `when`(gson.fromJson(
                     apiRepository.doRequest(
                             TheSportDBApi.getTeamDetail(teamAwayId)), TeamResponse::class.java))
                     .thenReturn(awayTeamResponse)
 
-            presenter.getTeamDetail(teamHomeId, teamAwayId)
-
-            Mockito.verify(view).showHomeTeamDetail(homeTeamResponse.teams[0])
             Mockito.verify(view).showAwayTeamDetail(awayTeamResponse.teams[0])
         }
     }
