@@ -40,7 +40,7 @@ class MatchDetailPresenterTest {
 
     @Test
     fun testGetTeamDetail() {
-        val teams: MutableList<Team> = mutableListOf()
+        var teams: MutableList<Team> = mutableListOf()
         val homeTeamResponse = TeamResponse(teams)
         val awayTeamResponse = TeamResponse(teams)
         val teamHomeId = "133604"
@@ -62,6 +62,8 @@ class MatchDetailPresenterTest {
                     apiRepository.doRequest(
                             TheSportDBApi.getTeamDetail(teamAwayId)), TeamResponse::class.java))
                     .thenReturn(awayTeamResponse)
+
+            presenter.getTeamDetail(teamHomeId, teamAwayId)
 
             Mockito.verify(view).showAwayTeamDetail(awayTeamResponse.teams[0])
         }
