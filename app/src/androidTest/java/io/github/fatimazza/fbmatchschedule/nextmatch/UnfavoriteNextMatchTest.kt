@@ -31,7 +31,7 @@ class UnfavoriteNextMatchTest {
         Espresso.onView(withId(R.id.next_match))
                 .perform(click())
 
-        Thread.sleep(2000)
+        Thread.sleep(4000)
 
         Espresso.onView(withId(R.id.next_match_list))
                 .check(matches(isDisplayed()))
@@ -42,7 +42,7 @@ class UnfavoriteNextMatchTest {
                 .perform(RecyclerViewActions
                         .actionOnItemAtPosition<RecyclerView.ViewHolder>(12, click()))
 
-        Thread.sleep(2000)
+        Thread.sleep(4000)
 
         Espresso.onView(withId(R.id.ll_team_detail))
                 .check(matches((isDisplayed())))
@@ -61,7 +61,7 @@ class UnfavoriteNextMatchTest {
         Espresso.onView(withId(R.id.favorite_match))
                 .perform(click())
 
-        Thread.sleep(2000)
+        Thread.sleep(4000)
 
         Espresso.onView(withId(R.id.favorite_item))
                 .check(doesNotExist())

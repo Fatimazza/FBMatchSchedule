@@ -33,7 +33,7 @@ class ReaddFavoriteTest {
         Espresso.onView(withId(favorite_match))
                 .perform(click())
 
-        Thread.sleep(2000)
+        Thread.sleep(4000)
 
         Espresso.onView(withId(favorite_list))
                 .check(matches(isDisplayed()))
@@ -47,7 +47,7 @@ class ReaddFavoriteTest {
                 .perform(RecyclerViewActions
                         .actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
 
-        Thread.sleep(2000)
+        Thread.sleep(4000)
 
         Espresso.onView(withId(ll_team_detail))
                 .check(matches((isDisplayed())))
@@ -60,7 +60,7 @@ class ReaddFavoriteTest {
         Espresso.onView(ViewMatchers.withText(R.string.favorite_removed))
                 .check(matches(isDisplayed()))
 
-        Thread.sleep(2000)
+        Thread.sleep(4000)
 
         Espresso.onView(withId(add_to_favorite))
                 .check(matches(isDisplayed()))
@@ -74,7 +74,7 @@ class ReaddFavoriteTest {
 
         Espresso.onView(withId(swipe_refresh_favorite)).perform(swipeDown())
 
-        Thread.sleep(1000)
+        Thread.sleep(2000)
 
         Espresso.onData(
                 CoreMatchers.instanceOf(ClipData.Item::class.java))

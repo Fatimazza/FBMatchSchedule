@@ -32,7 +32,7 @@ class FavoriteLastMatchTest {
         Espresso.onView(withId(last_match))
                 .perform(click())
 
-        Thread.sleep(2000)
+        Thread.sleep(4000)
 
         Espresso.onView(withId(last_match_list))
                 .check(matches(isDisplayed()))
@@ -43,7 +43,7 @@ class FavoriteLastMatchTest {
                 .perform(RecyclerViewActions
                         .actionOnItemAtPosition<RecyclerView.ViewHolder>(10, click()))
 
-        Thread.sleep(2000)
+        Thread.sleep(4000)
 
         Espresso.onView(withId(ll_team_detail))
                 .check(matches((isDisplayed())))
@@ -62,7 +62,7 @@ class FavoriteLastMatchTest {
         Espresso.onView(withId(favorite_match))
                 .perform(click())
 
-        Thread.sleep(2000)
+        Thread.sleep(4000)
 
         Espresso.onView(withId(favorite_item))
                 .check(matches(isDisplayed()))
