@@ -52,11 +52,18 @@ class MyDatabaseOpenHelper(ctx: Context)
                 FavoriteMatch.AWAY_MIDFIELD to TEXT,
                 FavoriteMatch.AWAY_FORWARD to TEXT,
                 FavoriteMatch.AWAY_SUBTITUES to TEXT)
+
+        db.createTable(FavoriteTeam.TABLE_FAVORITE_TEAM, true,
+                FavoriteTeam.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
+                FavoriteTeam.TEAM_ID to TEXT + UNIQUE,
+                FavoriteTeam.TEAM_NAME to TEXT,
+                FavoriteTeam.TEAM_BADGE to TEXT)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
         // upgrade Tables
         db.dropTable(FavoriteMatch.TABLE_FAVORITE, true)
+        db.dropTable(FavoriteTeam.TABLE_FAVORITE_TEAM, true)
     }
 
 }
