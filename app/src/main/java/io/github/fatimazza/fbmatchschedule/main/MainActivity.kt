@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             item -> when(item.itemId) {
                 last_match -> { loadFragment(savedInstanceState, LastMatchFragment()) }
                 next_match -> { loadFragment(savedInstanceState, NextMatchFragment()) }
-                teams -> { loadFragment(savedInstanceState, TeamsFragment())}
+                teams -> { loadFragment(savedInstanceState, TeamsFragment()) }
                 favorite_match -> { loadFragment(savedInstanceState, FavoriteMatchFragment()) }
             }
             true
