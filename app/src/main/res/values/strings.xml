@@ -22,8 +22,11 @@
     <string name="dummy_score">1 vs 1</string>
 
     <string name="favorites">Favorites</string>
+    <string name="team_detail">Team Detail</string>
     <string name="favorite_added">Added to favorite</string>
     <string name="favorite_removed">Removed from favorite</string>
+
+    <string name="intent_id">id</string>
     <string name="intent_favorite">favorite</string>
 
     <string name="teams">Teams</string>

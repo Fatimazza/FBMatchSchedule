@@ -13,6 +13,7 @@ import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Team
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
+import io.github.fatimazza.fbmatchschedule.teamdetail.TeamDetailActivity
 import io.github.fatimazza.fbmatchschedule.util.invisible
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
@@ -139,7 +140,7 @@ class TeamsFragment : Fragment(), TeamsView {
     }
 
     private fun teamItemClicked(teamItem: Team) {
-
+        ctx.startActivity<TeamDetailActivity>(getString(R.string.intent_id) to teamItem.teamId)
     }
 
 }
