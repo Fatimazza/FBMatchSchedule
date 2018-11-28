@@ -7,6 +7,7 @@ import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import io.github.fatimazza.fbmatchschedule.util.CoroutineContextProvider
 
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class TeamsPresenter(private val view: TeamsView,
@@ -18,11 +19,12 @@ class TeamsPresenter(private val view: TeamsView,
         view.showLoading()
 
         GlobalScope.launch(context.main) {
-            val data = gson.fromJson(apiRepository.doRequest(
-                                TheSportDBApi.getTeams(league)),
-                                TeamResponse::class.java)
-
-            view.showTeamList(data.teams)
+            val data = async(context.background) {
+                gson.fromJson(apiRepository.doRequest(
+                        TheSportDBApi.getTeams(league)),
+                        TeamResponse::class.java)
+            }
+            view.showTeamList(data.await().teams)
             view.hideLoading()
         }
 

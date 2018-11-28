@@ -5,4 +5,5 @@ import kotlin.coroutines.CoroutineContext
 
 open class CoroutineContextProvider {
     open val main: CoroutineContext by lazy { Dispatchers.Main }
+    open val background: CoroutineContext by lazy { Dispatchers.IO }
 }

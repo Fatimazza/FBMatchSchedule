@@ -6,6 +6,7 @@ import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import io.github.fatimazza.fbmatchschedule.util.CoroutineContextProvider
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class NextMatchPresenter(private val view: NextMatchFragment,
@@ -16,12 +17,13 @@ class NextMatchPresenter(private val view: NextMatchFragment,
     fun getEventList() {
 
         GlobalScope.launch(context.main) {
-            val data = gson.fromJson(
-                    apiRepository.doRequest(TheSportDBApi.getNextMatch()),
-                    EventResponse::class.java
-            )
-
-            view.showEventList(data.events)
+            val data = async(context.background) {
+                gson.fromJson(
+                        apiRepository.doRequest(TheSportDBApi.getNextMatch()),
+                        EventResponse::class.java
+                )
+            }
+            view.showEventList(data.await().events)
         }
 
     }

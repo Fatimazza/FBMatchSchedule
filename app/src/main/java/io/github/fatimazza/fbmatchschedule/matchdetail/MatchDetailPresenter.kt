@@ -6,6 +6,7 @@ import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import io.github.fatimazza.fbmatchschedule.util.CoroutineContextProvider
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class MatchDetailPresenter(private val view: MatchDetailView,
@@ -16,22 +17,24 @@ class MatchDetailPresenter(private val view: MatchDetailView,
     fun getTeamDetail(idHomeTeam: String, idAwayTeam: String) {
 
         GlobalScope.launch(context.main) {
-            val data = gson.fromJson(
-                    apiRepository.doRequest(TheSportDBApi.getTeamDetail(idHomeTeam)),
-                    TeamResponse::class.java
-            )
-
-            view.showHomeTeamDetail(data.teams[0])
+            val data = async(context.background) {
+                 gson.fromJson(
+                        apiRepository.doRequest(TheSportDBApi.getTeamDetail(idHomeTeam)),
+                        TeamResponse::class.java
+                )
+            }
+            view.showHomeTeamDetail(data.await().teams[0])
         }
 
 
         GlobalScope.launch(context.main) {
-            val data = gson.fromJson(
-                    apiRepository.doRequest(TheSportDBApi.getTeamDetail(idAwayTeam)),
-                    TeamResponse::class.java
-            )
-
-            view.showAwayTeamDetail(data.teams[0])
+            val data = async(context.background) {
+                gson.fromJson(
+                        apiRepository.doRequest(TheSportDBApi.getTeamDetail(idAwayTeam)),
+                        TeamResponse::class.java
+                )
+            }
+            view.showAwayTeamDetail(data.await().teams[0])
         }
 
     }
