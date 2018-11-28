@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout
 import android.support.design.widget.TabLayout.MODE_FIXED
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.view.Gravity.FILL
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,7 @@ class MatchesFragment : Fragment() {
                     owner.matchTabLayout = tabLayout {
                         id = R.id.tab_match
                         lparams(width = matchParent, height = wrapContent)
+                        tabGravity = FILL
                         tabMode = MODE_FIXED
                     }
 
@@ -55,9 +57,7 @@ class MatchesFragment : Fragment() {
     }
 
     private fun initPagerAdapter() {
-        val fragmentManager = requireFragmentManager()
-        val fragmentAdapter = MatchesPagerAdapter(fragmentManager, ctx)
-        matchTabLayout.setTabsFromPagerAdapter(fragmentAdapter)
+        matchViewPager.adapter = MatchesPagerAdapter(childFragmentManager, ctx)
         matchTabLayout.setupWithViewPager(matchViewPager)
     }
 }
