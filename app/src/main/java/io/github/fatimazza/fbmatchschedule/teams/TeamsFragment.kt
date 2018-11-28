@@ -8,10 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.Spinner
+import android.widget.*
 import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Team
@@ -21,6 +18,7 @@ import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.ctx
+import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
 class TeamsFragment : Fragment(), TeamsView {
@@ -34,12 +32,16 @@ class TeamsFragment : Fragment(), TeamsView {
     private lateinit var presenter: TeamsPresenter
     private lateinit var adapter: TeamsAdapter
 
+    private lateinit var leagueName: String
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         initSpinner()
         initAdapter()
         initPresenter()
+        getDataOnSpinnerClicked()
+        refreshSwipeRefresh()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
@@ -102,6 +104,25 @@ class TeamsFragment : Fragment(), TeamsView {
         presenter = TeamsPresenter(this, request, gson)
     }
 
+    private fun getDataOnSpinnerClicked() {
+        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(
+                    parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                leagueName = spinner.selectedItem.toString()
+                presenter.getTeamList(leagueName)
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) { }
+
+        }
+    }
+
+    private fun refreshSwipeRefresh() {
+        swipeRefresh.onRefresh {
+            presenter.getTeamList(leagueName)
+        }
+    }
+
     override fun showLoading() {
         progressBar.visible()
     }
@@ -111,7 +132,10 @@ class TeamsFragment : Fragment(), TeamsView {
     }
 
     override fun showTeamList(data: List<Team>) {
-
+        swipeRefresh.isRefreshing = false
+        teams.clear()
+        teams.addAll(data)
+        adapter.notifyDataSetChanged()
     }
 
     private fun teamItemClicked(teamItem: Team) {
