@@ -6,7 +6,7 @@ import android.os.StrictMode
 import android.support.v4.app.Fragment
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.R.id.*
-import io.github.fatimazza.fbmatchschedule.favoritematch.FavoriteMatchFragment
+import io.github.fatimazza.fbmatchschedule.favorites.FavoritesFragment
 import io.github.fatimazza.fbmatchschedule.matches.MatchesFragment
 import io.github.fatimazza.fbmatchschedule.teams.TeamsFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
             item -> when(item.itemId) {
                 matches -> { loadFragment(savedInstanceState, MatchesFragment()) }
                 teams -> { loadFragment(savedInstanceState, TeamsFragment()) }
-                favorite_match -> { loadFragment(savedInstanceState, FavoriteMatchFragment()) }
+                favorite_match -> { loadFragment(savedInstanceState, FavoritesFragment()) }
             }
             true
         }

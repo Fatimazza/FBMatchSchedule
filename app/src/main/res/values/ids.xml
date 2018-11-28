@@ -15,4 +15,6 @@
     <item name="team_name" type="id" />
     <item name="tab_match" type="id" />
     <item name="viewpager_match" type="id" />
+    <item name="tab_fav" type="id" />
+    <item name="viewpager_fav" type="id" />
 </resources>
