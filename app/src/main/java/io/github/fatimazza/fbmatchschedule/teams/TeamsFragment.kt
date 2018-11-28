@@ -12,12 +12,13 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Spinner
 import io.github.fatimazza.fbmatchschedule.R
+import io.github.fatimazza.fbmatchschedule.model.Team
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
-class TeamsFragment : Fragment() {
+class TeamsFragment : Fragment(), TeamsView {
 
     private lateinit var listTeam: RecyclerView
     private lateinit var progressBar: ProgressBar
@@ -65,6 +66,18 @@ class TeamsFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun showLoading() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun hideLoading() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showTeamList(data: List<Team>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }
