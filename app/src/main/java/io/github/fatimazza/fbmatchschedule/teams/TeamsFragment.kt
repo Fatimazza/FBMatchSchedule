@@ -12,8 +12,10 @@ import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Spinner
+import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Team
+import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.util.invisible
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
@@ -29,6 +31,7 @@ class TeamsFragment : Fragment(), TeamsView {
     private lateinit var spinner: Spinner
 
     private var teams: MutableList<Team> = mutableListOf()
+    private lateinit var presenter: TeamsPresenter
     private lateinit var adapter: TeamsAdapter
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -36,6 +39,7 @@ class TeamsFragment : Fragment(), TeamsView {
 
         initSpinner()
         initAdapter()
+        initPresenter()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
@@ -90,6 +94,12 @@ class TeamsFragment : Fragment(), TeamsView {
     private fun initAdapter() {
         adapter = TeamsAdapter(teams) { teamItem: Team -> teamItemClicked(teamItem)}
         listTeam.adapter = adapter
+    }
+
+    private fun initPresenter() {
+        val request = ApiRepository()
+        val gson = Gson()
+        presenter = TeamsPresenter(this, request, gson)
     }
 
     override fun showLoading() {
