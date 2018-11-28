@@ -7,6 +7,7 @@ import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import io.github.fatimazza.fbmatchschedule.util.TestContextProvider
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.junit.Test
 
@@ -44,10 +45,12 @@ class LastMatchPresenterTest {
         val response = EventResponse(events)
 
         GlobalScope.launch {
-            `when`(gson.fromJson(
-                    apiRepository.doRequest(
-                            TheSportDBApi.getLastMatch()), EventResponse::class.java))
-                    .thenReturn(response)
+            val data =  async {
+                gson.fromJson(
+                        apiRepository.doRequest(
+                                TheSportDBApi.getLastMatch()), EventResponse::class.java)
+            }
+            `when`(data.await()).thenReturn(response)
 
             presenter.getEventList()
 

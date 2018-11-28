@@ -7,6 +7,7 @@ import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import io.github.fatimazza.fbmatchschedule.util.TestContextProvider
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.junit.Before
 import org.junit.Test
@@ -47,9 +48,12 @@ class MatchDetailPresenterTest {
         val teamAwayId = "133616"
 
         GlobalScope.launch {
-            `when`(gson.fromJson(
-                    apiRepository.doRequest(
-                            TheSportDBApi.getTeamDetail(teamHomeId)), TeamResponse::class.java))
+            val data = async {
+                gson.fromJson(
+                        apiRepository.doRequest(
+                                TheSportDBApi.getTeamDetail(teamHomeId)), TeamResponse::class.java)
+            }
+            `when`(data.await())
                     .thenReturn(homeTeamResponse)
 
             presenter.getTeamDetail(teamHomeId, teamAwayId)
