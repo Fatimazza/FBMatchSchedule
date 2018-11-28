@@ -18,6 +18,13 @@
         app:showAsAction="ifRoom"/>
 
     <item
+        android:id="@+id/teams"
+        android:enabled="true"
+        android:title="@string/teams"
+        android:icon="@drawable/ic_teams"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/favorite_match"
         android:enabled="true"
         android:title="@string/favorites"

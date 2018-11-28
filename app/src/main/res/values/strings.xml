@@ -24,4 +24,6 @@
     <string name="favorite_added">Added to favorite</string>
     <string name="favorite_removed">Removed from favorite</string>
     <string name="intent_favorite">favorite</string>
+
+    <string name="teams">Teams</string>
 </resources>
