@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.favoritematch.FavoriteMatchFragment
+import io.github.fatimazza.footballclub.favoritesfragment.FavoriteTeamFragment
 
 class FavoritesPagerAdapter(fm: FragmentManager, context: Context)
     : FragmentPagerAdapter(fm) {
@@ -17,7 +18,7 @@ class FavoritesPagerAdapter(fm: FragmentManager, context: Context)
         return when(position) {
             0 -> FavoriteMatchFragment()
             else -> {
-                return FavoriteMatchFragment()
+                return FavoriteTeamFragment()
             }
         }
     }
