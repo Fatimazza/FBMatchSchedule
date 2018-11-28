@@ -2,8 +2,10 @@ package io.github.fatimazza.fbmatchschedule.matches
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.R.id.fixed
+import android.support.design.widget.TabLayout
+import android.support.design.widget.TabLayout.MODE_FIXED
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +18,12 @@ import org.jetbrains.anko.support.v4.viewPager
 
 class MatchesFragment : Fragment() {
 
+    private lateinit var matchTabLayout: TabLayout
+    private lateinit var matchViewPager: ViewPager
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        initPagerAdapter()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
@@ -34,17 +40,24 @@ class MatchesFragment : Fragment() {
                     orientation = LinearLayout.VERTICAL
                     backgroundColor = Color.WHITE
 
-                    tabLayout {
+                    owner.matchTabLayout = tabLayout {
                         id = R.id.tab_match
                         lparams(width = matchParent, height = wrapContent)
-                        tabMode = fixed
+                        tabMode = MODE_FIXED
                     }
 
-                    viewPager {
+                    owner.matchViewPager = viewPager {
                         id = R.id.viewpager_match
                     }.lparams(width = matchParent, height = wrapContent)
                 }
             }
         }
+    }
+
+    private fun initPagerAdapter() {
+        val fragmentManager = requireFragmentManager()
+        val fragmentAdapter = MatchesPagerAdapter(fragmentManager, ctx)
+        matchTabLayout.setTabsFromPagerAdapter(fragmentAdapter)
+        matchTabLayout.setupWithViewPager(matchViewPager)
     }
 }
