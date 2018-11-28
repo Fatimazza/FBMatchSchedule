@@ -7,8 +7,7 @@ import android.support.v4.app.Fragment
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.R.id.*
 import io.github.fatimazza.fbmatchschedule.favoritematch.FavoriteMatchFragment
-import io.github.fatimazza.fbmatchschedule.lastmatch.LastMatchFragment
-import io.github.fatimazza.fbmatchschedule.nextmatch.NextMatchFragment
+import io.github.fatimazza.fbmatchschedule.matches.MatchesFragment
 import io.github.fatimazza.fbmatchschedule.teams.TeamsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,14 +21,13 @@ class MainActivity : AppCompatActivity() {
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             item -> when(item.itemId) {
-                last_match -> { loadFragment(savedInstanceState, LastMatchFragment()) }
-                next_match -> { loadFragment(savedInstanceState, NextMatchFragment()) }
+                matches -> { loadFragment(savedInstanceState, MatchesFragment()) }
                 teams -> { loadFragment(savedInstanceState, TeamsFragment()) }
                 favorite_match -> { loadFragment(savedInstanceState, FavoriteMatchFragment()) }
             }
             true
         }
-        bottom_navigation.selectedItemId = last_match
+        bottom_navigation.selectedItemId = teams
     }
 
     private fun setupStrictMode() {

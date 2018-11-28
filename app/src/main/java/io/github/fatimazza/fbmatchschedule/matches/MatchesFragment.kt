@@ -44,7 +44,6 @@ class MatchesFragment : Fragment() {
                     owner.matchTabLayout = tabLayout {
                         id = R.id.tab_match
                         lparams(width = matchParent, height = wrapContent)
-                        tabGravity = FILL
                         tabMode = MODE_FIXED
                     }
 

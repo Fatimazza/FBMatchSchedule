@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Football Schedule by Fatimazza</string>
 
+    <string name="matches">Matches</string>
     <string name="tab_last_match">Last Match</string>
     <string name="tab_next_match">Next Match</string>
     <string name="intent_event">event</string>
