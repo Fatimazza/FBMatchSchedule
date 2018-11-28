@@ -1,14 +1,18 @@
 package io.github.fatimazza.fbmatchschedule.matches
 
+import android.graphics.Color
 import android.os.Bundle
+import android.support.design.R.id.fixed
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.jetbrains.anko.AnkoComponent
-import org.jetbrains.anko.AnkoContext
-import org.jetbrains.anko.linearLayout
+import android.widget.LinearLayout
+import io.github.fatimazza.fbmatchschedule.R
+import org.jetbrains.anko.*
+import org.jetbrains.anko.design.tabLayout
 import org.jetbrains.anko.support.v4.ctx
+import org.jetbrains.anko.support.v4.viewPager
 
 class MatchesFragment : Fragment() {
 
@@ -26,6 +30,19 @@ class MatchesFragment : Fragment() {
         override fun createView(ui: AnkoContext<MatchesFragment>): View {
             return with(ui) {
                 linearLayout {
+                    lparams(width = matchParent, height = matchParent)
+                    orientation = LinearLayout.VERTICAL
+                    backgroundColor = Color.WHITE
+
+                    tabLayout {
+                        id = R.id.tab_match
+                        lparams(width = matchParent, height = wrapContent)
+                        tabMode = fixed
+                    }
+
+                    viewPager {
+                        id = R.id.viewpager_match
+                    }.lparams(width = matchParent, height = wrapContent)
                 }
             }
         }

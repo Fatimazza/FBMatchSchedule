@@ -13,4 +13,6 @@
     <item name="list_team" type="id" />
     <item name="team_badge" type="id" />
     <item name="team_name" type="id" />
+    <item name="tab_match" type="id" />
+    <item name="viewpager_match" type="id" />
 </resources>
