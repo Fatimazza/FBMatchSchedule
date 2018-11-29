@@ -1,6 +1,6 @@
 package io.github.fatimazza.fbmatchschedule.teamoverview
 
-import android.app.Activity
+
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
@@ -15,12 +15,12 @@ import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Team
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
-import io.github.fatimazza.fbmatchschedule.nextmatch.NextMatchPresenter
 import io.github.fatimazza.fbmatchschedule.teamdetail.TeamDetailPresenter
 import io.github.fatimazza.fbmatchschedule.util.invisible
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.ctx
+import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
 class TeamOverviewFragment: Fragment(), TeamOverviewView {
@@ -30,6 +30,9 @@ class TeamOverviewFragment: Fragment(), TeamOverviewView {
     private lateinit var teamDescription: TextView
 
     private lateinit var presenter: TeamDetailPresenter
+
+    private lateinit var team: Team
+    private lateinit var idTeam: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
@@ -82,13 +85,30 @@ class TeamOverviewFragment: Fragment(), TeamOverviewView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initArguments()
         initPresenter()
+        getDataTeamDetail()
+        refreshSwipeRefresh()
+    }
+
+    private fun initArguments() {
+        idTeam= getArguments()?.getString(getString(R.string.intent_id)).toString();
     }
 
     private fun initPresenter() {
         val request = ApiRepository()
         val gson = Gson()
         presenter = TeamDetailPresenter(this, request, gson)
+    }
+
+    private fun refreshSwipeRefresh() {
+        swipeRefresh.onRefresh {
+            getDataTeamDetail()
+        }
+    }
+
+    private fun getDataTeamDetail() {
+        presenter.getTeamDetail(idTeam)
     }
 
     override fun showLoading() {
@@ -100,13 +120,17 @@ class TeamOverviewFragment: Fragment(), TeamOverviewView {
     }
 
     override fun showTeamDetail(data: List<Team>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        swipeRefresh.isRefreshing = false
+        team = Team(data[0].teamId,
+                data[0].teamName,
+                data[0].teamBadge)
+        teamDescription.text = data[0].teamDescription
     }
 
     fun newInstance(id: String): TeamOverviewFragment {
         val fragment = TeamOverviewFragment()
         val args = Bundle()
-        args.putString(arguments?.getString(getString(R.string.intent_id)).toString(), id)
+        args.putString("id", id)
         fragment.setArguments(args)
         return fragment
     }
