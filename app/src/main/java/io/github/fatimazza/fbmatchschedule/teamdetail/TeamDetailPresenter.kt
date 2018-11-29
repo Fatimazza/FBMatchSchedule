@@ -4,12 +4,13 @@ import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.model.TeamResponse
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
+import io.github.fatimazza.fbmatchschedule.teamoverview.TeamOverviewView
 import io.github.fatimazza.fbmatchschedule.util.CoroutineContextProvider
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class TeamDetailPresenter(private val view: TeamDetailView,
+class TeamDetailPresenter(private val view: TeamOverviewView,
                           private val apiRepository: ApiRepository,
                           private val gson: Gson,
                           private val context: CoroutineContextProvider = CoroutineContextProvider()) {

@@ -18,6 +18,7 @@ import io.github.fatimazza.fbmatchschedule.database.FavoriteTeam
 import io.github.fatimazza.fbmatchschedule.database.database
 import io.github.fatimazza.fbmatchschedule.model.Team
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
+import io.github.fatimazza.fbmatchschedule.teamoverview.TeamOverviewView
 import io.github.fatimazza.fbmatchschedule.util.invisible
 import io.github.fatimazza.fbmatchschedule.util.visible
 import kotlinx.android.synthetic.main.activity_team_detail.*
@@ -30,7 +31,7 @@ import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.support.v4.onRefresh
 import java.sql.SQLClientInfoException
 
-class TeamDetailActivity : AppCompatActivity(), TeamDetailView {
+class TeamDetailActivity : AppCompatActivity(), TeamOverviewView {
 
     private lateinit var presenter: TeamDetailPresenter
 

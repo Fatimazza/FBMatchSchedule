@@ -11,8 +11,12 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Team
+import io.github.fatimazza.fbmatchschedule.network.ApiRepository
+import io.github.fatimazza.fbmatchschedule.nextmatch.NextMatchPresenter
+import io.github.fatimazza.fbmatchschedule.teamdetail.TeamDetailPresenter
 import io.github.fatimazza.fbmatchschedule.util.invisible
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
@@ -24,6 +28,8 @@ class TeamOverviewFragment: Fragment(), TeamOverviewView {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var progressBar: ProgressBar
     private lateinit var teamDescription: TextView
+
+    private lateinit var presenter: TeamDetailPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
@@ -72,6 +78,17 @@ class TeamOverviewFragment: Fragment(), TeamOverviewView {
             }
         }
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initPresenter()
+    }
+
+    private fun initPresenter() {
+        val request = ApiRepository()
+        val gson = Gson()
+        presenter = TeamDetailPresenter(this, request, gson)
     }
 
     override fun showLoading() {
