@@ -8,6 +8,6 @@ interface TeamPlayersView {
 
     fun hideLoading()
 
-    fun showTeamDetail(data: List<Players>)
+    fun showPlayerList(data: List<Players>)
 
 }

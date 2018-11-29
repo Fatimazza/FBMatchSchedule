@@ -87,7 +87,7 @@ class TeamPlayersFragment: Fragment(), TeamPlayersView {
         progressBar.invisible()
     }
 
-    override fun showTeamDetail(data: List<Players>) {
+    override fun showPlayerList(data: List<Players>) {
 
     }
 
