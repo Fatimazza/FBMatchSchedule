@@ -8,21 +8,21 @@ data class Players(
         var idPlayer: String? = null,
 
         @SerializedName("strPlayer")
-        var strPlayer: String? = null,
+        var playerName: String? = null,
 
         @SerializedName("dateBorn")
-        var dateBorn: String? = null,
+        var playerDOB: String? = null,
 
         @SerializedName("strDescriptionEN")
-        var strDescriptionEN: String? = null,
+        var playerDesc: String? = null,
 
         @SerializedName("strPosition")
-        var strPosition: String? = null,
+        var playerPosition: String? = null,
 
         @SerializedName("strFanart1")
-        var strFanart1: String? = null,
+        var playerFanart: String? = null,
 
         @SerializedName("strThumb")
-        var strThumb: String? = null
+        var playerThumb: String? = null
 
 )
