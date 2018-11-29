@@ -45,9 +45,9 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailView {
         setContentView(R.layout.activity_team_detail)
 
         setupActionBar()
-        initPagerAdapter()
-
         getIntentExtra()
+
+        initPagerAdapter()
         favoriteState()
 
         initPresenter()
@@ -68,7 +68,7 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailView {
     }
 
     private fun initPagerAdapter() {
-        vp_team_detail.adapter = TeamDetailPagerAdapter(supportFragmentManager, ctx)
+        vp_team_detail.adapter = TeamDetailPagerAdapter(supportFragmentManager, ctx, id)
         tab_team.setupWithViewPager(vp_team_detail)
     }
 

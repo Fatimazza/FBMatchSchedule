@@ -5,20 +5,21 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import io.github.fatimazza.fbmatchschedule.R
-import io.github.fatimazza.fbmatchschedule.favoritematch.FavoriteMatchFragment
-import io.github.fatimazza.footballclub.favoritesfragment.FavoriteTeamFragment
+import io.github.fatimazza.fbmatchschedule.teamoverview.TeamOverviewFragment
 
-class TeamDetailPagerAdapter(fm: FragmentManager, context: Context)
+class TeamDetailPagerAdapter(fm: FragmentManager, context: Context, id: String)
     : FragmentPagerAdapter(fm) {
 
     private val numberOfTab: Int = 2
     private var ctx: Context = context
 
+    private var idTeam: String = id
+
     override fun getItem(position: Int): Fragment {
         return when(position) {
-            0 -> FavoriteMatchFragment()
+            0 -> TeamOverviewFragment().newInstance(idTeam)
             else -> {
-                return FavoriteTeamFragment()
+                return TeamOverviewFragment().newInstance(idTeam)
             }
         }
     }
