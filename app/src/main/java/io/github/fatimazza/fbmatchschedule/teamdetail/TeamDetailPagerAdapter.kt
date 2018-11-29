@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.teamoverview.TeamOverviewFragment
+import io.github.fatimazza.fbmatchschedule.teamplayers.TeamPlayersFragment
 
 class TeamDetailPagerAdapter(fm: FragmentManager, context: Context, id: String)
     : FragmentPagerAdapter(fm) {
@@ -19,7 +20,7 @@ class TeamDetailPagerAdapter(fm: FragmentManager, context: Context, id: String)
         return when(position) {
             0 -> TeamOverviewFragment().newInstance(idTeam)
             else -> {
-                return TeamOverviewFragment().newInstance(idTeam)
+                return TeamPlayersFragment().newInstance(idTeam)
             }
         }
     }

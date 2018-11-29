@@ -17,4 +17,8 @@
     <item name="viewpager_match" type="id" />
     <item name="tab_fav" type="id" />
     <item name="viewpager_fav" type="id" />
+    <item name="list_players" type="id" />
+    <item name="player_thumb" type="id" />
+    <item name="player_name" type="id" />
+    <item name="player_position" type="id" />
 </resources>
