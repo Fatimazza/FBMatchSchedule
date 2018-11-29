@@ -24,7 +24,7 @@ class TeamPlayersPresenter(private val view: TeamPlayersView,
                         TheSportDBApi.getPlayer(teamId)),
                         PlayerResponse::class.java)
             }
-            view.showPlayerList(data.await().players)
+            view.showPlayerList(data.await().player)
             view.hideLoading()
         }
 

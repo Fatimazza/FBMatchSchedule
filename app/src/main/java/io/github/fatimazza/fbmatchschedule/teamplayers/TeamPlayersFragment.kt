@@ -14,13 +14,12 @@ import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Players
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
-import io.github.fatimazza.fbmatchschedule.teams.TeamsAdapter
-import io.github.fatimazza.fbmatchschedule.teams.TeamsPresenter
 import io.github.fatimazza.fbmatchschedule.util.invisible
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.ctx
+import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
 class TeamPlayersFragment: Fragment(), TeamPlayersView {
@@ -80,6 +79,8 @@ class TeamPlayersFragment: Fragment(), TeamPlayersView {
         initArguments()
         initAdapter()
         initPresenter()
+        getListPlayers()
+        refreshSwipeRefresh()
     }
 
     private fun initArguments() {
@@ -97,8 +98,14 @@ class TeamPlayersFragment: Fragment(), TeamPlayersView {
         listPlayer.adapter = adapter
     }
 
-    private fun playerItemClicked(teamItem: Players) {
+    private fun getListPlayers() {
+        presenter.getPlayersList(idTeam)
+    }
 
+    private fun refreshSwipeRefresh() {
+        swipeRefresh.onRefresh {
+            getListPlayers()
+        }
     }
 
     override fun showLoading() {
@@ -110,7 +117,10 @@ class TeamPlayersFragment: Fragment(), TeamPlayersView {
     }
 
     override fun showPlayerList(data: List<Players>) {
-
+        swipeRefresh.isRefreshing = false
+        players.clear()
+        players.addAll(data)
+        adapter.notifyDataSetChanged()
     }
 
     fun newInstance(id: String): TeamPlayersFragment {
@@ -119,5 +129,9 @@ class TeamPlayersFragment: Fragment(), TeamPlayersView {
         args.putString("id", id)
         fragment.setArguments(args)
         return fragment
+    }
+
+    private fun playerItemClicked(teamItem: Players) {
+
     }
 }
