@@ -1,6 +1,5 @@
 package io.github.fatimazza.fbmatchschedule.teamplayers
 
-
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
@@ -11,10 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Players
-import io.github.fatimazza.fbmatchschedule.model.Team
-import io.github.fatimazza.fbmatchschedule.teamdetail.TeamDetailPresenter
+import io.github.fatimazza.fbmatchschedule.network.ApiRepository
+import io.github.fatimazza.fbmatchschedule.teams.TeamsAdapter
+import io.github.fatimazza.fbmatchschedule.teams.TeamsPresenter
 import io.github.fatimazza.fbmatchschedule.util.invisible
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
@@ -27,6 +28,10 @@ class TeamPlayersFragment: Fragment(), TeamPlayersView {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var progressBar: ProgressBar
     private  lateinit var listPlayer: RecyclerView
+
+    private var players: MutableList<Players> = mutableListOf()
+    private lateinit var presenter: TeamPlayersPresenter
+    private lateinit var adapter: TeamsPlayersAdapter
 
     private lateinit var idTeam: String
 
@@ -70,13 +75,30 @@ class TeamPlayersFragment: Fragment(), TeamPlayersView {
 
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         initArguments()
+        initAdapter()
+        initPresenter()
     }
 
     private fun initArguments() {
         idTeam= getArguments()?.getString(getString(R.string.intent_id)).toString();
+    }
+
+    private fun initPresenter() {
+        val request = ApiRepository()
+        val gson = Gson()
+        presenter = TeamPlayersPresenter(this, request, gson)
+    }
+
+    private fun initAdapter() {
+        adapter = TeamsPlayersAdapter(players) { teamItem: Players -> playerItemClicked(teamItem)}
+        listPlayer.adapter = adapter
+    }
+
+    private fun playerItemClicked(teamItem: Players) {
+
     }
 
     override fun showLoading() {
