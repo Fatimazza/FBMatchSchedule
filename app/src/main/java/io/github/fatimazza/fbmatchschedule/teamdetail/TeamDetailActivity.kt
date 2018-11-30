@@ -17,8 +17,6 @@ import io.github.fatimazza.fbmatchschedule.database.database
 import io.github.fatimazza.fbmatchschedule.model.Team
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.teamoverview.TeamOverviewView
-import io.github.fatimazza.fbmatchschedule.util.invisible
-import io.github.fatimazza.fbmatchschedule.util.visible
 import kotlinx.android.synthetic.main.activity_team_detail.*
 import org.jetbrains.anko.*
 import org.jetbrains.anko.db.classParser
@@ -26,7 +24,6 @@ import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.design.snackbar
-import org.jetbrains.anko.support.v4.onRefresh
 import java.sql.SQLClientInfoException
 
 class TeamDetailActivity : AppCompatActivity(), TeamOverviewView {
@@ -51,9 +48,6 @@ class TeamDetailActivity : AppCompatActivity(), TeamOverviewView {
 
         initPresenter()
         requestDataTeamDetail()
-        swipe_team_detail.onRefresh {
-            requestDataTeamDetail()
-        }
     }
 
     private fun getIntentExtra() {
@@ -82,16 +76,13 @@ class TeamDetailActivity : AppCompatActivity(), TeamOverviewView {
     }
 
     override fun showLoading() {
-        progress_team.visible()
     }
 
     override fun hideLoading() {
-        progress_team.invisible()
     }
 
     override fun showTeamDetail(data: List<Team>) {
         team = Team(data[0].teamId, data[0].teamName, data[0].teamBadge)
-        swipe_team_detail.isRefreshing = false
 
         Picasso.get().load(data[0].teamBadge).into(team_badge)
         team_name.text = data[0].teamName
@@ -107,10 +98,10 @@ class TeamDetailActivity : AppCompatActivity(), TeamOverviewView {
                         FavoriteTeam.TEAM_NAME to team.teamName,
                         FavoriteTeam.TEAM_BADGE to team.teamBadge)
             }
-            snackbar(swipe_team_detail, getString(R.string.favorite_added)).show()
+            snackbar(cl_team_detail, getString(R.string.favorite_added)).show()
         }
         catch (e: SQLClientInfoException) {
-            snackbar(swipe_team_detail, e.localizedMessage).show()
+            snackbar(cl_team_detail, e.localizedMessage).show()
         }
     }
 
@@ -121,9 +112,9 @@ class TeamDetailActivity : AppCompatActivity(), TeamOverviewView {
                         "(TEAM_ID = {id})",
                         "id" to id)
             }
-            snackbar(swipe_team_detail, getString(R.string.favorite_removed)).show()
+            snackbar(cl_team_detail, getString(R.string.favorite_removed)).show()
         } catch (e: SQLClientInfoException) {
-            snackbar(swipe_team_detail, e.localizedMessage).show()
+            snackbar(cl_team_detail, e.localizedMessage).show()
         }
     }
 
