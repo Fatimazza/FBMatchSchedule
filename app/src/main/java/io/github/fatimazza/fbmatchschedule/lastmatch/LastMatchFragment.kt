@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.main.MatchView
@@ -15,6 +17,8 @@ import io.github.fatimazza.fbmatchschedule.main.MainMatchAdapter
 import io.github.fatimazza.fbmatchschedule.matchdetail.MatchDetailActivity
 import io.github.fatimazza.fbmatchschedule.model.Event
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
+import io.github.fatimazza.fbmatchschedule.util.invisible
+import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.ctx
@@ -30,8 +34,8 @@ class LastMatchFragment: Fragment(), MatchView {
 
     private lateinit var presenter: LastMatchPresenter
 
+    private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
-
     private lateinit var listLastEvent: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
@@ -42,7 +46,9 @@ class LastMatchFragment: Fragment(), MatchView {
 
     class LastMatchFragmentUI: AnkoComponent<LastMatchFragment> {
         override fun createView(ui: AnkoContext<LastMatchFragment>): View = with(ui) {
-            frameLayout {
+            linearLayout {
+                lparams(width = matchParent, height = wrapContent)
+                orientation = LinearLayout.VERTICAL
 
                 owner.swipeRefresh = swipeRefreshLayout {
                     setColorSchemeResources(R.color.colorAccent,
@@ -50,10 +56,19 @@ class LastMatchFragment: Fragment(), MatchView {
                             android.R.color.holo_orange_light,
                             android.R.color.holo_red_light)
 
-                    owner.listLastEvent = recyclerView {
-                        id = R.id.last_match_list
+                    relativeLayout {
                         lparams(width = matchParent, height = wrapContent)
-                        layoutManager = LinearLayoutManager(ctx)
+
+                        owner.listLastEvent = recyclerView {
+                            id = R.id.last_match_list
+                            lparams(width = matchParent, height = wrapContent)
+                            layoutManager = LinearLayoutManager(ctx)
+                        }
+
+                        owner.progressBar = progressBar { }.lparams {
+                            centerHorizontally()
+                        }
+
                     }
 
                 }
@@ -102,6 +117,14 @@ class LastMatchFragment: Fragment(), MatchView {
        startActivity<MatchDetailActivity>(
                getString(R.string.intent_event) to eventItem
        )
+    }
+
+    override fun showLoading() {
+        progressBar.visible()
+    }
+
+    override fun hideLoading() {
+        progressBar.invisible()
     }
 
 }

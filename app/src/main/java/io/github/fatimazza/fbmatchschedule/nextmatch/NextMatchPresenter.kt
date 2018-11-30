@@ -15,7 +15,7 @@ class NextMatchPresenter(private val view: NextMatchFragment,
                          private val context: CoroutineContextProvider = CoroutineContextProvider()) {
 
     fun getEventList() {
-
+        view.showLoading()
         GlobalScope.launch(context.main) {
             val data = async(context.background) {
                 gson.fromJson(
@@ -24,6 +24,7 @@ class NextMatchPresenter(private val view: NextMatchFragment,
                 )
             }
             view.showEventList(data.await().events)
+            view.hideLoading()
         }
 
     }

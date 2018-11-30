@@ -15,7 +15,7 @@ class LastMatchPresenter(private val view: LastMatchFragment,
                          private val context: CoroutineContextProvider = CoroutineContextProvider()) {
 
     fun getEventList() {
-
+        view.showLoading()
         GlobalScope.launch(context.main) {
             val data = async(context.background) {
                 gson.fromJson(
@@ -23,7 +23,9 @@ class LastMatchPresenter(private val view: LastMatchFragment,
                         EventResponse::class.java
                 )
             }
+            
             view.showEventList(data.await().events)
+            view.hideLoading()
         }
 
     }
