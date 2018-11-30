@@ -14,6 +14,7 @@ import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Players
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
+import io.github.fatimazza.fbmatchschedule.teamplayersdetail.TeamPlayerDetailActivity
 import io.github.fatimazza.fbmatchschedule.util.invisible
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
@@ -131,7 +132,7 @@ class TeamPlayersFragment: Fragment(), TeamPlayersView {
         return fragment
     }
 
-    private fun playerItemClicked(teamItem: Players) {
-
+    private fun playerItemClicked(playerItem: Players) {
+        ctx.startActivity<TeamPlayerDetailActivity>(getString(R.string.intent_id) to playerItem.idPlayer)
     }
 }
