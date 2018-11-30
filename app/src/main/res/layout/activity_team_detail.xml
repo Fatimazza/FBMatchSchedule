@@ -90,8 +90,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                app:tabIndicatorColor="@color/colorAccent"
-                app:tabSelectedTextColor="@color/colorAccent"
+                app:tabIndicatorColor="@color/colorAccentSecondary"
+                app:tabSelectedTextColor="@color/colorAccentSecondary"
                 app:tabTextColor="@android:color/white" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
