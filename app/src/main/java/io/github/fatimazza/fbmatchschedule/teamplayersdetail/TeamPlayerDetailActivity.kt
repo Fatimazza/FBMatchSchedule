@@ -106,17 +106,14 @@ class TeamPlayerDetailActivity : AppCompatActivity(), TeamPlayerDetailView {
                                     owner.playerDescription = textView()
                                             .lparams { margin = dip(8) }
 
-                                }.lparams{
-                                    centerHorizontally()
                                 }
-
                                 owner.progressBar = progressBar()
                                         .lparams {
                                     centerHorizontally()
                                 }
-
                             }
                         }
+                        
                     }
 
                 }
