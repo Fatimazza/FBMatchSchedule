@@ -10,9 +10,6 @@ data class Players(
         @SerializedName("strPlayer")
         var playerName: String? = null,
 
-        @SerializedName("dateBorn")
-        var playerDOB: String? = null,
-
         @SerializedName("strDescriptionEN")
         var playerDesc: String? = null,
 

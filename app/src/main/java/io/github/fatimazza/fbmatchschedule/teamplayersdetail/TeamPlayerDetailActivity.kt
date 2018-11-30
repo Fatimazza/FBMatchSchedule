@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.google.gson.Gson
+import com.squareup.picasso.Picasso
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Players
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
@@ -34,6 +35,7 @@ class TeamPlayerDetailActivity : AppCompatActivity(), TeamPlayerDetailView {
     private lateinit var presenter: TeamPlayerDetailPresenter
 
     private lateinit var id:String
+    private lateinit var player: Players
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +45,7 @@ class TeamPlayerDetailActivity : AppCompatActivity(), TeamPlayerDetailView {
         getIntentExtra()
 
         initPresenter()
-
+        requestDataTeamPlayerDetail()
         refreshSwipeRefresh()
     }
 
@@ -144,8 +146,12 @@ class TeamPlayerDetailActivity : AppCompatActivity(), TeamPlayerDetailView {
 
     private fun refreshSwipeRefresh() {
         swipeRefresh.onRefresh {
-
+            requestDataTeamPlayerDetail()
         }
+    }
+
+    private fun requestDataTeamPlayerDetail() {
+        presenter.getPlayerDetail(id)
     }
 
     override fun showLoading() {
@@ -158,5 +164,24 @@ class TeamPlayerDetailActivity : AppCompatActivity(), TeamPlayerDetailView {
 
     override fun showPlayerDetail(data: List<Players>) {
         swipeRefresh.isRefreshing = false
+
+        player = Players(
+                data[0].idPlayer,
+                data[0].playerName,
+                data[0].playerDesc,
+                data[0].playerPosition,
+                data[0].playerFanart,
+                data[0].playerThumb,
+                data[0].playerHeight,
+                data[0].playerWeight)
+
+        Picasso.get().load(data[0].playerFanart).into(playerFanart)
+
+        playerWeight.text = data[0].playerWeight
+        playerHeight.text = data[0].playerHeight
+        playerPosition.text = data[0].playerPosition
+        playerDescription.text = data[0].playerDesc
+
+        supportActionBar?.title = data[0].playerName
     }
 }

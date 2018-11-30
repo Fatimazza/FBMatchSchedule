@@ -1,7 +1,7 @@
 package io.github.fatimazza.fbmatchschedule.teamplayersdetail
 
 import com.google.gson.Gson
-import io.github.fatimazza.fbmatchschedule.model.PlayerResponse
+import io.github.fatimazza.fbmatchschedule.model.PlayerDetailResponse
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import io.github.fatimazza.fbmatchschedule.util.CoroutineContextProvider
@@ -22,10 +22,10 @@ class TeamPlayerDetailPresenter(private val view: TeamPlayerDetailView,
             val data = async {
                 gson.fromJson(apiRepository
                         .doRequest(TheSportDBApi.getPlayerDetail(playerId)),
-                        PlayerResponse::class.java
+                        PlayerDetailResponse::class.java
                 )
             }
-            view.showPlayerDetail(data.await().player)
+            view.showPlayerDetail(data.await().players)
             view.hideLoading()
         }
 
