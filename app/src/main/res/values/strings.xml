@@ -41,4 +41,7 @@
     <string name="overview">Overview</string>
     <string name="players">Players</string>
 
+    <string name="player_weight">Weight (Kg)</string>
+    <string name="player_height">Height (m)</string>
+
 </resources>
