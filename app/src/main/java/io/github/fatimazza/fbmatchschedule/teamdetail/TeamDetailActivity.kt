@@ -1,9 +1,7 @@
 package io.github.fatimazza.fbmatchschedule.teamdetail
 
-
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.NavUtils
 import android.support.v4.content.ContextCompat
 import android.view.Menu
 import android.view.MenuItem
@@ -158,7 +156,7 @@ class TeamDetailActivity : AppCompatActivity(), TeamOverviewView {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                NavUtils.navigateUpFromSameTask(this)
+                finish()
                 true
             }
             add_to_favorite -> {
