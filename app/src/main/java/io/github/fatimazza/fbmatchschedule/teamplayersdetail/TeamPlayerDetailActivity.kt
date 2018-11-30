@@ -9,8 +9,10 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Players
+import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.util.invisible
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
@@ -29,11 +31,19 @@ class TeamPlayerDetailActivity : AppCompatActivity(), TeamPlayerDetailView {
     private lateinit var playerHeight: TextView
     private lateinit var playerPosition: TextView
 
+    private lateinit var presenter: TeamPlayerDetailPresenter
+
+    private lateinit var id:String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         TeamPlayerDetailUI().setContentView(this)
 
         setupActionBar()
+        getIntentExtra()
+
+        initPresenter()
+
         refreshSwipeRefresh()
     }
 
@@ -119,6 +129,17 @@ class TeamPlayerDetailActivity : AppCompatActivity(), TeamPlayerDetailView {
                 }
             }
         }
+    }
+
+    private fun getIntentExtra() {
+        val intent = intent
+        id = intent.getStringExtra(getString(R.string.intent_id))
+    }
+
+    private fun initPresenter() {
+        val request = ApiRepository()
+        val gson = Gson()
+        presenter = TeamPlayerDetailPresenter(this, request, gson)
     }
 
     private fun refreshSwipeRefresh() {
