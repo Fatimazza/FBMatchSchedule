@@ -11,7 +11,10 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Players
+import io.github.fatimazza.fbmatchschedule.util.invisible
+import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
+import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
 class TeamPlayerDetailActivity : AppCompatActivity(), TeamPlayerDetailView {
@@ -19,7 +22,6 @@ class TeamPlayerDetailActivity : AppCompatActivity(), TeamPlayerDetailView {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var progressBar: ProgressBar
 
-    private lateinit var playerName: TextView
     private lateinit var playerFanart: ImageView
     private lateinit var playerDescription: TextView
 
@@ -32,6 +34,7 @@ class TeamPlayerDetailActivity : AppCompatActivity(), TeamPlayerDetailView {
         TeamPlayerDetailUI().setContentView(this)
 
         setupActionBar()
+        refreshSwipeRefresh()
     }
 
     private fun setupActionBar() {
@@ -121,15 +124,21 @@ class TeamPlayerDetailActivity : AppCompatActivity(), TeamPlayerDetailView {
         }
     }
 
+    private fun refreshSwipeRefresh() {
+        swipeRefresh.onRefresh {
+
+        }
+    }
+
     override fun showLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        progressBar.visible()
     }
 
     override fun hideLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        progressBar.invisible()
     }
 
     override fun showPlayerDetail(data: List<Players>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        swipeRefresh.isRefreshing = false
     }
 }
