@@ -4,6 +4,10 @@ import io.github.fatimazza.fbmatchschedule.BuildConfig
 
 object TheSportDBApi {
 
+    fun getAllLeagues(): String{
+        return BuildConfig.BASE_URL + "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/all_leagues.php"
+    }
+
     fun getNextMatch(): String {
         return BuildConfig.BASE_URL + "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/eventsnextleague.php?id=" + "4328"
     }
