@@ -15,6 +15,7 @@ import io.github.fatimazza.fbmatchschedule.model.Leagues
 import io.github.fatimazza.fbmatchschedule.model.Team
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.teamdetail.TeamDetailActivity
+import io.github.fatimazza.fbmatchschedule.util.SpinnerAdapter
 import io.github.fatimazza.fbmatchschedule.util.invisible
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
@@ -30,7 +31,7 @@ class TeamsFragment : Fragment(), TeamsView {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var spinner: Spinner
 
-    private var leagues: MutableList<Team> = mutableListOf()
+    private var leagues: MutableList<Leagues> = mutableListOf()
     private var teams: MutableList<Team> = mutableListOf()
     private lateinit var presenter: TeamsPresenter
     private lateinit var adapter: TeamsAdapter
@@ -40,9 +41,10 @@ class TeamsFragment : Fragment(), TeamsView {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        initSpinner()
+//        initSpinner()
         initAdapter()
         initPresenter()
+        getDataListOnSpinner()
         getDataOnSpinnerClicked()
         refreshSwipeRefresh()
     }
@@ -90,9 +92,8 @@ class TeamsFragment : Fragment(), TeamsView {
         }
     }
 
-    private fun initSpinner() {
-        val spinnerItems = resources.getStringArray(R.array.league)
-        val spinnerAdapter = ArrayAdapter(ctx, android.R.layout.simple_spinner_dropdown_item, spinnerItems)
+    private fun initSpinner(leagues: List<Leagues>) {
+        val spinnerAdapter = SpinnerAdapter(ctx, android.R.layout.simple_spinner_dropdown_item, leagues)
         spinner.adapter = spinnerAdapter
     }
 
@@ -107,13 +108,22 @@ class TeamsFragment : Fragment(), TeamsView {
         presenter = TeamsPresenter(this, request, gson)
     }
 
+    private fun getDataListOnSpinner() {
+        presenter.getLeaguesList()
+    }
+
+    private fun getDataTeamList(position: Int) {
+        leagueName = leagues.get(position)
+                .strLeague?.replace(" ","%20").toString()
+        presenter.getTeamList(leagueName)
+    }
+
     private fun getDataOnSpinnerClicked() {
         spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
 
             override fun onItemSelected(
                     parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                leagueName = spinner.selectedItem.toString()
-                presenter.getTeamList(leagueName)
+                getDataTeamList(position)
             }
             override fun onNothingSelected(parent: AdapterView<*>) { }
 
@@ -122,7 +132,7 @@ class TeamsFragment : Fragment(), TeamsView {
 
     private fun refreshSwipeRefresh() {
         swipeRefresh.onRefresh {
-            presenter.getTeamList(leagueName)
+            getDataListOnSpinner()
         }
     }
 
@@ -135,7 +145,11 @@ class TeamsFragment : Fragment(), TeamsView {
     }
 
     override fun showLeagueList(data: List<Leagues>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        leagues.clear()
+        leagues.addAll(data)
+
+        initSpinner(data)
+        getDataTeamList(spinner.selectedItemPosition)
     }
 
     override fun showTeamList(data: List<Team>) {
