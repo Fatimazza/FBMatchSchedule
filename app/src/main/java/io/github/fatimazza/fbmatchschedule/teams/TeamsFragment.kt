@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
+import io.github.fatimazza.fbmatchschedule.model.Leagues
 import io.github.fatimazza.fbmatchschedule.model.Team
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.teamdetail.TeamDetailActivity
@@ -29,6 +30,7 @@ class TeamsFragment : Fragment(), TeamsView {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var spinner: Spinner
 
+    private var leagues: MutableList<Team> = mutableListOf()
     private var teams: MutableList<Team> = mutableListOf()
     private lateinit var presenter: TeamsPresenter
     private lateinit var adapter: TeamsAdapter
@@ -130,6 +132,10 @@ class TeamsFragment : Fragment(), TeamsView {
 
     override fun hideLoading() {
         progressBar.invisible()
+    }
+
+    override fun showLeagueList(data: List<Leagues>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showTeamList(data: List<Team>) {
