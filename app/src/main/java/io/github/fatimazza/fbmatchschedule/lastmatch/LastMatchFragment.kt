@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import android.widget.Spinner
 import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.main.MatchView
@@ -19,6 +20,7 @@ import io.github.fatimazza.fbmatchschedule.matchdetail.MatchDetailActivity
 import io.github.fatimazza.fbmatchschedule.model.Event
 import io.github.fatimazza.fbmatchschedule.model.Leagues
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
+import io.github.fatimazza.fbmatchschedule.util.SpinnerAdapter
 import io.github.fatimazza.fbmatchschedule.util.invisible
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
@@ -36,6 +38,7 @@ class LastMatchFragment: Fragment(), MatchView {
     private lateinit var adapter: MainMatchAdapter
     private lateinit var presenter: MatchPresenter
 
+    private lateinit var spinner: Spinner
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var listLastEvent: RecyclerView
@@ -51,6 +54,10 @@ class LastMatchFragment: Fragment(), MatchView {
             linearLayout {
                 lparams(width = matchParent, height = wrapContent)
                 orientation = LinearLayout.VERTICAL
+
+                owner.spinner = spinner {
+                    id = R.id.spinner
+                }
 
                 owner.swipeRefresh = swipeRefreshLayout {
                     setColorSchemeResources(R.color.colorAccent,
@@ -101,6 +108,11 @@ class LastMatchFragment: Fragment(), MatchView {
         val request = ApiRepository()
         val gson = Gson()
         presenter = MatchPresenter(this, request, gson)
+    }
+
+    private fun initSpinner(leagues: List<Leagues>) {
+        val spinnerAdapter = SpinnerAdapter(ctx, android.R.layout.simple_spinner_dropdown_item, leagues)
+        spinner.adapter = spinnerAdapter
     }
 
     private fun requestEventData() {
