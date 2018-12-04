@@ -17,6 +17,7 @@ import io.github.fatimazza.fbmatchschedule.main.MainMatchAdapter
 import io.github.fatimazza.fbmatchschedule.main.MatchPresenter
 import io.github.fatimazza.fbmatchschedule.matchdetail.MatchDetailActivity
 import io.github.fatimazza.fbmatchschedule.model.Event
+import io.github.fatimazza.fbmatchschedule.model.Leagues
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.util.invisible
 import io.github.fatimazza.fbmatchschedule.util.visible
@@ -29,10 +30,10 @@ import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
 class LastMatchFragment: Fragment(), MatchView {
 
+    private var leagues: MutableList<Leagues> = mutableListOf()
     private var events: MutableList<Event> = mutableListOf()
 
     private lateinit var adapter: MainMatchAdapter
-
     private lateinit var presenter: MatchPresenter
 
     private lateinit var progressBar: ProgressBar
@@ -104,6 +105,10 @@ class LastMatchFragment: Fragment(), MatchView {
 
     private fun requestEventData() {
         presenter.getLastEventList()
+    }
+
+    override fun showLeagueList(data: List<Leagues>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showEventList(data: List<Event>) {
