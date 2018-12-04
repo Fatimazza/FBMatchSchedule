@@ -1,6 +1,7 @@
 package io.github.fatimazza.fbmatchschedule.lastmatch
 
 import com.google.gson.Gson
+import io.github.fatimazza.fbmatchschedule.main.MatchPresenter
 import io.github.fatimazza.fbmatchschedule.model.Event
 import io.github.fatimazza.fbmatchschedule.model.EventResponse
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
@@ -31,12 +32,12 @@ class LastMatchPresenterTest {
     private
     lateinit var gson: Gson
 
-    private lateinit var presenter: LastMatchPresenter
+    private lateinit var presenter: MatchPresenter
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        presenter = LastMatchPresenter(view, apiRepository, gson, TestContextProvider())
+        presenter = MatchPresenter(view, apiRepository, gson, TestContextProvider())
     }
 
     @Test
@@ -52,7 +53,7 @@ class LastMatchPresenterTest {
             }
             `when`(data.await()).thenReturn(response)
 
-            presenter.getEventList()
+            presenter.getLastEventList()
 
             Mockito.verify(view).showEventList(events)
         }

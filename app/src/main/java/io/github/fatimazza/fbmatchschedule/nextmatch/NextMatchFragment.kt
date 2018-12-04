@@ -14,6 +14,7 @@ import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.main.MatchView
 import io.github.fatimazza.fbmatchschedule.main.MainMatchAdapter
+import io.github.fatimazza.fbmatchschedule.main.MatchPresenter
 import io.github.fatimazza.fbmatchschedule.matchdetail.MatchDetailActivity
 import io.github.fatimazza.fbmatchschedule.model.Event
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
@@ -32,7 +33,7 @@ class NextMatchFragment: Fragment(), MatchView {
 
     private lateinit var adapter: MainMatchAdapter
 
-    private lateinit var presenter: NextMatchPresenter
+    private lateinit var presenter: MatchPresenter
 
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
@@ -99,11 +100,11 @@ class NextMatchFragment: Fragment(), MatchView {
     private fun initPresenter() {
         val request = ApiRepository()
         val gson = Gson()
-        presenter = NextMatchPresenter(this, request, gson)
+        presenter = MatchPresenter(this, request, gson)
     }
 
     private fun requestEventData() {
-        presenter.getEventList()
+        presenter.getNextEventList()
     }
 
     override fun showEventList(data: List<Event>) {
