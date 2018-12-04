@@ -93,10 +93,7 @@ class LastMatchFragment: Fragment(), MatchView {
         swipeRefresh.isRefreshing = true
         requestEventData()
 
-        swipeRefresh.onRefresh {
-            events.clear()
-            requestEventData()
-        }
+        refreshSwipeRefresh()
     }
 
     private fun initAdapter() {
@@ -117,6 +114,13 @@ class LastMatchFragment: Fragment(), MatchView {
 
     private fun requestEventData() {
         presenter.getLastEventList()
+    }
+
+    private fun refreshSwipeRefresh() {
+        swipeRefresh.onRefresh {
+            events.clear()
+            requestEventData()
+        }
     }
 
     override fun showLeagueList(data: List<Leagues>) {
