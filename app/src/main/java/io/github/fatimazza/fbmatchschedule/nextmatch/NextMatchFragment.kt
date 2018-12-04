@@ -114,7 +114,7 @@ class NextMatchFragment: Fragment(), MatchView {
     }
 
     private fun requestEventData() {
-        presenter.getNextEventList()
+        presenter.getNextEventList("4328")
     }
 
     private fun refreshSwipeRefresh() {

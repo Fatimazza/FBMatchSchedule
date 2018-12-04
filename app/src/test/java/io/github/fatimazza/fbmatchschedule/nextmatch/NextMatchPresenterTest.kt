@@ -54,7 +54,7 @@ class NextMatchPresenterTest {
             `when`(data.await())
                     .thenReturn(response)
 
-            presenter.getNextEventList()
+            presenter.getNextEventList("4328")
 
             Mockito.verify(view).showEventList(events)
         }

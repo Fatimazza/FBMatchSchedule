@@ -53,7 +53,7 @@ class LastMatchPresenterTest {
             }
             `when`(data.await()).thenReturn(response)
 
-            presenter.getLastEventList()
+            presenter.getLastEventList("4328")
 
             Mockito.verify(view).showEventList(events)
         }

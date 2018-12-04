@@ -113,7 +113,7 @@ class LastMatchFragment: Fragment(), MatchView {
     }
 
     private fun requestEventData() {
-        presenter.getLastEventList()
+        presenter.getLastEventList("4328")
     }
 
     private fun refreshSwipeRefresh() {

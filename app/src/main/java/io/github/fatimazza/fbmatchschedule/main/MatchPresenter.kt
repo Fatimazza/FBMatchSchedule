@@ -31,12 +31,12 @@ class MatchPresenter(private val view: MatchView,
 
     }
 
-    fun getLastEventList() {
+    fun getLastEventList(league: String?) {
         view.showLoading()
         GlobalScope.launch(context.main) {
             val data = async(context.background) {
                 gson.fromJson(
-                        apiRepository.doRequest(TheSportDBApi.getLastMatch()),
+                        apiRepository.doRequest(TheSportDBApi.getLastMatch(league)),
                         EventResponse::class.java
                 )
             }
@@ -47,12 +47,12 @@ class MatchPresenter(private val view: MatchView,
 
     }
 
-    fun getNextEventList() {
+    fun getNextEventList(league: String?) {
         view.showLoading()
         GlobalScope.launch(context.main) {
             val data = async(context.background) {
                 gson.fromJson(
-                        apiRepository.doRequest(TheSportDBApi.getNextMatch()),
+                        apiRepository.doRequest(TheSportDBApi.getNextMatch(league)),
                         EventResponse::class.java
                 )
             }
