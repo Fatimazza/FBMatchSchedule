@@ -6,10 +6,8 @@ import android.support.design.widget.TabLayout
 import android.support.design.widget.TabLayout.MODE_FIXED
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.view.*
 import android.view.Gravity.FILL
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import io.github.fatimazza.fbmatchschedule.R
 import org.jetbrains.anko.*
@@ -21,6 +19,11 @@ class MatchesFragment : Fragment() {
 
     private lateinit var matchTabLayout: TabLayout
     private lateinit var matchViewPager: ViewPager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -58,5 +61,10 @@ class MatchesFragment : Fragment() {
     private fun initPagerAdapter() {
         matchViewPager.adapter = MatchesPagerAdapter(childFragmentManager, ctx)
         matchTabLayout.setupWithViewPager(matchViewPager)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.search_menu, menu)
+        super.onCreateOptionsMenu(menu, menuInflater)
     }
 }
