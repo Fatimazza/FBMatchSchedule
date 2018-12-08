@@ -13,14 +13,18 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.main.MainMatchAdapter
+import io.github.fatimazza.fbmatchschedule.main.MatchView
 import io.github.fatimazza.fbmatchschedule.matchdetail.MatchDetailActivity
 import io.github.fatimazza.fbmatchschedule.model.Event
+import io.github.fatimazza.fbmatchschedule.model.Leagues
+import io.github.fatimazza.fbmatchschedule.util.invisible
+import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
-class SearchMatchActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+class SearchMatchActivity : AppCompatActivity(), MatchView, SearchView.OnQueryTextListener {
 
     private var searchItem: MenuItem? = null
 
@@ -124,5 +128,19 @@ class SearchMatchActivity : AppCompatActivity(), SearchView.OnQueryTextListener 
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun showLoading() {
+        progressBar.visible()
+    }
+
+    override fun hideLoading() {
+        progressBar.invisible()
+    }
+
+    override fun showLeagueList(data: List<Leagues>) {
+    }
+
+    override fun showEventList(data: List<Event>) {
     }
 }
