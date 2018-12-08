@@ -37,8 +37,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".main.MainActivity" />
         </activity>
-        <activity android:name=".teamplayersdetail.TeamPlayerDetailActivity">
-            
+        <activity
+            android:name=".teamplayersdetail.TeamPlayerDetailActivity">
+        </activity>
+        <activity
+            android:name=".searchmatch.SearchMatchActivity">
         </activity>
     </application>
 

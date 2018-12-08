@@ -10,6 +10,7 @@ import android.support.v7.widget.SearchView
 import android.view.*
 import android.widget.LinearLayout
 import io.github.fatimazza.fbmatchschedule.R
+import io.github.fatimazza.fbmatchschedule.searchmatch.SearchMatchActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.tabLayout
 import org.jetbrains.anko.support.v4.ctx
@@ -84,8 +85,8 @@ class MatchesFragment : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.menu.match_menu -> {
-                
+            R.id.search_match -> {
+                ctx.startActivity<SearchMatchActivity>()
                 true
             }
             else -> super.onOptionsItemSelected(item)
