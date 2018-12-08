@@ -11,12 +11,15 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.main.MainMatchAdapter
+import io.github.fatimazza.fbmatchschedule.main.MatchPresenter
 import io.github.fatimazza.fbmatchschedule.main.MatchView
 import io.github.fatimazza.fbmatchschedule.matchdetail.MatchDetailActivity
 import io.github.fatimazza.fbmatchschedule.model.Event
 import io.github.fatimazza.fbmatchschedule.model.Leagues
+import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.util.invisible
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
@@ -31,6 +34,7 @@ class SearchMatchActivity : AppCompatActivity(), MatchView, SearchView.OnQueryTe
     private var events: MutableList<Event> = mutableListOf()
 
     private lateinit var adapter: MainMatchAdapter
+    private lateinit var presenter: MatchPresenter
 
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
@@ -42,6 +46,7 @@ class SearchMatchActivity : AppCompatActivity(), MatchView, SearchView.OnQueryTe
         setupActionBar()
 
         initAdapter()
+        initPresenter()
     }
 
     class SearchMatchUI: AnkoComponent<SearchMatchActivity> {
@@ -86,6 +91,12 @@ class SearchMatchActivity : AppCompatActivity(), MatchView, SearchView.OnQueryTe
     private fun initAdapter() {
         adapter = MainMatchAdapter(events) { eventItem: Event -> listEventItemClicked(eventItem) }
         listEvent.adapter = adapter
+    }
+
+    private fun initPresenter() {
+        val request = ApiRepository()
+        val gson = Gson()
+        presenter = MatchPresenter(this, request, gson)
     }
 
     private fun listEventItemClicked(eventItem: Event) {
