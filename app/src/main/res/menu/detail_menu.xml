@@ -8,7 +8,6 @@
         android:icon="@drawable/ic_add_to_favorite"
         android:title="@string/favorites"
         android:iconifiedByDefault="false"
-        app:showAsAction="ifRoom"
-        />
+        app:showAsAction="always" />
 
 </menu>

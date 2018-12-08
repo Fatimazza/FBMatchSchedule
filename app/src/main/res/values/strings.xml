@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Football Schedule by Fatimazza</string>
+    <string name="app_name">FB Match by Fatimazza</string>
 
     <string name="matches">Matches</string>
     <string name="tab_last_match">Last Match</string>
