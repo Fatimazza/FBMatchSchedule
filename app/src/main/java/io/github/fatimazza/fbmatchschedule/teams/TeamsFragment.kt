@@ -169,7 +169,7 @@ class TeamsFragment : Fragment(), TeamsView, SearchView.OnQueryTextListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.search_menu, menu)
+        menuInflater.inflate(R.menu.teams_menu, menu)
 
         val searchItem = menu.findItem(R.id.search)
         val searchView = searchItem.actionView as SearchView
