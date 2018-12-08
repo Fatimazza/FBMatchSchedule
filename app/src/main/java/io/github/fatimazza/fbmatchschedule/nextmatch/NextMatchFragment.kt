@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Spinner
@@ -42,6 +43,8 @@ class NextMatchFragment: Fragment(), MatchView {
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var listNextEvent: RecyclerView
+
+    private lateinit var idLeague: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
@@ -92,8 +95,9 @@ class NextMatchFragment: Fragment(), MatchView {
         initPresenter()
 
         swipeRefresh.isRefreshing = true
-        requestEventData()
 
+        getDataListOnSpinner()
+        getDataOnSpinnerClicked()
         refreshSwipeRefresh()
     }
 
@@ -113,19 +117,40 @@ class NextMatchFragment: Fragment(), MatchView {
         spinner.adapter = spinnerAdapter
     }
 
-    private fun requestEventData() {
-        presenter.getNextEventList("4328")
+    private fun getDataListOnSpinner() {
+        presenter.getLeaguesList()
+    }
+
+    private fun requestEventData(position: Int) {
+        idLeague = leagues.get(position).idLeague.toString()
+        presenter.getNextEventList(idLeague)
+    }
+
+    private fun getDataOnSpinnerClicked() {
+        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(
+                    parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                requestEventData(position)
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) { }
+
+        }
     }
 
     private fun refreshSwipeRefresh() {
         swipeRefresh.onRefresh {
             events.clear()
-            requestEventData()
+            getDataListOnSpinner()
         }
     }
 
     override fun showLeagueList(data: List<Leagues>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        leagues.clear()
+        leagues.addAll(data)
+
+        initSpinner(data)
+        requestEventData(spinner.selectedItemPosition)
     }
 
     override fun showEventList(data: List<Event>) {

@@ -1,7 +1,6 @@
 package io.github.fatimazza.fbmatchschedule.main
 
 import com.google.gson.Gson
-import io.github.fatimazza.fbmatchschedule.main.MatchView
 import io.github.fatimazza.fbmatchschedule.model.EventResponse
 import io.github.fatimazza.fbmatchschedule.model.LeaguesResponse
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
@@ -12,9 +11,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class MatchPresenter(private val view: MatchView,
-                         private val apiRepository: ApiRepository,
-                         private val gson: Gson,
-                         private val context: CoroutineContextProvider = CoroutineContextProvider()) {
+                     private val apiRepository: ApiRepository,
+                     private val gson: Gson,
+                     private val context: CoroutineContextProvider = CoroutineContextProvider()) {
 
     fun getLeaguesList() {
         view.showLoading()
@@ -31,12 +30,12 @@ class MatchPresenter(private val view: MatchView,
 
     }
 
-    fun getLastEventList(league: String?) {
+    fun getLastEventList(idLeague: String?) {
         view.showLoading()
         GlobalScope.launch(context.main) {
             val data = async(context.background) {
                 gson.fromJson(
-                        apiRepository.doRequest(TheSportDBApi.getLastMatch(league)),
+                        apiRepository.doRequest(TheSportDBApi.getLastMatch(idLeague)),
                         EventResponse::class.java
                 )
             }
@@ -47,12 +46,12 @@ class MatchPresenter(private val view: MatchView,
 
     }
 
-    fun getNextEventList(league: String?) {
+    fun getNextEventList(idLeague: String?) {
         view.showLoading()
         GlobalScope.launch(context.main) {
             val data = async(context.background) {
                 gson.fromJson(
-                        apiRepository.doRequest(TheSportDBApi.getNextMatch(league)),
+                        apiRepository.doRequest(TheSportDBApi.getNextMatch(idLeague)),
                         EventResponse::class.java
                 )
             }
