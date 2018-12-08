@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/search"
+        android:id="@+id/searchview"
         android:icon="@drawable/ic_search"
         android:title="@string/search"
         android:orderInCategory="1"

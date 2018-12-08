@@ -64,13 +64,13 @@ class MatchesFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.match_menu, menu)
+        menuInflater.inflate(R.menu.search_menu, menu)
         super.onCreateOptionsMenu(menu, menuInflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.search_match -> {
+            R.id.search -> {
                 ctx.startActivity<SearchMatchActivity>()
                 true
             }
