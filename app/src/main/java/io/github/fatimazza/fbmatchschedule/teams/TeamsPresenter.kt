@@ -45,5 +45,20 @@ class TeamsPresenter(private val view: TeamsView,
         }
 
     }
+
+    fun searchTeam(teamName: String?) {
+        view.showLoading()
+
+        GlobalScope.launch(context.main) {
+            val data = async(context.background) {
+                gson.fromJson(apiRepository.doRequest(
+                        TheSportDBApi.searchTeam(teamName)),
+                        TeamResponse::class.java)
+            }
+            view.showTeamList(data.await().teams)
+            view.hideLoading()
+        }
+
+    }
 }
 
