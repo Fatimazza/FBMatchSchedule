@@ -30,6 +30,21 @@ class MatchPresenter(private val view: MatchView,
 
     }
 
+    fun searchMatch(eventName: String?) {
+        view.showLoading()
+        GlobalScope.launch(context.main) {
+            val data = async(context.background) {
+                gson.fromJson(
+                        apiRepository.doRequest(TheSportDBApi.searchMatch(eventName)),
+                        EventResponse::class.java
+                )
+            }
+            view.showEventList(data.await().events)
+            view.hideLoading()
+        }
+
+    }
+
     fun getLastEventList(idLeague: String?) {
         view.showLoading()
         GlobalScope.launch(context.main) {
