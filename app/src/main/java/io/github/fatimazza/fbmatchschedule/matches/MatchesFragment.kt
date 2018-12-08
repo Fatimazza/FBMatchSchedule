@@ -81,4 +81,14 @@ class MatchesFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onQueryTextChange(newText: String?): Boolean {
         return false
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.menu.match_menu -> {
+                
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }
