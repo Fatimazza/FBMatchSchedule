@@ -80,7 +80,7 @@ class TeamPlayerDetailActivity : AppCompatActivity(), TeamPlayerDetailView {
 
                                     owner.playerFanart = imageView() {
                                         setBackgroundColor(resources.getColor(R.color.colorAccent))
-                                    }.lparams(width = matchParent, height = wrapContent)
+                                    }.lparams(width = matchParent, height = 450)
 
                                     owner.playerPosition = textView() {
                                         topPadding = dip(8)
@@ -176,7 +176,7 @@ class TeamPlayerDetailActivity : AppCompatActivity(), TeamPlayerDetailView {
                 data[0].playerHeight,
                 data[0].playerWeight)
 
-        Picasso.get().load(data[0].playerFanart).into(playerFanart)
+        Picasso.get().load(data[0].playerThumb).into(playerFanart)
 
         playerWeight.text = data[0].playerWeight
         playerHeight.text = data[0].playerHeight
