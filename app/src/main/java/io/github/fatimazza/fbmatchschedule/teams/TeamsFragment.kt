@@ -44,6 +44,7 @@ class TeamsFragment : Fragment(), TeamsView {
 //        initSpinner()
         initAdapter()
         initPresenter()
+
         getDataListOnSpinner()
         getDataOnSpinnerClicked()
         refreshSwipeRefresh()

@@ -93,8 +93,6 @@ class LastMatchFragment: Fragment(), MatchView {
         initAdapter()
         initPresenter()
 
-        swipeRefresh.isRefreshing = true
-
         getDataListOnSpinner()
         getDataOnSpinnerClicked()
         refreshSwipeRefresh()
