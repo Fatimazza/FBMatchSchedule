@@ -37,6 +37,8 @@ class TeamsFragment : Fragment(), TeamsView, SearchView.OnQueryTextListener {
 
     private lateinit var leagueName: String
 
+    private var searchItem: MenuItem? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -168,11 +170,17 @@ class TeamsFragment : Fragment(), TeamsView, SearchView.OnQueryTextListener {
         ctx.startActivity<TeamDetailActivity>(getString(R.string.intent_id) to teamItem.teamId)
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (null != searchItem)
+            searchItem?.collapseActionView()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.searchview_menu, menu)
 
-        val searchItem = menu.findItem(R.id.searchview)
-        val searchView = searchItem.actionView as SearchView
+        searchItem = menu.findItem(R.id.searchview)
+        val searchView = searchItem?.actionView as SearchView
         searchView.queryHint = getString(R.string.search)
         searchView.setOnQueryTextListener(this)
 
@@ -184,7 +192,8 @@ class TeamsFragment : Fragment(), TeamsView, SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextChange(query: String?): Boolean {
-        presenter.searchTeam(query)
+        if (!query.isNullOrBlank())
+            presenter.searchTeam(query)
         return false
     }
 }

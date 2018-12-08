@@ -14,6 +14,8 @@ import org.jetbrains.anko.setContentView
 
 class SearchMatchActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
+    private var searchItem: MenuItem? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         SearchMatchUI().setContentView(this)
@@ -34,12 +36,17 @@ class SearchMatchActivity : AppCompatActivity(), SearchView.OnQueryTextListener 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (null != searchItem)
+            searchItem?.collapseActionView()
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.searchview_menu, menu)
 
-        val searchItem = menu.findItem(R.id.searchview)
-        val searchView = searchItem.actionView as SearchView
+        searchItem = menu.findItem(R.id.searchview)
+        val searchView = searchItem?.actionView as SearchView
         searchView.queryHint = getString(R.string.search)
         searchView.setOnQueryTextListener(this)
 
@@ -50,7 +57,8 @@ class SearchMatchActivity : AppCompatActivity(), SearchView.OnQueryTextListener 
         return true
     }
 
-    override fun onQueryTextChange(newText: String?): Boolean {
+    override fun onQueryTextChange(query: String?): Boolean {
+        if (!query.isNullOrBlank()) {  }
         return false
     }
 
