@@ -2,19 +2,29 @@ package io.github.fatimazza.fbmatchschedule.searchmatch
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.Spinner
 import io.github.fatimazza.fbmatchschedule.R
-import org.jetbrains.anko.AnkoComponent
-import org.jetbrains.anko.AnkoContext
-import org.jetbrains.anko.linearLayout
-import org.jetbrains.anko.setContentView
+import org.jetbrains.anko.*
+import org.jetbrains.anko.recyclerview.v7.recyclerView
+import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
 class SearchMatchActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private var searchItem: MenuItem? = null
+
+    private lateinit var spinner: Spinner
+    private lateinit var progressBar: ProgressBar
+    private lateinit var swipeRefresh: SwipeRefreshLayout
+    private lateinit var listNextEvent: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +36,37 @@ class SearchMatchActivity : AppCompatActivity(), SearchView.OnQueryTextListener 
     class SearchMatchUI: AnkoComponent<SearchMatchActivity> {
         override fun createView(ui: AnkoContext<SearchMatchActivity>): View {
             return with(ui) {
-                linearLayout {  }
+                linearLayout {
+                    lparams(width = matchParent, height = wrapContent)
+                    orientation = LinearLayout.VERTICAL
+
+                    owner.spinner = spinner {
+                        id = R.id.spinner
+                    }
+
+                    owner.swipeRefresh = swipeRefreshLayout {
+                        setColorSchemeResources(R.color.colorAccent,
+                                android.R.color.holo_green_light,
+                                android.R.color.holo_orange_light,
+                                android.R.color.holo_red_light)
+
+                        relativeLayout {
+                            lparams(width = matchParent, height = wrapContent)
+
+                            owner.listNextEvent = recyclerView {
+                                id = R.id.next_match_list
+                                lparams(width = matchParent, height = wrapContent)
+                                layoutManager = LinearLayoutManager(ctx)
+                            }
+
+                            owner.progressBar = progressBar { }.lparams {
+                                centerHorizontally()
+                            }
+
+                        }
+
+                    }
+                }
             }
         }
     }
