@@ -11,25 +11,33 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import android.widget.Spinner
 import io.github.fatimazza.fbmatchschedule.R
+import io.github.fatimazza.fbmatchschedule.main.MainMatchAdapter
+import io.github.fatimazza.fbmatchschedule.matchdetail.MatchDetailActivity
+import io.github.fatimazza.fbmatchschedule.model.Event
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
+import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
 class SearchMatchActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private var searchItem: MenuItem? = null
 
+    private var events: MutableList<Event> = mutableListOf()
+
+    private lateinit var adapter: MainMatchAdapter
+
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
-    private lateinit var listNextEvent: RecyclerView
+    private lateinit var listEvent: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         SearchMatchUI().setContentView(this)
-
         setupActionBar()
+
+        initAdapter()
     }
 
     class SearchMatchUI: AnkoComponent<SearchMatchActivity> {
@@ -48,7 +56,7 @@ class SearchMatchActivity : AppCompatActivity(), SearchView.OnQueryTextListener 
                         relativeLayout {
                             lparams(width = matchParent, height = wrapContent)
 
-                            owner.listNextEvent = recyclerView {
+                            owner.listEvent = recyclerView {
                                 id = R.id.next_match_list
                                 lparams(width = matchParent, height = wrapContent)
                                 layoutManager = LinearLayoutManager(ctx)
@@ -69,6 +77,17 @@ class SearchMatchActivity : AppCompatActivity(), SearchView.OnQueryTextListener 
     private fun setupActionBar() {
         supportActionBar?.title = getString(R.string.search_match)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun initAdapter() {
+        adapter = MainMatchAdapter(events) { eventItem: Event -> listEventItemClicked(eventItem) }
+        listEvent.adapter = adapter
+    }
+
+    private fun listEventItemClicked(eventItem: Event) {
+        startActivity<MatchDetailActivity>(
+                getString(R.string.intent_event) to eventItem
+        )
     }
 
     override fun onResume() {
