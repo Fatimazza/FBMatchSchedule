@@ -27,6 +27,7 @@ class MyDatabaseOpenHelper(ctx: Context)
                 FavoriteMatch.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
                 FavoriteMatch.EVENT_ID to TEXT + UNIQUE,
                 FavoriteMatch.EVENT_DATE to TEXT,
+                FavoriteMatch.EVENT_TIME to TEXT,
 
                 FavoriteMatch.HOME_TEAM_ID to TEXT,
                 FavoriteMatch.AWAY_TEAM_ID to TEXT,

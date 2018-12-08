@@ -6,6 +6,7 @@
     <string name="tab_next_match">Next Match</string>
     <string name="intent_event">event</string>
     <string name="date_format">EEE, dd MMM yyyy</string>
+    <string name="time_format">HH:mm:ss</string>
 
     <string name="detail_goals">Goals</string>
     <string name="detail_shots">Shots</string>
@@ -17,6 +18,7 @@
     <string name="detail_subtitues">Subtitues</string>
 
     <string name="dummy_date">Sat, 22 Sep 2008</string>
+    <string name="dummy_time">23:30</string>
     <string name="dummy_home_team">Team A</string>
     <string name="dummy_away_team">Team B</string>
     <string name="dummy_score">1 vs 1</string>

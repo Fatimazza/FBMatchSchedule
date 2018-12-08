@@ -13,6 +13,7 @@ import io.github.fatimazza.fbmatchschedule.R.id.*
 import io.github.fatimazza.fbmatchschedule.model.Event
 import org.jetbrains.anko.*
 import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 
 class MainMatchAdapter(private val events: List<Event>,
                        private val listener: (Event) -> Unit)
@@ -46,6 +47,14 @@ class EventUI: AnkoComponent<ViewGroup> {
                     id = R.id.match_date
                     textSize = 14f
                     text = context.getString(R.string.dummy_date)
+                }.lparams{
+                    margin = dip(12)
+                }
+
+                textView {
+                    id = R.id.match_time
+                    textSize = 14f
+                    text = context.getString(R.string.dummy_time)
                 }.lparams{
                     margin = dip(12)
                 }
@@ -99,12 +108,14 @@ class EventUI: AnkoComponent<ViewGroup> {
 class EventViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     private val matchDate: TextView = view.find(match_date)
+    private val matchTime: TextView = view.find(match_time)
     private val homeTeam: TextView = view.find(home_team_name)
     private val matchScore: TextView = view.find(match_score)
     private val awayTeam: TextView = view.find(away_team_name)
 
     fun bindItem(events: Event, listener: (Event) -> Unit) {
         matchDate.text = SimpleDateFormat("EEE, dd MMM yyyy").format(events.dateEvent)
+        matchTime.text = SimpleDateFormat("hh:mm:ss").parse("12:30:00+00:00").toString()
         homeTeam.text = events.homeTeam
         matchScore.text = "${events.homeScore?: ""} vs ${events.awayScore?: ""}"
         awayTeam.text = events.awayTeam

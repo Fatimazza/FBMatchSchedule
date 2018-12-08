@@ -7,6 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class FavoriteMatch(val id: Long?,
                          val eventId: String?,
                          val eventDate: String?,
+                         val eventTime: String?,
 
                          val homeTeamId: String?,
                          val awayTeamId: String?,
@@ -42,6 +43,7 @@ data class FavoriteMatch(val id: Long?,
 
         const val EVENT_ID: String = "EVENT_ID"
         const val EVENT_DATE: String = "EVENT_DATE"
+        const val EVENT_TIME: String = "EVENT_TIME"
 
         const val HOME_TEAM_ID: String = "HOME_TEAM_ID"
         const val AWAY_TEAM_ID: String = "AWAY_TEAM_ID"

@@ -52,6 +52,14 @@ class FavoriteUI: AnkoComponent<ViewGroup> {
                     margin = dip(12)
                 }
 
+                textView {
+                    id = R.id.match_time
+                    textSize = 14f
+                    text = context.getString(R.string.dummy_time)
+                }.lparams{
+                    margin = dip(12)
+                }
+
                 linearLayout {
                     lparams(width = matchParent, height = wrapContent)
                     weightSum = 3f
@@ -101,12 +109,14 @@ class FavoriteUI: AnkoComponent<ViewGroup> {
 class FavoriteViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     private val matchDate: TextView = view.find(match_date)
+    private val matchTime: TextView = view.find(match_time)
     private val homeTeam: TextView = view.find(home_team_name)
     private val matchScore: TextView = view.find(match_score)
     private val awayTeam: TextView = view.find(away_team_name)
 
     fun bindItem(favorites: FavoriteMatch, listener: (FavoriteMatch) -> Unit) {
         matchDate.text = SimpleDateFormat("EEE, dd MMM yyyy").format(Date(favorites.eventDate))
+        matchTime.text = SimpleDateFormat("hh:mm:ss").parse("12:30:00+00:00").toString()
         homeTeam.text = favorites.homeTeam
         matchScore.text = "${favorites.homeScore?: ""} vs ${favorites.awayScore?: ""}"
         awayTeam.text = favorites.awayTeam

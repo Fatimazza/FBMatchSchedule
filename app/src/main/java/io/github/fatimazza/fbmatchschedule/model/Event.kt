@@ -14,6 +14,9 @@ data class Event(
         @SerializedName("dateEvent")
         var dateEvent: Date? = null,
 
+        @SerializedName("strTime")
+        var timeEvent: String? = null,
+
 
         @SerializedName("idHomeTeam")
         var idHomeTeam: Int? = null,

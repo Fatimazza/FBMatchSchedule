@@ -74,6 +74,8 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         id = events.idEvent.toString()
 
         tv_date.text = SimpleDateFormat(getString(R.string.date_format)).format(events.dateEvent)
+        tv_time.text = SimpleDateFormat(getString(R.string.time_format)).parse(events.timeEvent).toString()
+
         tv_home_team.text = events.homeTeam
         tv_away_team.text = events.awayTeam
 
@@ -107,6 +109,8 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
         tv_date.text = SimpleDateFormat(getString(R.string.date_format))
                 .format(Date(favorites.eventDate))
+        tv_time.text = SimpleDateFormat(getString(R.string.time_format))
+                .parse(events.timeEvent).toString()
 
         tv_home_team.text = favorites.homeTeam
         tv_away_team.text = favorites.awayTeam
@@ -169,6 +173,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
                 insert(FavoriteMatch.TABLE_FAVORITE,
                         FavoriteMatch.EVENT_ID to events.idEvent,
                         FavoriteMatch.EVENT_DATE to events.dateEvent.toString(),
+                        FavoriteMatch.EVENT_TIME to events.timeEvent,
 
                         FavoriteMatch.HOME_TEAM_ID to events.idHomeTeam,
                         FavoriteMatch.AWAY_TEAM_ID to events.idAwayTeam,
@@ -207,6 +212,7 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
                 insert(FavoriteMatch.TABLE_FAVORITE,
                         FavoriteMatch.EVENT_ID to favorites.eventId,
                         FavoriteMatch.EVENT_DATE to favorites.eventDate,
+                        FavoriteMatch.EVENT_TIME to favorites.eventTime,
 
                         FavoriteMatch.HOME_TEAM_ID to favorites.homeTeamId,
                         FavoriteMatch.AWAY_TEAM_ID to favorites.awayTeamId,
