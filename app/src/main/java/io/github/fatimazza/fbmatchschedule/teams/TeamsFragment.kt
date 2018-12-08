@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SearchView
 import android.view.*
 import android.widget.*
 import com.google.gson.Gson
@@ -22,7 +23,7 @@ import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
-class TeamsFragment : Fragment(), TeamsView {
+class TeamsFragment : Fragment(), TeamsView, SearchView.OnQueryTextListener {
 
     private lateinit var listTeam: RecyclerView
     private lateinit var progressBar: ProgressBar
@@ -169,6 +170,21 @@ class TeamsFragment : Fragment(), TeamsView {
 
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.search_menu, menu)
+
+        val searchItem = menu.findItem(R.id.search)
+        val searchView = searchItem.actionView as SearchView
+        searchView.queryHint = getString(R.string.search)
+        searchView.setOnQueryTextListener(this)
+
         super.onCreateOptionsMenu(menu, menuInflater)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(query: String?): Boolean {
+        presenter.searchTeam(query)
+        return false
     }
 }
