@@ -21,7 +21,6 @@ class SearchMatchActivity : AppCompatActivity(), SearchView.OnQueryTextListener 
 
     private var searchItem: MenuItem? = null
 
-    private lateinit var spinner: Spinner
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var listNextEvent: RecyclerView
@@ -39,10 +38,6 @@ class SearchMatchActivity : AppCompatActivity(), SearchView.OnQueryTextListener 
                 linearLayout {
                     lparams(width = matchParent, height = wrapContent)
                     orientation = LinearLayout.VERTICAL
-
-                    owner.spinner = spinner {
-                        id = R.id.spinner
-                    }
 
                     owner.swipeRefresh = swipeRefreshLayout {
                         setColorSchemeResources(R.color.colorAccent,
