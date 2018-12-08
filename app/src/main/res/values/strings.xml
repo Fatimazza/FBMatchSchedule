@@ -46,6 +46,8 @@
 
     <string name="player_weight">Weight (Kg)</string>
     <string name="player_height">Height (m)</string>
+
     <string name="search">Search</string>
+    <string name="search_match">Search Match</string>
 
 </resources>
