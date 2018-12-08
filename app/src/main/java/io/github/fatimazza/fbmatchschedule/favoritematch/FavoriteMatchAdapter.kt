@@ -116,7 +116,7 @@ class FavoriteViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     fun bindItem(favorites: FavoriteMatch, listener: (FavoriteMatch) -> Unit) {
         matchDate.text = SimpleDateFormat("EEE, dd MMM yyyy").format(Date(favorites.eventDate))
-        matchTime.text = SimpleDateFormat("hh:mm").format(
+        matchTime.text = SimpleDateFormat("HH:mm").format(
                 SimpleDateFormat("hh:mm:ssZ").parse(favorites.eventTime))
         homeTeam.text = favorites.homeTeam
         matchScore.text = "${favorites.homeScore?: ""} vs ${favorites.awayScore?: ""}"

@@ -115,7 +115,7 @@ class EventViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     fun bindItem(events: Event, listener: (Event) -> Unit) {
         matchDate.text = SimpleDateFormat("EEE, dd MMM yyyy").format(events.dateEvent)
-        matchTime.text = SimpleDateFormat("hh:mm").format(
+        matchTime.text = SimpleDateFormat("HH:mm").format(
                 SimpleDateFormat("hh:mm:ssZ").parse(events.timeEvent))
         homeTeam.text = events.homeTeam
         matchScore.text = "${events.homeScore?: ""} vs ${events.awayScore?: ""}"
