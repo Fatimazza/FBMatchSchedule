@@ -57,7 +57,7 @@ class FavoriteUI: AnkoComponent<ViewGroup> {
                     textSize = 14f
                     text = context.getString(R.string.dummy_time)
                 }.lparams{
-                    margin = dip(12)
+                    bottomMargin = dip(12)
                 }
 
                 linearLayout {
@@ -116,7 +116,8 @@ class FavoriteViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     fun bindItem(favorites: FavoriteMatch, listener: (FavoriteMatch) -> Unit) {
         matchDate.text = SimpleDateFormat("EEE, dd MMM yyyy").format(Date(favorites.eventDate))
-        matchTime.text = SimpleDateFormat("hh:mm:ss").parse("12:30:00+00:00").toString()
+        matchTime.text = SimpleDateFormat("hh:mm").format(
+                SimpleDateFormat("hh:mm:ssZ").parse(favorites.eventTime))
         homeTeam.text = favorites.homeTeam
         matchScore.text = "${favorites.homeScore?: ""} vs ${favorites.awayScore?: ""}"
         awayTeam.text = favorites.awayTeam

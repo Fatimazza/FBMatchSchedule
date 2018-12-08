@@ -56,7 +56,7 @@ class EventUI: AnkoComponent<ViewGroup> {
                     textSize = 14f
                     text = context.getString(R.string.dummy_time)
                 }.lparams{
-                    margin = dip(12)
+                    bottomMargin = dip(12)
                 }
 
                 linearLayout {
@@ -115,7 +115,8 @@ class EventViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     fun bindItem(events: Event, listener: (Event) -> Unit) {
         matchDate.text = SimpleDateFormat("EEE, dd MMM yyyy").format(events.dateEvent)
-        matchTime.text = SimpleDateFormat("hh:mm:ss").parse("12:30:00+00:00").toString()
+        matchTime.text = SimpleDateFormat("hh:mm").format(
+                SimpleDateFormat("hh:mm:ssZ").parse(events.timeEvent))
         homeTeam.text = events.homeTeam
         matchScore.text = "${events.homeScore?: ""} vs ${events.awayScore?: ""}"
         awayTeam.text = events.awayTeam

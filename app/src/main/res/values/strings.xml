@@ -6,7 +6,8 @@
     <string name="tab_next_match">Next Match</string>
     <string name="intent_event">event</string>
     <string name="date_format">EEE, dd MMM yyyy</string>
-    <string name="time_format">HH:mm:ss</string>
+    <string name="old_time_format">hh:mm:ssZ</string>
+    <string name="new_time_format">hh:mm</string>
 
     <string name="detail_goals">Goals</string>
     <string name="detail_shots">Shots</string>

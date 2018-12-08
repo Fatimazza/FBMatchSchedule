@@ -74,7 +74,9 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         id = events.idEvent.toString()
 
         tv_date.text = SimpleDateFormat(getString(R.string.date_format)).format(events.dateEvent)
-        tv_time.text = SimpleDateFormat(getString(R.string.time_format)).parse(events.timeEvent).toString()
+        tv_time.text = SimpleDateFormat(getString(R.string.new_time_format)).format(
+                SimpleDateFormat(getString(R.string.old_time_format))
+                        .parse(events.timeEvent))
 
         tv_home_team.text = events.homeTeam
         tv_away_team.text = events.awayTeam
@@ -109,8 +111,9 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
         tv_date.text = SimpleDateFormat(getString(R.string.date_format))
                 .format(Date(favorites.eventDate))
-        tv_time.text = SimpleDateFormat(getString(R.string.time_format))
-                .parse(events.timeEvent).toString()
+        tv_time.text = SimpleDateFormat(getString(R.string.new_time_format)).format(
+                SimpleDateFormat(getString(R.string.old_time_format))
+                        .parse(favorites.eventTime))
 
         tv_home_team.text = favorites.homeTeam
         tv_away_team.text = favorites.awayTeam
