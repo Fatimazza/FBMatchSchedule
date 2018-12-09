@@ -6,20 +6,19 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Players
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.util.invisible
+import io.github.fatimazza.fbmatchschedule.util.isOnline
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
+import java.lang.RuntimeException
 
 class TeamPlayerDetailActivity : AppCompatActivity(), TeamPlayerDetailView {
 
@@ -152,7 +151,7 @@ class TeamPlayerDetailActivity : AppCompatActivity(), TeamPlayerDetailView {
     }
 
     private fun requestDataTeamPlayerDetail() {
-        presenter.getPlayerDetail(id)
+        if (isOnline(this)) presenter.getPlayerDetail(id)
     }
 
     override fun showLoading() {
@@ -194,5 +193,9 @@ class TeamPlayerDetailActivity : AppCompatActivity(), TeamPlayerDetailView {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun showError(ex: RuntimeException) {
+        Toast.makeText(this, "Error Loading Data", Toast.LENGTH_LONG).show()
     }
 }

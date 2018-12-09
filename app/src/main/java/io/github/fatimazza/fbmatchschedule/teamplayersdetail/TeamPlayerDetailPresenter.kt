@@ -6,6 +6,7 @@ import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import io.github.fatimazza.fbmatchschedule.util.CoroutineContextProvider
 import kotlinx.coroutines.*
+import java.lang.RuntimeException
 import kotlin.coroutines.CoroutineContext
 
 class TeamPlayerDetailPresenter(private val view: TeamPlayerDetailView,
@@ -22,13 +23,17 @@ class TeamPlayerDetailPresenter(private val view: TeamPlayerDetailView,
 
         CoroutineScope(context.main).launch {
             view.showLoading()
-            val data = withContext(context.background) {
-                gson.fromJson(apiRepository
-                        .doRequest(TheSportDBApi.getPlayerDetail(playerId)),
-                        PlayerDetailResponse::class.java
-                )
+            try {
+                val data = withContext(context.background) {
+                    gson.fromJson(apiRepository
+                            .doRequest(TheSportDBApi.getPlayerDetail(playerId)),
+                            PlayerDetailResponse::class.java
+                    )
+                }
+                view.showPlayerDetail(data.players)
+            } catch (ex: RuntimeException) {
+                view.showError(ex)
             }
-            view.showPlayerDetail(data.players)
             view.hideLoading()
         }
 
