@@ -6,6 +6,7 @@ import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import io.github.fatimazza.fbmatchschedule.util.CoroutineContextProvider
 import kotlinx.coroutines.*
+import java.lang.RuntimeException
 import kotlin.coroutines.CoroutineContext
 
 class MatchDetailPresenter(private val view: MatchDetailView,
@@ -21,23 +22,35 @@ class MatchDetailPresenter(private val view: MatchDetailView,
     fun getTeamDetail(idHomeTeam: String, idAwayTeam: String) {
 
         CoroutineScope(context.main).launch {
-            val data = withContext(context.background) {
-                gson.fromJson(
-                        apiRepository.doRequest(TheSportDBApi.getTeamDetail(idHomeTeam)),
-                        TeamResponse::class.java
-                )
+
+            try {
+                val data = withContext(context.background) {
+                    gson.fromJson(
+                            apiRepository.doRequest(TheSportDBApi.getTeamDetail(idHomeTeam)),
+                            TeamResponse::class.java
+                    )
+                }
+                view.showHomeTeamDetail(data.teams[0])
+            } catch (ex: RuntimeException) {
+                view.showError(ex)
             }
-            view.showHomeTeamDetail(data.teams[0])
+
         }
 
         CoroutineScope(context.main).launch {
-            val data = withContext(context.background) {
-                gson.fromJson(
-                        apiRepository.doRequest(TheSportDBApi.getTeamDetail(idAwayTeam)),
-                        TeamResponse::class.java
-                )
+
+            try {
+                val data = withContext(context.background) {
+                    gson.fromJson(
+                            apiRepository.doRequest(TheSportDBApi.getTeamDetail(idAwayTeam)),
+                            TeamResponse::class.java
+                    )
+                }
+                view.showAwayTeamDetail(data.teams[0])
+            } catch (ex: RuntimeException) {
+                view.showError(ex)
             }
-            view.showAwayTeamDetail(data.teams[0])
+
         }
 
     }

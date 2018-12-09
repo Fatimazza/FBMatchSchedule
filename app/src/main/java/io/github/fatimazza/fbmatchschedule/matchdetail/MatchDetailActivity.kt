@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import io.github.fatimazza.fbmatchschedule.R
@@ -17,12 +18,15 @@ import io.github.fatimazza.fbmatchschedule.database.database
 import io.github.fatimazza.fbmatchschedule.model.Event
 import io.github.fatimazza.fbmatchschedule.model.Team
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
+import io.github.fatimazza.fbmatchschedule.util.isOnline
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.design.snackbar
+import org.jetbrains.anko.support.v4.ctx
+import java.lang.RuntimeException
 import java.sql.SQLClientInfoException
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -172,10 +176,12 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
     }
 
     private fun requestDataTeamDetail() {
-        if (isFavorite)
-            presenter.getTeamDetail(favorites.homeTeamId.toString(), favorites.awayTeamId.toString())
-        else
-            presenter.getTeamDetail(events.idHomeTeam.toString(), events.idAwayTeam.toString())
+        if (isFavorite) {
+            if (isOnline(this)) presenter.getTeamDetail(favorites.homeTeamId.toString(), favorites.awayTeamId.toString())
+        }
+        else {
+            if (isOnline(this)) presenter.getTeamDetail(events.idHomeTeam.toString(), events.idAwayTeam.toString())
+        }
     }
 
     override fun showHomeTeamDetail(team: Team) {
@@ -324,5 +330,9 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun showError(ex: RuntimeException) {
+        Toast.makeText(this, "Error Loading Data", Toast.LENGTH_LONG).show()
     }
 }
