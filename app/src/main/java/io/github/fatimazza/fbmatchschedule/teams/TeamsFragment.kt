@@ -47,7 +47,6 @@ class TeamsFragment : Fragment(), TeamsView, SearchView.OnQueryTextListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-//        initSpinner()
         initAdapter()
         initPresenter()
 

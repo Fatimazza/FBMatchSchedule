@@ -142,7 +142,7 @@ class SearchMatchActivity : AppCompatActivity(), MatchView, SearchView.OnQueryTe
     }
 
     override fun onQueryTextChange(query: String?): Boolean {
-        if (!query.isNullOrBlank()) {  }
+        presenter.searchMatch(query)
         return false
     }
 
