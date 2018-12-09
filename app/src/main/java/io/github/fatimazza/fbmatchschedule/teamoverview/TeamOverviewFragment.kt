@@ -1,6 +1,7 @@
 package io.github.fatimazza.fbmatchschedule.teamoverview
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
@@ -11,17 +12,20 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Team
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.teamdetail.TeamDetailPresenter
 import io.github.fatimazza.fbmatchschedule.util.invisible
+import io.github.fatimazza.fbmatchschedule.util.isOnline
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
+import java.lang.RuntimeException
 
 class TeamOverviewFragment: Fragment(), TeamOverviewView {
 
@@ -108,7 +112,7 @@ class TeamOverviewFragment: Fragment(), TeamOverviewView {
     }
 
     private fun getDataTeamDetail() {
-        presenter.getTeamDetail(idTeam)
+        if (isOnline(ctx)) presenter.getTeamDetail(idTeam)
     }
 
     override fun showLoading() {
@@ -133,5 +137,9 @@ class TeamOverviewFragment: Fragment(), TeamOverviewView {
         args.putString("id", id)
         fragment.setArguments(args)
         return fragment
+    }
+
+    override fun showError(ex: RuntimeException) {
+        Toast.makeText(context, "Error Loading Data", Toast.LENGTH_LONG).show()
     }
 }
