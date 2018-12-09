@@ -20,6 +20,7 @@ import io.github.fatimazza.fbmatchschedule.model.Leagues
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.util.SpinnerAdapter
 import io.github.fatimazza.fbmatchschedule.util.invisible
+import io.github.fatimazza.fbmatchschedule.util.isOnline
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
@@ -113,12 +114,12 @@ class LastMatchFragment: Fragment(), MatchView {
     }
 
     private fun getDataListOnSpinner() {
-        presenter.getLeaguesList()
+        if (isOnline(ctx)) presenter.getLeaguesList()
     }
 
     private fun requestEventData(position: Int) {
         idLeague = leagues.get(position).idLeague.toString()
-        presenter.getLastEventList(idLeague)
+        if (isOnline(ctx)) presenter.getLastEventList(idLeague)
     }
 
     private fun getDataOnSpinnerClicked() {
