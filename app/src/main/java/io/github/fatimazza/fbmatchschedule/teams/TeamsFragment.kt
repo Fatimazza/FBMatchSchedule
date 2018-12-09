@@ -22,6 +22,7 @@ import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
+import java.lang.RuntimeException
 
 class TeamsFragment : Fragment(), TeamsView, SearchView.OnQueryTextListener {
 
@@ -194,5 +195,9 @@ class TeamsFragment : Fragment(), TeamsView, SearchView.OnQueryTextListener {
         if (!query.isNullOrBlank())
             presenter.searchTeam(query)
         return false
+    }
+
+    override fun showError(ex: RuntimeException) {
+        Toast.makeText(ctx, "Error Loading Data", Toast.LENGTH_LONG).show()
     }
 }

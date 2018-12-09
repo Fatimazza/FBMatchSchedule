@@ -7,6 +7,7 @@ import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import io.github.fatimazza.fbmatchschedule.util.CoroutineContextProvider
 import kotlinx.coroutines.*
+import java.lang.RuntimeException
 
 import kotlin.coroutines.CoroutineContext
 
@@ -23,12 +24,18 @@ class TeamsPresenter(private val view: TeamsView,
     fun getLeaguesList() {
         CoroutineScope(context.main).launch {
             view.showLoading()
-            val data = withContext(context.background) {
-                gson.fromJson(apiRepository.doRequest(
-                        TheSportDBApi.getAllLeagues()),
-                        LeaguesResponse::class.java)
+
+            try {
+                val data = withContext(context.background) {
+                    gson.fromJson(apiRepository.doRequest(
+                            TheSportDBApi.getAllLeagues()),
+                            LeaguesResponse::class.java)
+                }
+                view.showLeagueList(data.leagues)
+            } catch (ex: RuntimeException) {
+                view.showError(ex)
             }
-            view.showLeagueList(data.leagues)
+
             view.hideLoading()
         }
     }
@@ -36,12 +43,18 @@ class TeamsPresenter(private val view: TeamsView,
     fun getTeamList(league: String?) {
         CoroutineScope(context.main).launch {
             view.showLoading()
-            val data = withContext(context.background) {
-                gson.fromJson(apiRepository.doRequest(
-                        TheSportDBApi.getTeams(league)),
-                        TeamResponse::class.java)
+
+            try {
+                val data = withContext(context.background) {
+                    gson.fromJson(apiRepository.doRequest(
+                            TheSportDBApi.getTeams(league)),
+                            TeamResponse::class.java)
+                }
+                view.showTeamList(data.teams)
+            } catch (ex: RuntimeException) {
+                view.showError(ex)
             }
-            view.showTeamList(data.teams)
+
             view.hideLoading()
         }
     }
@@ -49,12 +62,18 @@ class TeamsPresenter(private val view: TeamsView,
     fun searchTeam(teamName: String?) {
         CoroutineScope(context.main).launch {
             view.showLoading()
-            val data = withContext(context.background) {
-                gson.fromJson(apiRepository.doRequest(
-                        TheSportDBApi.searchTeam(teamName)),
-                        TeamResponse::class.java)
+
+            try {
+                val data = withContext(context.background) {
+                    gson.fromJson(apiRepository.doRequest(
+                            TheSportDBApi.searchTeam(teamName)),
+                            TeamResponse::class.java)
+                }
+                view.showTeamList(data.teams)
+            } catch (ex: RuntimeException) {
+                view.showError(ex)
             }
-            view.showTeamList(data.teams)
+
             view.hideLoading()
         }
     }
