@@ -5,36 +5,39 @@ import io.github.fatimazza.fbmatchschedule.model.TeamResponse
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import io.github.fatimazza.fbmatchschedule.util.CoroutineContextProvider
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 class MatchDetailPresenter(private val view: MatchDetailView,
                            private val apiRepository: ApiRepository,
                            private val gson: Gson,
-                           private val context: CoroutineContextProvider = CoroutineContextProvider()) {
+                           private val context: CoroutineContextProvider = CoroutineContextProvider())
+    : CoroutineScope {
+
+    private val job = SupervisorJob()
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
     fun getTeamDetail(idHomeTeam: String, idAwayTeam: String) {
 
-        GlobalScope.launch(context.main) {
-            val data = async(context.background) {
-                 gson.fromJson(
+        CoroutineScope(context.main).launch {
+            val data = withContext(context.background) {
+                gson.fromJson(
                         apiRepository.doRequest(TheSportDBApi.getTeamDetail(idHomeTeam)),
                         TeamResponse::class.java
                 )
             }
-            view.showHomeTeamDetail(data.await().teams[0])
+            view.showHomeTeamDetail(data.teams[0])
         }
 
-
-        GlobalScope.launch(context.main) {
-            val data = async(context.background) {
+        CoroutineScope(context.main).launch {
+            val data = withContext(context.background) {
                 gson.fromJson(
                         apiRepository.doRequest(TheSportDBApi.getTeamDetail(idAwayTeam)),
                         TeamResponse::class.java
                 )
             }
-            view.showAwayTeamDetail(data.await().teams[0])
+            view.showAwayTeamDetail(data.teams[0])
         }
 
     }
