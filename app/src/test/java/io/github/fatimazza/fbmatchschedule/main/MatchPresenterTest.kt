@@ -5,9 +5,7 @@ import io.github.fatimazza.fbmatchschedule.model.*
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import io.github.fatimazza.fbmatchschedule.util.TestContextProvider
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.junit.Test
 
 import org.junit.Before
@@ -30,12 +28,17 @@ class MatchPresenterTest {
     private
     lateinit var gson: Gson
 
+    @Mock
+    private
+    lateinit var context: TestContextProvider
+
     private lateinit var presenter: MatchPresenter
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        presenter = MatchPresenter(view, apiRepository, gson, TestContextProvider())
+        context = TestContextProvider()
+        presenter = MatchPresenter(view, apiRepository, gson, context)
     }
 
     @Test
@@ -43,13 +46,13 @@ class MatchPresenterTest {
         val leagues: MutableList<Leagues> = mutableListOf()
         val response = LeaguesResponse(leagues)
 
-        GlobalScope.launch {
-            val data = async {
+        CoroutineScope(context.main).launch {
+            val data = withContext(context.background) {
                 gson.fromJson(
                         apiRepository.doRequest(
                                 TheSportDBApi.getAllLeagues()), LeaguesResponse::class.java)
             }
-            `when`(data.await()).thenReturn(response)
+            `when`(data).thenReturn(response)
 
             presenter.getLeaguesList()
 
@@ -57,6 +60,7 @@ class MatchPresenterTest {
             Mockito.verify(view).showLeagueList(leagues)
             Mockito.verify(view).hideLoading()
         }
+
     }
 
     @Test
@@ -66,14 +70,14 @@ class MatchPresenterTest {
 
         val eventName = "Arsenal"
 
-        GlobalScope.launch {
-            val data = async {
+        CoroutineScope(context.main).launch {
+            val data = withContext(context.background) {
                 gson.fromJson(
                         apiRepository.doRequest(TheSportDBApi.searchMatch(eventName)),
                         EventSearchResponse::class.java
                 )
             }
-            `when`(data.await()).thenReturn(response)
+            `when`(data).thenReturn(response)
 
             presenter.searchMatch(eventName)
 
@@ -90,13 +94,13 @@ class MatchPresenterTest {
 
         val idLeague = "4328"
 
-        GlobalScope.launch {
-            val data =  async {
+        CoroutineScope(context.main).launch {
+            val data = withContext(context.background) {
                 gson.fromJson(
                         apiRepository.doRequest(
                                 TheSportDBApi.getLastMatch(idLeague)), EventResponse::class.java)
             }
-            `when`(data.await()).thenReturn(response)
+            `when`(data).thenReturn(response)
 
             presenter.getLastEventList(idLeague)
 
@@ -113,13 +117,13 @@ class MatchPresenterTest {
 
         val idLeague = "4328"
 
-        GlobalScope.launch {
-            val data = async {
+        CoroutineScope(context.main).launch {
+            val data = withContext(context.background) {
                 gson.fromJson(
                         apiRepository.doRequest(
                                 TheSportDBApi.getNextMatch(idLeague)), EventResponse::class.java)
             }
-            `when`(data.await())
+            `when`(data)
                     .thenReturn(response)
 
             presenter.getNextEventList(idLeague)
@@ -128,5 +132,6 @@ class MatchPresenterTest {
             Mockito.verify(view).showEventList(events)
             Mockito.verify(view).hideLoading()
         }
+
     }
 }
