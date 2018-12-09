@@ -7,74 +7,71 @@ import io.github.fatimazza.fbmatchschedule.model.EventSearchResponse
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import io.github.fatimazza.fbmatchschedule.util.CoroutineContextProvider
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 class MatchPresenter(private val view: MatchView,
                      private val apiRepository: ApiRepository,
                      private val gson: Gson,
-                     private val context: CoroutineContextProvider = CoroutineContextProvider()) {
+                     private val context: CoroutineContextProvider = CoroutineContextProvider())
+    : CoroutineScope {
+
+    private val job = SupervisorJob()
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
     fun getLeaguesList() {
-        view.showLoading()
-
-        GlobalScope.launch(context.main) {
-            val data = async(context.background) {
+        CoroutineScope(context.main).launch {
+            view.showLoading()
+            val data = withContext(context.background) {
                 gson.fromJson(apiRepository.doRequest(
                         TheSportDBApi.getAllLeagues()),
                         LeaguesResponse::class.java)
             }
-            view.showLeagueList(data.await().leagues)
+            view.showLeagueList(data.leagues)
             view.hideLoading()
         }
-
     }
 
     fun searchMatch(eventName: String?) {
-        view.showLoading()
-        GlobalScope.launch(context.main) {
-            val data = async(context.background) {
-                gson.fromJson(
-                        apiRepository.doRequest(TheSportDBApi.searchMatch(eventName)),
+        CoroutineScope(context.main).launch {
+            view.showLoading()
+            val data = withContext(context.background) {
+                gson.fromJson(apiRepository.doRequest(
+                        TheSportDBApi.searchMatch(eventName)),
                         EventSearchResponse::class.java
                 )
             }
-            view.showEventList(data.await().event)
+            view.showEventList(data.event)
             view.hideLoading()
         }
-
     }
 
     fun getLastEventList(idLeague: String?) {
-        view.showLoading()
-        GlobalScope.launch(context.main) {
-            val data = async(context.background) {
+        CoroutineScope(context.main).launch {
+            view.showLoading()
+            val data = withContext(context.background) {
                 gson.fromJson(
                         apiRepository.doRequest(TheSportDBApi.getLastMatch(idLeague)),
                         EventResponse::class.java
                 )
             }
-
-            view.showEventList(data.await().events)
+            view.showEventList(data.events)
             view.hideLoading()
         }
-
     }
 
     fun getNextEventList(idLeague: String?) {
-        view.showLoading()
-        GlobalScope.launch(context.main) {
-            val data = async(context.background) {
+        CoroutineScope(context.main).launch {
+            view.showLoading()
+            val data = withContext(context.background) {
                 gson.fromJson(
                         apiRepository.doRequest(TheSportDBApi.getNextMatch(idLeague)),
                         EventResponse::class.java
                 )
             }
-            view.showEventList(data.await().events)
+            view.showEventList(data.events)
             view.hideLoading()
         }
-
     }
-
 }
