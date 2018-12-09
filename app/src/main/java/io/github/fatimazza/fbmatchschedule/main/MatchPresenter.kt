@@ -3,6 +3,7 @@ package io.github.fatimazza.fbmatchschedule.main
 import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.model.EventResponse
 import io.github.fatimazza.fbmatchschedule.model.LeaguesResponse
+import io.github.fatimazza.fbmatchschedule.model.EventSearchResponse
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import io.github.fatimazza.fbmatchschedule.util.CoroutineContextProvider
@@ -36,10 +37,10 @@ class MatchPresenter(private val view: MatchView,
             val data = async(context.background) {
                 gson.fromJson(
                         apiRepository.doRequest(TheSportDBApi.searchMatch(eventName)),
-                        EventResponse::class.java
+                        EventSearchResponse::class.java
                 )
             }
-            view.showEventList(data.await().events)
+            view.showEventList(data.await().event)
             view.hideLoading()
         }
 

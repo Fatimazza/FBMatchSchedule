@@ -24,6 +24,7 @@ import io.github.fatimazza.fbmatchschedule.util.invisible
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
+import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
@@ -47,6 +48,9 @@ class SearchMatchActivity : AppCompatActivity(), MatchView, SearchView.OnQueryTe
 
         initAdapter()
         initPresenter()
+
+        getDataSearchMatch("")
+        refreshSwipeRefresh()
     }
 
     class SearchMatchUI: AnkoComponent<SearchMatchActivity> {
@@ -97,6 +101,17 @@ class SearchMatchActivity : AppCompatActivity(), MatchView, SearchView.OnQueryTe
         val request = ApiRepository()
         val gson = Gson()
         presenter = MatchPresenter(this, request, gson)
+    }
+
+    private fun getDataSearchMatch(query: String?) {
+        presenter.searchMatch(query)
+    }
+
+    private fun refreshSwipeRefresh() {
+        swipeRefresh.onRefresh {
+            events.clear()
+            getDataSearchMatch("")
+        }
     }
 
     private fun listEventItemClicked(eventItem: Event) {
@@ -153,5 +168,10 @@ class SearchMatchActivity : AppCompatActivity(), MatchView, SearchView.OnQueryTe
     }
 
     override fun showEventList(data: List<Event>) {
+        swipeRefresh.isRefreshing = false
+
+        events.clear()
+        events.addAll(data)
+        adapter.notifyDataSetChanged()
     }
 }

@@ -12,6 +12,7 @@ import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.R.id.*
 import io.github.fatimazza.fbmatchschedule.model.Event
 import org.jetbrains.anko.*
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 
@@ -114,12 +115,30 @@ class EventViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val awayTeam: TextView = view.find(away_team_name)
 
     fun bindItem(events: Event, listener: (Event) -> Unit) {
-        matchDate.text = SimpleDateFormat("EEE, dd MMM yyyy").format(events.dateEvent)
-        matchTime.text = SimpleDateFormat("HH:mm").format(
-                SimpleDateFormat("hh:mm:ssZ").parse(events.timeEvent))
-        homeTeam.text = events.homeTeam
+
+        if (events.dateEvent != null)
+            matchDate.text = SimpleDateFormat("EEE, dd MMM yyyy")
+                    .format(events.dateEvent)
+
+        if (events.timeEvent != null) {
+            try {
+                matchTime.text = SimpleDateFormat("HH:mm").format(
+                        SimpleDateFormat("hh:mm:ssZ").parse(events.timeEvent))
+            } catch (ex: ParseException) {
+                ex.printStackTrace();
+                matchTime.text = SimpleDateFormat("HH:mm").format(
+                        SimpleDateFormat("hh:mm:ss").parse(events.timeEvent))
+            }
+        }
+
+        if (events.homeTeam != null)
+            homeTeam.text = events.homeTeam
+
         matchScore.text = "${events.homeScore?: ""} vs ${events.awayScore?: ""}"
-        awayTeam.text = events.awayTeam
+
+        if (events.awayTeam != null)
+            awayTeam.text = events.awayTeam
+
         itemView.setOnClickListener { listener(events) }
     }
 

@@ -24,6 +24,7 @@ import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.design.snackbar
 import java.sql.SQLClientInfoException
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -74,9 +75,19 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
         id = events.idEvent.toString()
 
         tv_date.text = SimpleDateFormat(getString(R.string.date_format)).format(events.dateEvent)
-        tv_time.text = SimpleDateFormat(getString(R.string.new_time_format)).format(
-                SimpleDateFormat(getString(R.string.old_time_format))
-                        .parse(events.timeEvent))
+
+        if (events.timeEvent != null) {
+            try {
+                tv_time.text = SimpleDateFormat("HH:mm").format(
+                        SimpleDateFormat("hh:mm:ssZ").parse(events.timeEvent))
+            } catch (ex: ParseException) {
+                ex.printStackTrace();
+                tv_time.text = SimpleDateFormat("HH:mm").format(
+                        SimpleDateFormat("hh:mm:ss").parse(events.timeEvent))
+            }
+        } else {
+            tv_time.text = ""
+        }
 
         tv_home_team.text = events.homeTeam
         tv_away_team.text = events.awayTeam
@@ -111,9 +122,20 @@ class MatchDetailActivity : AppCompatActivity(), MatchDetailView {
 
         tv_date.text = SimpleDateFormat(getString(R.string.date_format))
                 .format(Date(favorites.eventDate))
-        tv_time.text = SimpleDateFormat(getString(R.string.new_time_format)).format(
-                SimpleDateFormat(getString(R.string.old_time_format))
-                        .parse(favorites.eventTime))
+
+        if (favorites.eventTime != null) {
+            try {
+                tv_time.text = SimpleDateFormat("HH:mm").format(
+                        SimpleDateFormat("hh:mm:ssZ").parse(favorites.eventTime))
+            } catch (ex: ParseException) {
+                ex.printStackTrace();
+                tv_time.text = SimpleDateFormat("HH:mm").format(
+                        SimpleDateFormat("hh:mm:ss").parse(favorites.eventTime))
+            }
+        } else {
+            tv_time.text=""
+        }
+
 
         tv_home_team.text = favorites.homeTeam
         tv_away_team.text = favorites.awayTeam
