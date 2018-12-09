@@ -16,6 +16,7 @@ import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.teamdetail.TeamDetailActivity
 import io.github.fatimazza.fbmatchschedule.util.SpinnerAdapter
 import io.github.fatimazza.fbmatchschedule.util.invisible
+import io.github.fatimazza.fbmatchschedule.util.isOnline
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
@@ -116,13 +117,13 @@ class TeamsFragment : Fragment(), TeamsView, SearchView.OnQueryTextListener {
     }
 
     private fun getDataListOnSpinner() {
-        presenter.getLeaguesList()
+        if (isOnline(ctx)) presenter.getLeaguesList()
     }
 
     private fun getDataTeamList(position: Int) {
         leagueName = leagues.get(position)
                 .strLeague?.replace(" ","%20").toString()
-        presenter.getTeamList(leagueName)
+        if (isOnline(ctx)) presenter.getTeamList(leagueName)
     }
 
     private fun getDataOnSpinnerClicked() {
@@ -193,7 +194,7 @@ class TeamsFragment : Fragment(), TeamsView, SearchView.OnQueryTextListener {
 
     override fun onQueryTextChange(query: String?): Boolean {
         if (!query.isNullOrBlank())
-            presenter.searchTeam(query)
+            if (isOnline(ctx)) presenter.searchTeam(query)
         return false
     }
 
