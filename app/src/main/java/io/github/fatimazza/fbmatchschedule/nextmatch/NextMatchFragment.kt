@@ -8,10 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.Spinner
+import android.widget.*
 import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.main.MatchView
@@ -30,6 +27,7 @@ import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
+import java.lang.RuntimeException
 
 class NextMatchFragment: Fragment(), MatchView {
 
@@ -171,6 +169,10 @@ class NextMatchFragment: Fragment(), MatchView {
 
     override fun hideLoading() {
         progressBar.invisible()
+    }
+
+    override fun showError(ex: RuntimeException) {
+        Toast.makeText(ctx, "Error Loading Data", Toast.LENGTH_LONG).show()
     }
 
 }

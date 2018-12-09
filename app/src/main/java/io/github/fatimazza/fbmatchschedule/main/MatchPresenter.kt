@@ -8,6 +8,7 @@ import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.network.TheSportDBApi
 import io.github.fatimazza.fbmatchschedule.util.CoroutineContextProvider
 import kotlinx.coroutines.*
+import java.lang.RuntimeException
 import kotlin.coroutines.CoroutineContext
 
 class MatchPresenter(private val view: MatchView,
@@ -23,12 +24,16 @@ class MatchPresenter(private val view: MatchView,
     fun getLeaguesList() {
         CoroutineScope(context.main).launch {
             view.showLoading()
-            val data = withContext(context.background) {
-                gson.fromJson(apiRepository.doRequest(
-                        TheSportDBApi.getAllLeagues()),
-                        LeaguesResponse::class.java)
+            try {
+                val data = withContext(context.background) {
+                    gson.fromJson(apiRepository.doRequest(
+                            TheSportDBApi.getAllLeagues()),
+                            LeaguesResponse::class.java)
+                }
+                view.showLeagueList(data.leagues)
+            } catch (ex: RuntimeException) {
+                view.showError(ex)
             }
-            view.showLeagueList(data.leagues)
             view.hideLoading()
         }
     }
@@ -36,13 +41,17 @@ class MatchPresenter(private val view: MatchView,
     fun searchMatch(eventName: String?) {
         CoroutineScope(context.main).launch {
             view.showLoading()
-            val data = withContext(context.background) {
-                gson.fromJson(apiRepository.doRequest(
-                        TheSportDBApi.searchMatch(eventName)),
-                        EventSearchResponse::class.java
-                )
+            try {
+                val data = withContext(context.background) {
+                    gson.fromJson(apiRepository.doRequest(
+                            TheSportDBApi.searchMatch(eventName)),
+                            EventSearchResponse::class.java
+                    )
+                }
+                view.showEventList(data.event)
+            } catch (ex: RuntimeException) {
+                view.showError(ex)
             }
-            view.showEventList(data.event)
             view.hideLoading()
         }
     }
@@ -50,13 +59,17 @@ class MatchPresenter(private val view: MatchView,
     fun getLastEventList(idLeague: String?) {
         CoroutineScope(context.main).launch {
             view.showLoading()
-            val data = withContext(context.background) {
-                gson.fromJson(
-                        apiRepository.doRequest(TheSportDBApi.getLastMatch(idLeague)),
-                        EventResponse::class.java
-                )
+            try {
+                val data = withContext(context.background) {
+                    gson.fromJson(
+                            apiRepository.doRequest(TheSportDBApi.getLastMatch(idLeague)),
+                            EventResponse::class.java
+                    )
+                }
+                view.showEventList(data.events)
+            } catch (ex: RuntimeException) {
+                view.showError(ex)
             }
-            view.showEventList(data.events)
             view.hideLoading()
         }
     }
@@ -64,13 +77,17 @@ class MatchPresenter(private val view: MatchView,
     fun getNextEventList(idLeague: String?) {
         CoroutineScope(context.main).launch {
             view.showLoading()
-            val data = withContext(context.background) {
-                gson.fromJson(
-                        apiRepository.doRequest(TheSportDBApi.getNextMatch(idLeague)),
-                        EventResponse::class.java
-                )
+            try {
+                val data = withContext(context.background) {
+                    gson.fromJson(
+                            apiRepository.doRequest(TheSportDBApi.getNextMatch(idLeague)),
+                            EventResponse::class.java
+                    )
+                }
+                view.showEventList(data.events)
+            } catch (ex: RuntimeException) {
+                view.showError(ex)
             }
-            view.showEventList(data.events)
             view.hideLoading()
         }
     }

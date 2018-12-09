@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import android.widget.Toast
 import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.main.MainMatchAdapter
@@ -24,9 +25,11 @@ import io.github.fatimazza.fbmatchschedule.util.invisible
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
+import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
+import java.lang.RuntimeException
 
 class SearchMatchActivity : AppCompatActivity(), MatchView, SearchView.OnQueryTextListener {
 
@@ -173,5 +176,9 @@ class SearchMatchActivity : AppCompatActivity(), MatchView, SearchView.OnQueryTe
         events.clear()
         events.addAll(data)
         adapter.notifyDataSetChanged()
+    }
+
+    override fun showError(ex: RuntimeException) {
+        Toast.makeText(ctx, "Error Loading Data", Toast.LENGTH_LONG).show()
     }
 }
