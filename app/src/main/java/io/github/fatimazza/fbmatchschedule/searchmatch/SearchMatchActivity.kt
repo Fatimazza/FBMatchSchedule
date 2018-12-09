@@ -22,12 +22,11 @@ import io.github.fatimazza.fbmatchschedule.model.Event
 import io.github.fatimazza.fbmatchschedule.model.Leagues
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.util.invisible
+import io.github.fatimazza.fbmatchschedule.util.isOnline
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
-import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
-import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 import java.lang.RuntimeException
 
@@ -107,7 +106,7 @@ class SearchMatchActivity : AppCompatActivity(), MatchView, SearchView.OnQueryTe
     }
 
     private fun getDataSearchMatch(query: String?) {
-        presenter.searchMatch(query)
+        if (isOnline(this)) presenter.searchMatch(query)
     }
 
     private fun refreshSwipeRefresh() {
@@ -145,7 +144,7 @@ class SearchMatchActivity : AppCompatActivity(), MatchView, SearchView.OnQueryTe
     }
 
     override fun onQueryTextChange(query: String?): Boolean {
-        presenter.searchMatch(query)
+        if (isOnline(this)) presenter.searchMatch(query)
         return false
     }
 
