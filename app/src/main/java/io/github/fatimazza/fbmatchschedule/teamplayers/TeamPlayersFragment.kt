@@ -10,18 +10,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
+import android.widget.Toast
 import com.google.gson.Gson
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.model.Players
 import io.github.fatimazza.fbmatchschedule.network.ApiRepository
 import io.github.fatimazza.fbmatchschedule.teamplayersdetail.TeamPlayerDetailActivity
 import io.github.fatimazza.fbmatchschedule.util.invisible
+import io.github.fatimazza.fbmatchschedule.util.isOnline
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
+import java.lang.RuntimeException
 
 class TeamPlayersFragment: Fragment(), TeamPlayersView {
 
@@ -100,7 +103,7 @@ class TeamPlayersFragment: Fragment(), TeamPlayersView {
     }
 
     private fun getListPlayers() {
-        presenter.getPlayersList(idTeam)
+        if (isOnline(ctx)) presenter.getPlayersList(idTeam)
     }
 
     private fun refreshSwipeRefresh() {
@@ -134,5 +137,9 @@ class TeamPlayersFragment: Fragment(), TeamPlayersView {
 
     private fun playerItemClicked(playerItem: Players) {
         ctx.startActivity<TeamPlayerDetailActivity>(getString(R.string.intent_id) to playerItem.idPlayer)
+    }
+
+    override fun showError(ex: RuntimeException) {
+        Toast.makeText(ctx, "Error Loading Data", Toast.LENGTH_LONG).show()
     }
 }
