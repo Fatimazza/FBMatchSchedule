@@ -11,7 +11,9 @@ import android.widget.TextView
 import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.R.id.*
 import io.github.fatimazza.fbmatchschedule.database.FavoriteMatch
+import kotlinx.android.synthetic.main.activity_detail.*
 import org.jetbrains.anko.*
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -116,8 +118,20 @@ class FavoriteViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
     fun bindItem(favorites: FavoriteMatch, listener: (FavoriteMatch) -> Unit) {
         matchDate.text = SimpleDateFormat("EEE, dd MMM yyyy").format(Date(favorites.eventDate))
-        matchTime.text = SimpleDateFormat("HH:mm").format(
-                SimpleDateFormat("hh:mm:ssZ").parse(favorites.eventTime))
+
+        if (favorites.eventTime != null) {
+            try {
+                matchTime.text = SimpleDateFormat("HH:mm").format(
+                        SimpleDateFormat("hh:mm:ssZ").parse(favorites.eventTime))
+            } catch (ex: ParseException) {
+                ex.printStackTrace();
+                matchTime.text = SimpleDateFormat("HH:mm").format(
+                        SimpleDateFormat("hh:mm:ss").parse(favorites.eventTime))
+            }
+        } else {
+            matchTime.text=""
+        }
+
         homeTeam.text = favorites.homeTeam
         matchScore.text = "${favorites.homeScore?: ""} vs ${favorites.awayScore?: ""}"
         awayTeam.text = favorites.awayTeam
