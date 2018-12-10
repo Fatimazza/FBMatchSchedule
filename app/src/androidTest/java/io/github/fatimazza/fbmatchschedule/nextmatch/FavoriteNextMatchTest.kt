@@ -28,7 +28,7 @@ class FavoriteNextMatchTest {
 
         Espresso.onView(withId(bottom_navigation))
                 .check(matches(isDisplayed()))
-        Espresso.onView(withId(next_match))
+        Espresso.onView(withId(matches))
                 .perform(click())
 
         Thread.sleep(4000)

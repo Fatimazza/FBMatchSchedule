@@ -28,7 +28,7 @@ class UnfavoriteNextMatchTest {
 
         Espresso.onView(withId(R.id.bottom_navigation))
                 .check(matches(isDisplayed()))
-        Espresso.onView(withId(R.id.next_match))
+        Espresso.onView(withId(R.id.matches))
                 .perform(click())
 
         Thread.sleep(4000)

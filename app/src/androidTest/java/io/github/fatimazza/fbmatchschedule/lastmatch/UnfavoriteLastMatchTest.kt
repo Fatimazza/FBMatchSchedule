@@ -30,7 +30,7 @@ class UnfavoriteLastMatchTest {
 
         Espresso.onView(withId(bottom_navigation))
                 .check(matches(isDisplayed()))
-        Espresso.onView(withId(last_match))
+        Espresso.onView(withId(matches))
                 .perform(click())
 
         Thread.sleep(4000)
