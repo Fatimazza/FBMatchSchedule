@@ -69,12 +69,14 @@ class FavoriteTeamFragment: Fragment(), AnkoComponent<Context> {
             rightPadding = dip(16)
 
             swipeRefresh = swipeRefreshLayout{
+                id = R.id.swipe_refresh_fav_team
                 setColorSchemeResources(R.color.colorAccent,
                         android.R.color.holo_green_light,
                         android.R.color.holo_orange_light,
                         android.R.color.holo_red_light)
 
                 listFavorite = recyclerView {
+                    id = R.id.fav_team_list
                     lparams(width = matchParent, height = wrapContent)
                     layoutManager = LinearLayoutManager(ctx)
                 }

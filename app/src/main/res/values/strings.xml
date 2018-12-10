@@ -25,6 +25,8 @@
     <string name="dummy_score">1 vs 1</string>
 
     <string name="favorites">Favorites</string>
+    <string name="fav_matches">Match</string>
+    <string name="fav_teams">Team</string>
     <string name="team_detail">Team Detail</string>
     <string name="favorite_added">Added to favorite</string>
     <string name="favorite_removed">Removed from favorite</string>

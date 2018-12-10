@@ -6,9 +6,9 @@
     <item name="away_team_name" type="id" />
     <item name="last_match_list" type="id" />
     <item name="next_match_list" type="id" />
-    <item name="favorite_list" type="id" />
+    <item name="fav_match_list" type="id" />
     <item name="favorite_item" type="id" />
-    <item name="swipe_refresh_favorite" type="id" />
+    <item name="swipe_refresh_fav_match" type="id" />
     <item name="spinner" type="id" />
     <item name="list_team" type="id" />
     <item name="team_badge" type="id" />
@@ -22,4 +22,6 @@
     <item name="player_name" type="id" />
     <item name="player_position" type="id" />
     <item name="match_time" type="id" />
+    <item name="fav_team_list" type="id" />
+    <item name="swipe_refresh_fav_team" type="id" />
 </resources>

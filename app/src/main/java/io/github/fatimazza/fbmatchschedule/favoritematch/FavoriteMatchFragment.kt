@@ -45,14 +45,14 @@ class FavoriteMatchFragment: Fragment() {
                 frameLayout {
 
                     owner.swipeRefresh = swipeRefreshLayout {
-                        id = R.id.swipe_refresh_favorite
+                        id = R.id.swipe_refresh_fav_match
                         setColorSchemeResources(colorAccent,
                                 android.R.color.holo_green_light,
                                 android.R.color.holo_orange_light,
                                 android.R.color.holo_red_light)
 
                         owner.listFavEvent = recyclerView {
-                            id = R.id.favorite_list
+                            id = R.id.fav_match_list
                             lparams(width = matchParent, height = wrapContent)
                             layoutManager = LinearLayoutManager(ctx)
                         }

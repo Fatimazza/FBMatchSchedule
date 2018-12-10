@@ -27,9 +27,9 @@ class FavoritesPagerAdapter(fm: FragmentManager, context: Context)
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when(position) {
-            0 -> ctx.resources.getString(R.string.matches)
+            0 -> ctx.resources.getString(R.string.fav_matches)
             else -> {
-                ctx.resources.getString(R.string.teams)
+                ctx.resources.getString(R.string.fav_teams)
             }
         }
     }
