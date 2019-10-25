@@ -26,7 +26,6 @@ import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.design.snackbar
-import org.jetbrains.anko.support.v4.ctx
 import java.lang.RuntimeException
 import java.sql.SQLClientInfoException
 
@@ -65,7 +64,7 @@ class TeamDetailActivity : AppCompatActivity(), TeamOverviewView {
     }
 
     private fun initPagerAdapter() {
-        vp_team_detail.adapter = TeamDetailPagerAdapter(supportFragmentManager, ctx, id)
+        vp_team_detail.adapter = TeamDetailPagerAdapter(supportFragmentManager, this, id)
         tab_team.setupWithViewPager(vp_team_detail)
     }
 

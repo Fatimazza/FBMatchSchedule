@@ -24,7 +24,6 @@ import io.github.fatimazza.fbmatchschedule.util.isOnline
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
-import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
@@ -48,7 +47,7 @@ class NextMatchFragment: Fragment(), MatchView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
         return NextMatchFragmentUI().createView(
-                AnkoContext.create(ctx, this, false))
+                AnkoContext.create(requireContext(), this, false))
     }
 
     class NextMatchFragmentUI: AnkoComponent<NextMatchFragment> {
@@ -110,17 +109,17 @@ class NextMatchFragment: Fragment(), MatchView {
     }
 
     private fun initSpinner(leagues: List<Leagues>) {
-        val spinnerAdapter = SpinnerAdapter(ctx, android.R.layout.simple_spinner_dropdown_item, leagues)
+        val spinnerAdapter = SpinnerAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, leagues)
         spinner.adapter = spinnerAdapter
     }
 
     private fun getDataListOnSpinner() {
-        if (isOnline(ctx)) presenter.getLeaguesList()
+        if (isOnline(requireContext())) presenter.getLeaguesList()
     }
 
     private fun requestEventData(position: Int) {
         idLeague = leagues.get(position).idLeague.toString()
-        if (isOnline(ctx)) presenter.getNextEventList(idLeague)
+        if (isOnline(requireContext())) presenter.getNextEventList(idLeague)
     }
 
     private fun getDataOnSpinnerClicked() {
@@ -173,7 +172,7 @@ class NextMatchFragment: Fragment(), MatchView {
     }
 
     override fun showError(ex: RuntimeException) {
-        Toast.makeText(ctx, "Error Loading Data", Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), "Error Loading Data", Toast.LENGTH_LONG).show()
     }
 
 }

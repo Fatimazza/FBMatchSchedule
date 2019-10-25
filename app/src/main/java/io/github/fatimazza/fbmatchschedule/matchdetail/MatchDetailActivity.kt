@@ -25,7 +25,6 @@ import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.design.snackbar
-import org.jetbrains.anko.support.v4.ctx
 import java.lang.RuntimeException
 import java.sql.SQLClientInfoException
 import java.text.ParseException

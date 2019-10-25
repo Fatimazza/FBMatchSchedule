@@ -12,7 +12,6 @@ import io.github.fatimazza.fbmatchschedule.R
 import io.github.fatimazza.fbmatchschedule.searchmatch.SearchMatchActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.tabLayout
-import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.viewPager
 
 class MatchesFragment : Fragment() {
@@ -33,7 +32,7 @@ class MatchesFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
         return MatchesFragment.MatchesUI().createView(
-                AnkoContext.create(ctx, this, false))
+                AnkoContext.create(requireContext(), this, false))
     }
 
     class MatchesUI: AnkoComponent<MatchesFragment> {
@@ -59,7 +58,7 @@ class MatchesFragment : Fragment() {
     }
 
     private fun initPagerAdapter() {
-        matchViewPager.adapter = MatchesPagerAdapter(childFragmentManager, ctx)
+        matchViewPager.adapter = MatchesPagerAdapter(childFragmentManager, requireContext())
         matchTabLayout.setupWithViewPager(matchViewPager)
     }
 
@@ -71,7 +70,7 @@ class MatchesFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.search -> {
-                ctx.startActivity<SearchMatchActivity>()
+                requireContext().startActivity<SearchMatchActivity>()
                 true
             }
             else -> super.onOptionsItemSelected(item)

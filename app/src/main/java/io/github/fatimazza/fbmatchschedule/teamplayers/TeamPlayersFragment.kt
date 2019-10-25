@@ -21,7 +21,6 @@ import io.github.fatimazza.fbmatchschedule.util.isOnline
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
-import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 import java.lang.RuntimeException
@@ -41,7 +40,7 @@ class TeamPlayersFragment: Fragment(), TeamPlayersView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
         return TeamPlayersFragment.TeamOverviewFragmentUI().createView(
-                AnkoContext.create(ctx, this, false))
+                AnkoContext.create(requireContext(), this, false))
     }
 
     class TeamOverviewFragmentUI: AnkoComponent<TeamPlayersFragment> {
@@ -103,7 +102,7 @@ class TeamPlayersFragment: Fragment(), TeamPlayersView {
     }
 
     private fun getListPlayers() {
-        if (isOnline(ctx)) presenter.getPlayersList(idTeam)
+        if (isOnline(requireContext())) presenter.getPlayersList(idTeam)
     }
 
     private fun refreshSwipeRefresh() {
@@ -136,10 +135,10 @@ class TeamPlayersFragment: Fragment(), TeamPlayersView {
     }
 
     private fun playerItemClicked(playerItem: Players) {
-        ctx.startActivity<TeamPlayerDetailActivity>(getString(R.string.intent_id) to playerItem.idPlayer)
+        requireContext().startActivity<TeamPlayerDetailActivity>(getString(R.string.intent_id) to playerItem.idPlayer)
     }
 
     override fun showError(ex: RuntimeException) {
-        Toast.makeText(ctx, "Error Loading Data", Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), "Error Loading Data", Toast.LENGTH_LONG).show()
     }
 }

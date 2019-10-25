@@ -22,7 +22,6 @@ import io.github.fatimazza.fbmatchschedule.util.invisible
 import io.github.fatimazza.fbmatchschedule.util.isOnline
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
-import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 import java.lang.RuntimeException
@@ -41,7 +40,7 @@ class TeamOverviewFragment: Fragment(), TeamOverviewView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
         return TeamOverviewFragment.TeamOverviewFragmentUI().createView(
-                AnkoContext.create(ctx, this, false))
+                AnkoContext.create(requireContext(), this, false))
     }
 
     class TeamOverviewFragmentUI: AnkoComponent<TeamOverviewFragment> {
@@ -112,7 +111,7 @@ class TeamOverviewFragment: Fragment(), TeamOverviewView {
     }
 
     private fun getDataTeamDetail() {
-        if (isOnline(ctx)) presenter.getTeamDetail(idTeam)
+        if (isOnline(requireContext())) presenter.getTeamDetail(idTeam)
     }
 
     override fun showLoading() {

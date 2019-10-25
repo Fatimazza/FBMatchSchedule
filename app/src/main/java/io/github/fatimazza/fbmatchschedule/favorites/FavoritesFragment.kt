@@ -13,7 +13,6 @@ import android.widget.LinearLayout
 import io.github.fatimazza.fbmatchschedule.R
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.tabLayout
-import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.viewPager
 
 class FavoritesFragment : Fragment() {
@@ -29,7 +28,7 @@ class FavoritesFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
         return FavoritesFragment.MatchesUI().createView(
-                AnkoContext.create(ctx, this, false))
+                AnkoContext.create(requireContext(), this, false))
     }
 
     class MatchesUI: AnkoComponent<FavoritesFragment> {
@@ -55,7 +54,7 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun initPagerAdapter() {
-        favViewPager.adapter = FavoritesPagerAdapter(childFragmentManager, ctx)
+        favViewPager.adapter = FavoritesPagerAdapter(childFragmentManager, requireContext())
         favTabLayout.setupWithViewPager(favViewPager)
     }
 }

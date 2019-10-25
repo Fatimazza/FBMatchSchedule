@@ -20,7 +20,6 @@ import io.github.fatimazza.fbmatchschedule.util.isOnline
 import io.github.fatimazza.fbmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
-import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 import java.lang.RuntimeException
@@ -60,7 +59,7 @@ class TeamsFragment : Fragment(), TeamsView, SearchView.OnQueryTextListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
             : View? {
         return TeamsUI().createView(
-                AnkoContext.create(ctx, this, false))
+                AnkoContext.create(requireContext(), this, false))
     }
 
     class TeamsUI: AnkoComponent<TeamsFragment> {
@@ -101,7 +100,7 @@ class TeamsFragment : Fragment(), TeamsView, SearchView.OnQueryTextListener {
     }
 
     private fun initSpinner(leagues: List<Leagues>) {
-        val spinnerAdapter = SpinnerAdapter(ctx, android.R.layout.simple_spinner_dropdown_item, leagues)
+        val spinnerAdapter = SpinnerAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, leagues)
         spinner.adapter = spinnerAdapter
     }
 
@@ -117,13 +116,13 @@ class TeamsFragment : Fragment(), TeamsView, SearchView.OnQueryTextListener {
     }
 
     private fun getDataListOnSpinner() {
-        if (isOnline(ctx)) presenter.getLeaguesList()
+        if (isOnline(requireContext())) presenter.getLeaguesList()
     }
 
     private fun getDataTeamList(position: Int) {
         leagueName = leagues.get(position)
                 .strLeague?.replace(" ","%20").toString()
-        if (isOnline(ctx)) presenter.getTeamList(leagueName)
+        if (isOnline(requireContext())) presenter.getTeamList(leagueName)
     }
 
     private fun getDataOnSpinnerClicked() {
@@ -168,7 +167,7 @@ class TeamsFragment : Fragment(), TeamsView, SearchView.OnQueryTextListener {
     }
 
     private fun teamItemClicked(teamItem: Team) {
-        ctx.startActivity<TeamDetailActivity>(getString(R.string.intent_id) to teamItem.teamId)
+        requireContext().startActivity<TeamDetailActivity>(getString(R.string.intent_id) to teamItem.teamId)
     }
 
     override fun onResume() {
@@ -194,11 +193,11 @@ class TeamsFragment : Fragment(), TeamsView, SearchView.OnQueryTextListener {
 
     override fun onQueryTextChange(query: String?): Boolean {
         if (!query.isNullOrBlank())
-            if (isOnline(ctx)) presenter.searchTeam(query)
+            if (isOnline(requireContext())) presenter.searchTeam(query)
         return false
     }
 
     override fun showError(ex: RuntimeException) {
-        Toast.makeText(ctx, "Error Loading Data", Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), "Error Loading Data", Toast.LENGTH_LONG).show()
     }
 }
